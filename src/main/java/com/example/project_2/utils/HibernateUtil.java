@@ -17,7 +17,9 @@ public class HibernateUtil {
 
     public static void initialize() {
         try {
-            Database.initializeDatabase();
+            if (!Database.testConnection()) {
+                Database.initializeDatabase();
+            }
             buildSessionFactory();
         } catch (Exception e) {
             System.out.println("Failed to connect.");

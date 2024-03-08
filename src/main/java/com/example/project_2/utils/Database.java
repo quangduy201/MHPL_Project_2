@@ -3,6 +3,9 @@ package com.example.project_2.utils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Database {
@@ -38,5 +41,18 @@ public class Database {
         result.add(dbUsername);
         result.add(dbPassword);
         return result;
+    }
+
+    public static boolean testConnection() throws IOException {
+        List<String> properties = getDatabaseConfiguration();
+        if (properties.isEmpty()) {
+            return false;
+        }
+        try (Connection ignored = DriverManager.getConnection(properties.get(0), properties.get(1), properties.get(2))) {
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Can't get the connection to: " + properties.get(0));
+            return false;
+        }
     }
 }
