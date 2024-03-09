@@ -30,6 +30,51 @@
             <artifactId>hibernate-c3p0</artifactId>
             <version>6.4.4.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.jdesktop</groupId>
+            <artifactId>timingframework</artifactId>
+            <version>0.55</version>
+        </dependency>
+
+        <!-- MigLayout -->
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout</artifactId>
+            <version>4.0</version>
+        </dependency>
+
+        <!-- Gradient Icon Font -->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>gradient-icon-font</artifactId>
+            <version>1.0</version>
+        </dependency>
+        
+        <!-- Swing Worker -->
+        <dependency>
+            <groupId>org.jdesktop</groupId>
+            <artifactId>swing-worker</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+        <!-- SwingX -->
+        <dependency>
+            <groupId>org.swinglabs.swingx</groupId>
+            <artifactId>swingx</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <!-- Filters -->
+        <dependency>
+            <groupId>org.swinglabs.swingx</groupId>
+            <artifactId>filters</artifactId>
+            <version>2.0.235</version>
+        </dependency>
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
