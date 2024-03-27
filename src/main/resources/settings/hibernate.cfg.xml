@@ -22,10 +22,9 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.highlight_sql">true</property>
 
-        <mapping class="com.example.project_2.DTO.Category" />
-        <mapping class="com.example.project_2.DTO.Customer" />
-        <mapping class="com.example.project_2.DTO.Order" />
-        <mapping class="com.example.project_2.DTO.OrderDetail" />
-        <mapping class="com.example.project_2.DTO.Vegetable" />
+        <mapping class="com.example.project_2.DTO.ThanhVien" />
+        <mapping class="com.example.project_2.DTO.ThietBi" />
+        <mapping class="com.example.project_2.DTO.ThongTinSD" />
+        <mapping class="com.example.project_2.DTO.XuLy" />
     </session-factory>
 </hibernate-configuration>
