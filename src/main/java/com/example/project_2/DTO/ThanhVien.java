@@ -32,9 +32,17 @@ public class ThanhVien {
 
     @Column(name = "Nganh", length = 100)
     private String Nganh;
-
+    
     @Column(name = "SDT")
     private int SDT;
+    
+    public ThanhVien(int MaTV, String HoTen, String Khoa, String Nganh, int SDT) {
+        this.MaTV = MaTV;
+        this.HoTen = HoTen;
+        this.Khoa = Khoa;
+        this.Nganh = Nganh;
+        this.SDT = SDT;
+    }
 
     public int getMaTV() {
         return MaTV;

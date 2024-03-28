@@ -24,6 +24,12 @@ public class ThietBi {
     @Column(name = "MoTaTB", length = 2000)
     private String MoTaTB;
 
+    public ThietBi(int MaTB, String TenTB, String MoTaTB) {
+        this.MaTB = MaTB;
+        this.TenTB = TenTB;
+        this.MoTaTB = MoTaTB;
+    }
+    
     public int getMaTB() {
         return MaTB;
     }

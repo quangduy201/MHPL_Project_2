@@ -104,11 +104,10 @@ public class MenuItem extends javax.swing.JPanel {
         int height = getPreferredSize().height;
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(new Color(50, 50, 50));
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-        g2.fillRect(0, 2, width, 38);
-        g2.setComposite(AlphaComposite.SrcOver);
-        g2.fillRect(0, 40, width, height - 40);
+        g2.setColor(new Color(255, 255, 255, 0)); // Màu trắng có độ trong suốt 100
+        g2.fillRect(0, 2, width, 38); // Vẽ một hộp màu trắng trong suốt
+        g2.setColor(new Color(255, 255, 255, 0)); // Màu trắng có độ trong suốt 50
+        g2.fillRect(0, 40, width, height - 40); // Vẽ một hộp màu trắng trong suốt
         g2.setColor(new Color(100, 100, 100));
         g2.drawLine(30, 40, 30, height - 17);
         for (int i = 0; i < menu.getSubMenu().length; i++) {

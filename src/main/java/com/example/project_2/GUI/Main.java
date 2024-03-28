@@ -38,12 +38,35 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void menuSelected(int menuIndex, int subMenuIndex) {
                 System.out.println("Menu Index : " + menuIndex + " SubMenu Index " + subMenuIndex);
-                if (menuIndex == 0) {
-                    if (subMenuIndex == 0) {
-                        main.showForm(new Form1());
-                    } else if (subMenuIndex == 1) {
-                        main.showForm(new Form1());
-                    }
+                switch (menuIndex) {
+                    case 0:
+                        main.showForm(new ThongKeGUI());
+                        break;
+                    case 1:
+                        switch (subMenuIndex) {
+                            case 0:
+                                main.showForm(new ThanhVienGUI());
+                                break;
+                            case 1:
+                                main.showForm(new ThanhVienGUI());
+                                break;
+                            case 2:
+                                main.showForm(new ThanhVienGUI());
+                                break;
+                            case 3:
+                                main.showForm(new ThanhVienGUI());
+                                break;
+                        }
+                        break;
+                    case 2:
+                        main.showForm(new ThietBiGUI());
+                        break;
+                    case 3:
+                        main.showForm(new XuLyViPhamGUI());
+                        break;
+                    default:
+                        // Xử lý trường hợp không xác định
+                        break;
                 }
             }
         });
@@ -101,7 +124,7 @@ public class Main extends javax.swing.JFrame {
         //  Init google icon font
         // IconFontSwing.register(GoogleMaterialDesignIcons.getIconFont());
         //  Start with this form
-        main.showForm(new Form1());
+        main.showForm(new ThongKeGUI());
     }
 
     @SuppressWarnings("unchecked")
