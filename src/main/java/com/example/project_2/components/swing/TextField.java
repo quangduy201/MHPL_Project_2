@@ -8,10 +8,11 @@ import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import javax.swing.JButton;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicTextFieldUI;
 
-public class Button extends JButton {
+public class TextField extends JTextField {
 
     public int getRound() {
         return round;
@@ -33,26 +34,19 @@ public class Button extends JButton {
         repaint();
     }
 
-    public void setRippleColor(Color color) {
-        rippleEffect.setRippleColor(color);
-    }
-
-    public Color getRippleColor() {
-        return rippleEffect.getRippleColor();
-    }
-
     private int round = 10;
     private Color shadowColor = new Color(170, 170, 170);
     private BufferedImage imageShadow;
     private final Insets shadowSize = new Insets(2, 5, 8, 5);
-    private final RippleEffect rippleEffect = new RippleEffect(this);
 
-    public Button() {
-        setBorder(new EmptyBorder(10, 12, 15, 12));
-        setContentAreaFilled(false);
-        setBackground(new Color(255, 255, 255));
+    public TextField() {
+        setUI(new TextUI());
+        setOpaque(false);
         setForeground(new Color(80, 80, 80));
-        rippleEffect.setRippleColor(new Color(220, 220, 220));
+        setSelectedTextColor(new Color(255, 255, 255));
+        setSelectionColor(new Color(133, 209, 255));
+        setBorder(new EmptyBorder(10, 12, 15, 12));
+        setBackground(new Color(255, 255, 255));
     }
 
     @Override
@@ -69,7 +63,6 @@ public class Button extends JButton {
         g2.setColor(getBackground());
         Area area = new Area(new RoundRectangle2D.Double(x, y, width, height, round, round));
         g2.fill(area);
-        rippleEffect.reder(grphcs, area);
         g2.dispose();
         super.paintComponent(grphcs);
     }
@@ -106,6 +99,15 @@ public class Button extends JButton {
             return new ShadowRenderer(5, 0.3f, shadowColor).createShadow(img);
         } else {
             return null;
+        }
+    }
+
+    private class TextUI extends BasicTextFieldUI {
+
+        //  Override this method to remove background or not paint background
+        @Override
+        protected void paintBackground(Graphics grphcs) {
+
         }
     }
 }
