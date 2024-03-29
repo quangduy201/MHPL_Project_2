@@ -57,4 +57,4 @@
 > * **Mỗi khi bắt đầu làm, mở terminal lên sử dụng lệnh ```git pull origin main``` để tránh việc merge bị conflict :(.**
 > * **Xem các file đã BASE ở BLL, DAL**
 > * **Project 2 chạy SDK 18 hoặc lớn hơn**
-> * **DEADLINE 15/03 --- Lớp bờ du <3.**
+> * **DEADLINE 15/04 --- Lớp bờ du <3.**
