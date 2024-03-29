@@ -1,4 +1,4 @@
-# PROJECT 1: Quản lý thành viên
+# PROJECT 2: Quản lý thành viên
 
 ## 1. Chức năng 1: Quản lý thành viên
 ### Vy - Dũng - Duy
@@ -57,4 +57,4 @@
 > * **Mỗi khi bắt đầu làm, mở terminal lên sử dụng lệnh ```git pull origin main``` để tránh việc merge bị conflict :(.**
 > * **Xem các file đã BASE ở BLL, DAL**
 > * **Project 2 chạy SDK 18 hoặc lớn hơn**
-> * **DEADLINE __/__ --- Lớp bờ du <3.**
+> * **DEADLINE 15/03 --- Lớp bờ du <3.**
