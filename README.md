@@ -1,6 +1,6 @@
 # PROJECT 1: Quản lý thành viên
 
-## 1. Chức năng 1: Quản lý thành viênw
+## 1. Chức năng 1: Quản lý thành viên
 ### 
 * GUI, DAL, BLL
     * `Sequence Diagram`
@@ -32,7 +32,7 @@
     * `Chụp màn hình các file code và GUI`
 
 #### 3.1 Hiển thị danh sách
-#### 3.2 Thêm mới thông tin xử lý vi phạm (thủ công / excel)
+#### 3.2 Thêm mới thông tin xử lý vi phạm
 #### 3.3 Sửa/ Cập nhật thông tin xử lý vi phạm
 #### 3.4 Xóa xử lý vi phạm - Xóa theo điều kiện
 
