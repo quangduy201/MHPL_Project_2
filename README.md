@@ -1,7 +1,7 @@
 # PROJECT 1: Quản lý thành viên
 
 ## 1. Chức năng 1: Quản lý thành viên
-### 
+### Vy - Dũng - Duy
 * GUI, DAL, BLL
     * `Sequence Diagram`
     * `Chụp màn hình các file code và GUI`
@@ -15,7 +15,7 @@
 #### 1.7 Cảnh báo vi phạm
 
 ## 2. Chức năng 2: Quản lý thiết bị
-### 
+### Hoa - Hiếu - Giàu
 * GUI, DAL, BLL
     * `Sequence Diagram`
     * `Chụp màn hình các file code và GUI`
@@ -26,7 +26,7 @@
 #### 2.4 Xóa thiết bị - Xóa theo điều kiện
 
 ## 3. Chức năng 3: Xử lý vi phạm
-### 
+### Hoa - Hiếu - Giàu
 * GUI, DAL, BLL
     * `Sequence Diagram`
     * `Chụp màn hình các file code và GUI`
@@ -37,7 +37,7 @@
 #### 3.4 Xóa xử lý vi phạm - Xóa theo điều kiện
 
 ## 4. Chức năng 4: Thống kê
-### 
+### Hoàng - An - Hưng
 * GUI, DAL, BLL
     * `Sequence Diagram`
     * `Chụp màn hình các file code và GUI`
