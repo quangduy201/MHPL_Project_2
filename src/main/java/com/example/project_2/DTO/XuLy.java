@@ -5,6 +5,7 @@
 package com.example.project_2.DTO;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 /**
@@ -14,26 +15,25 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "xuly")
 public class XuLy {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int MaXL;
+    @Column(name = "MaXL", nullable = false)
+    private Integer MaXL;
 
-    @ManyToOne
-    @JoinColumn(name = "MaTV")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "MaTV", nullable = false)
     private ThanhVien thanhVien;
 
     @Column(name = "HinhThucXL", length = 250)
     private String HinhThucXL;
 
     @Column(name = "SoTien")
-    private int SoTien;
+    private Integer SoTien;
 
     @Column(name = "NgayXL")
     private LocalDateTime NgayXL;
 
     @Column(name = "TrangThaiXL")
-    private int TrangThaiXL;
+    private Integer TrangThaiXL;
     
     @Transient
     private Long TongTien;
@@ -50,11 +50,11 @@ public class XuLy {
         this.TrangThaiXL = TrangThaiXL;
     }
 
-    public int getMaXL() {
+    public Integer getMaXL() {
         return MaXL;
     }
 
-    public void setMaXL(int MaXL) {
+    public void setMaXL(Integer MaXL) {
         this.MaXL = MaXL;
     }
 
@@ -74,12 +74,12 @@ public class XuLy {
         this.HinhThucXL = HinhThucXL;
     }
 
-    public int getSoTien() {
+    public Integer getSoTien() {
         return SoTien;
     }
 
-    public void setSoTien(int SoTien) {
-        this.SoTien = SoTien;
+    public void setSoTien(Integer soTien) {
+        this.SoTien = soTien;
     }
 
     public LocalDateTime getNgayXL() {
@@ -90,11 +90,11 @@ public class XuLy {
         this.NgayXL = NgayXL;
     }
 
-    public int getTrangThaiXL() {
+    public Integer getTrangThaiXL() {
         return TrangThaiXL;
     }
 
-    public void setTrangThaiXL(int TrangThaiXL) {
+    public void setTrangThaiXL(Integer TrangThaiXL) {
         this.TrangThaiXL = TrangThaiXL;
     }
 
@@ -102,8 +102,8 @@ public class XuLy {
         return TongTien;
     }
 
-    public void setTongTien(Long tongTien) {
-        this.TongTien = tongTien;
+    public void setTongTien(Long TongTien) {
+        this.TongTien = TongTien;
     }
-    
+
 }

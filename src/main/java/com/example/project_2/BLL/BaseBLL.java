@@ -1,6 +1,7 @@
 package com.example.project_2.BLL;
 
 import com.example.project_2.DAL.BaseDAL;
+
 import java.util.List;
 
 public class BaseBLL<DTO> {
@@ -28,6 +29,10 @@ public class BaseBLL<DTO> {
 
     public long count() {
         return dal.count();
+    }
+
+    public List<DTO> getByPage(int pageNumber, int pageSize) {
+        return dal.getByPage(pageNumber, pageSize);
     }
     
     public List<DTO> getAll() {

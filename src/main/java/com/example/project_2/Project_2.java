@@ -1,8 +1,7 @@
 package com.example.project_2;
 
+import com.example.project_2.GUI.Main;
 import com.example.project_2.utils.HibernateUtil;
-
-import javax.swing.*;
 
 public class Project_2 {
     public static void main(String[] args) {
@@ -12,12 +11,10 @@ public class Project_2 {
 
     public static void initialize() {
         try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    UIManager.put("OptionPane.cancelButtonText", "Hủy");
-                    UIManager.put("OptionPane.okButtonText", "Đồng ý");
-//                    new MainGUI().show();
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    new Main().setVisible(true);
                     break;
                 }
             }

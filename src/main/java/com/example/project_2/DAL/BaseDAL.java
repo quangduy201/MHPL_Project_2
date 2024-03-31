@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.hibernate.query.SelectionQuery;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public abstract class BaseDAL<DTO> {
@@ -53,23 +54,17 @@ public abstract class BaseDAL<DTO> {
     }
 
     public boolean persist(DTO object) {
-        Consumer<Session> action = session -> {
-            session.persist(object);
-        };
+        Consumer<Session> action = session -> session.persist(object);
         return transact(action);
     }
 
     public boolean merge(DTO object) {
-        Consumer<Session> action = session -> {
-            session.merge(object);
-        };
+        Consumer<Session> action = session -> session.merge(object);
         return transact(action);
     }
 
     public boolean remove(DTO object) {
-        Consumer<Session> action = session -> {
-            session.remove(object);
-        };
+        Consumer<Session> action = session -> session.remove(object);
         return transact(action);
     }
 
@@ -128,12 +123,16 @@ public abstract class BaseDAL<DTO> {
         }
     }
 
-
-    public List<DTO> executeQuery(String query) {
+    public <T> List<T> executeQuery(String query, Class<T> tClass, Map<String, Object> parameters) {
         openSession();
         try {
-            Query<DTO> customQuery = session.createQuery(query, type);
-            return customQuery.list();
+            Query<T> customQuery = session.createQuery(query, tClass);
+            if (parameters != null) {
+                for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+                    customQuery.setParameter(entry.getKey(), entry.getValue());
+                }
+            }
+            return customQuery.getResultList();
         } catch (Exception e) {
             System.out.println("Error while executing custom query: " + e);
             return List.of();

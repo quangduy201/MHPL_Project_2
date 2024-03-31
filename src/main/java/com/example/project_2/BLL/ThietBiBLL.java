@@ -5,15 +5,19 @@ import com.example.project_2.DTO.ThietBi;
 
 import java.util.List;
 
+/**
+ *
+ * @author huynh
+ */
 public class ThietBiBLL extends BaseBLL<ThietBi> {
     private final ThietBiDAL thietBiDAL;
 
     public ThietBiBLL() {
         super(new ThietBiDAL());
-        thietBiDAL = new ThietBiDAL();
+        thietBiDAL = (ThietBiDAL) getDAL();
     }
 
-    //Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
+    // Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
     public List<Object[]> thongKeThietBiDuocMuon() {
         return thietBiDAL.thongKeThietBiDuocMuon();
     }

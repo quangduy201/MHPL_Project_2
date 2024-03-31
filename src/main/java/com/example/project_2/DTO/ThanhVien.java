@@ -1,17 +1,13 @@
-package com.example.project_2.DTO;
-
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package com.example.project_2.DTO;
+
+import jakarta.persistence.*;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  *
@@ -21,10 +17,10 @@ import jakarta.persistence.Table;
 @Table(name = "thanhvien")
 public class ThanhVien {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int MaTV;
+    @Column(name = "MaTV", nullable = false)
+    private Integer MaTV;
 
-    @Column(name = "HoTen", nullable = false)
+    @Column(name = "HoTen", nullable = false, length = 100)
     private String HoTen;
 
     @Column(name = "Khoa", length = 100)
@@ -32,10 +28,13 @@ public class ThanhVien {
 
     @Column(name = "Nganh", length = 100)
     private String Nganh;
-    
+
     @Column(name = "SDT")
-    private int SDT;
-    
+    private Integer SDT;
+
+    @OneToMany(mappedBy = "thanhVien", orphanRemoval = true)
+    private Set<ThongTinSD> ThongTinSD = new LinkedHashSet<>();
+
     public ThanhVien() {
     }
     
@@ -51,7 +50,7 @@ public class ThanhVien {
         return MaTV;
     }
 
-    public void setMaTV(int MaTV) {
+    public void setMaTV(Integer MaTV) {
         this.MaTV = MaTV;
     }
 
@@ -79,14 +78,20 @@ public class ThanhVien {
         this.Nganh = Nganh;
     }
 
-    public int getSDT() {
+    public Integer getSDT() {
         return SDT;
     }
 
-    public void setSDT(int SDT) {
+    public void setSDT(Integer SDT) {
         this.SDT = SDT;
     }
 
-    
-    
+    public Set<ThongTinSD> getThongTinSD() {
+        return ThongTinSD;
+    }
+
+    public void setThongTinSD(Set<ThongTinSD> ThongTinSD) {
+        this.ThongTinSD = ThongTinSD;
+    }
+
 }
