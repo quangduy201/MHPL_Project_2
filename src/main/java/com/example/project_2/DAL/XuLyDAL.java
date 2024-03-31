@@ -36,7 +36,7 @@ public class XuLyDAL extends BaseDAL<XuLy>{
                 if (result[0] != null && result[1] != null) {
                     XuLy xuLy = (XuLy) result[0];
                     Long tongTienLong = (Long) result[1];
-                    xuLy.setTongTien(tongTienLong.intValue());
+                    xuLy.setTongTien(tongTienLong);
                     thongTinViPhamVaTien.add(xuLy);
                 }
             }
