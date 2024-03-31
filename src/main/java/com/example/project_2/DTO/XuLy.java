@@ -34,6 +34,11 @@ public class XuLy {
 
     @Column(name = "TrangThaiXL")
     private int TrangThaiXL;
+    
+    private int TongTien;
+    
+    public XuLy() {
+    }
 
     public XuLy(int MaXL, ThanhVien thanhVien, String HinhThucXL, int SoTien, LocalDateTime NgayXL, int TrangThaiXL) {
         this.MaXL = MaXL;
@@ -92,5 +97,12 @@ public class XuLy {
         this.TrangThaiXL = TrangThaiXL;
     }
 
+    public int getTongTien() {
+        return TongTien;
+    }
+
+    public void setTongTien(int tongTien) {
+        this.TongTien = tongTien;
+    }
     
 }
