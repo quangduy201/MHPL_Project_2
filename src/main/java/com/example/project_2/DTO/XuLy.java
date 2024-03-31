@@ -35,7 +35,8 @@ public class XuLy {
     @Column(name = "TrangThaiXL")
     private int TrangThaiXL;
     
-    private int TongTien;
+    @Transient
+    private Long TongTien;
     
     public XuLy() {
     }
@@ -97,11 +98,11 @@ public class XuLy {
         this.TrangThaiXL = TrangThaiXL;
     }
 
-    public int getTongTien() {
+    public Long getTongTien() {
         return TongTien;
     }
 
-    public void setTongTien(int tongTien) {
+    public void setTongTien(Long tongTien) {
         this.TongTien = tongTien;
     }
     
