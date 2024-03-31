@@ -6,6 +6,7 @@ package com.example.project_2.BLL;
 
 import com.example.project_2.DAL.XuLyDAL;
 import com.example.project_2.DTO.XuLy;
+
 import java.util.List;
 
 /**
@@ -13,12 +14,11 @@ import java.util.List;
  * @author huynh
  */
 public class XuLyBLL extends BaseBLL<XuLy> {
-
     private final XuLyDAL xuLyDAL;
 
     public XuLyBLL() {
         super(new XuLyDAL());
-        xuLyDAL = new XuLyDAL();
+        xuLyDAL = (XuLyDAL) getDAL();
     }    
     
     public List<XuLy> layThongTinViPhamVaTongTien() {

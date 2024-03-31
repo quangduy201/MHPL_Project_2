@@ -5,8 +5,11 @@
 package com.example.project_2.DAL;
 
 import com.example.project_2.DTO.ThanhVien;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
-import org.hibernate.query.Query;
+import java.util.Map;
 
 /**
  *
@@ -16,26 +19,20 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
     public ThanhVienDAL() {
         super(ThanhVien.class);
     }
-    
-    //Thống kê số lượng thành viên vào khu học tập theo: thời gian, khoa, ngành.
-    public List<Object[]> thongKeSoLuongThanhVien() {
-        openSession(); // Mở session
-        try {
-            // Sử dụng HQL để thực hiện truy vấn
-            String hqlQuery = "SELECT tv.khoa, tv.nganh, COUNT(tt) "
-                            + "FROM ThanhVien tv "
-                            + "INNER JOIN tv.thongTinSD tt "
-                            + "GROUP BY tv.khoa, tv.nganh";
 
-            Query<Object[]> query = session.createQuery(hqlQuery, Object[].class);
+    // Thống kê số lượng thành viên vào khu học tập theo: thời gian, khoa, ngành.
+    public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime) {
+        // language=HQL
+        String hqlQuery = "SELECT tv.Khoa, tv.Nganh, COUNT(tt) " +
+                "FROM ThongTinSD tt " +
+                "INNER JOIN ThanhVien tv ON tt.thanhVien.MaTV = tv.MaTV " +
+                "WHERE tt.TGVao BETWEEN :startTime AND :endTime " +
+                "GROUP BY tv.Khoa, tv.Nganh";
 
-            List<Object[]> results = query.getResultList();
-            return results;
-        } catch (Exception e) {
-            System.out.println("Error while querying database: " + e);
-            return null;
-        } finally {
-            closeSession();
-        }
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("startTime", startTime);
+        parameters.put("endTime", endTime);
+
+        return executeQuery(hqlQuery, Object[].class, parameters);
     }
 }

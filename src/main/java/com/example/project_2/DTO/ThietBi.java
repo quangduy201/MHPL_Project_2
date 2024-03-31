@@ -4,21 +4,20 @@
  */
 package com.example.project_2.DTO;
 
+import jakarta.persistence.*;
+
 /**
  *
  * @author Hung
  */
-import jakarta.persistence.*;
-
 @Entity
 @Table(name = "thietbi")
 public class ThietBi {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int MaTB;
+    @Column(name = "MaTB", nullable = false)
+    private Integer MaTB;
 
-    @Column(name = "TenTB", nullable = false)
+    @Column(name = "TenTB", nullable = false, length = 100)
     private String TenTB;
 
     @Column(name = "MoTaTB", length = 2000)
@@ -33,11 +32,11 @@ public class ThietBi {
         this.MoTaTB = MoTaTB;
     }
     
-    public int getMaTB() {
+    public Integer getMaTB() {
         return MaTB;
     }
 
-    public void setMaTB(int MaTB) {
+    public void setMaTB(Integer MaTB) {
         this.MaTB = MaTB;
     }
 
@@ -57,5 +56,4 @@ public class ThietBi {
         this.MoTaTB = MoTaTB;
     }
 
-    
 }
