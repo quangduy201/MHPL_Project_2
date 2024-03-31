@@ -1,6 +1,7 @@
 package com.example.project_2.BLL;
 
 import com.example.project_2.DAL.BaseDAL;
+import java.util.List;
 
 public class BaseBLL<DTO> {
     private final BaseDAL<DTO> dal;
@@ -28,5 +29,12 @@ public class BaseBLL<DTO> {
     public long count() {
         return dal.count();
     }
+    
+    public List<DTO> getAll() {
+        return dal.getAll();
+    }
 
+    public DTO getById(int id) {
+        return dal.getById(id);
+    }
 }

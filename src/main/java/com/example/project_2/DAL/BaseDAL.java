@@ -105,8 +105,29 @@ public abstract class BaseDAL<DTO> {
     }
 
     public List<DTO> getAll() {
-        return getByPage(0, 0);
+        openSession();
+        try {
+            return getByPage(0, 0);
+        } catch (Exception e) {
+            System.out.println("Error while retrieving record by id: " + e);
+            return null;
+        } finally {
+            closeSession();
+        }
     }
+    
+    public DTO getById(int id) {
+        openSession();
+        try {
+            return session.find(type, id);
+        } catch (Exception e) {
+            System.out.println("Error while retrieving record by id: " + e);
+            return null;
+        } finally {
+            closeSession();
+        }
+    }
+
 
     public List<DTO> executeQuery(String query) {
         openSession();

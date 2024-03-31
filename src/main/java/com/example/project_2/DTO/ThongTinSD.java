@@ -35,7 +35,10 @@ public class ThongTinSD {
 
     @Column(name = "TGTra")
     private LocalDateTime TGTra;
-
+    
+    public ThongTinSD() {
+    }
+    
     public ThongTinSD(int MaTT, ThanhVien thanhVien, ThietBi thietBi, LocalDateTime TGVao, LocalDateTime TGMuon, LocalDateTime TGTra) {
         this.MaTT = MaTT;
         this.thanhVien = thanhVien;

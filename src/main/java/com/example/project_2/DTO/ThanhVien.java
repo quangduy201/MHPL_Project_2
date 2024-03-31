@@ -36,6 +36,9 @@ public class ThanhVien {
     @Column(name = "SDT")
     private int SDT;
     
+    public ThanhVien() {
+    }
+    
     public ThanhVien(int MaTV, String HoTen, String Khoa, String Nganh, int SDT) {
         this.MaTV = MaTV;
         this.HoTen = HoTen;
