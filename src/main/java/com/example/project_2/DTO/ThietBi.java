@@ -56,4 +56,8 @@ public class ThietBi {
         this.MoTaTB = MoTaTB;
     }
 
+    @Override
+    public String toString() {
+        return TenTB;
+    }
 }

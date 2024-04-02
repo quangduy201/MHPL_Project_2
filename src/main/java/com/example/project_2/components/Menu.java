@@ -54,14 +54,14 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void initMenuItem() {
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/2.png")), "Thống kê"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/21.png")), "Quản lý thành viên", "Trang chủ", "Vào khu vực học tập", "Mượn, trả thiết bị", "Cảnh báo vi phạm"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/18.png")), "Quản lý thiết bị"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/22.png")), "Xử lý vi phạm"));
+        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/2.png")), "Thống kê", "Thành viên vào học tập", "Thiết bị được mượn", "Thiết bị đang được mượn", "Xử lý vi phạm"), true);
+        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/21.png")), "Quản lý thành viên", "Trang chủ", "Vào khu vực học tập", "Mượn, trả thiết bị"), false);
+        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/18.png")), "Quản lý thiết bị"), false);
+        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/22.png")), "Xử lý vi phạm"), false);
     }
 
-    private void addMenu(ModelMenu menu) {
-        panel.add(new MenuItem(menu, getEventMenu(), event, panel.getComponentCount()), "h 40!");
+    private void addMenu(ModelMenu menu, boolean isOpen) {
+        panel.add(new MenuItem(menu, getEventMenu(), event, panel.getComponentCount(), isOpen), "h 40!");
     }
 
     private EventMenu getEventMenu() {

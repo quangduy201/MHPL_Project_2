@@ -10,6 +10,7 @@ import com.example.project_2.components.swing.PopupMenu;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JScrollPane;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -40,7 +41,17 @@ public class Main extends javax.swing.JFrame {
                 System.out.println("Menu Index : " + menuIndex + " SubMenu Index " + subMenuIndex);
                 switch (menuIndex) {
                     case 0:
-                        main.showForm(new ThongKeGUI());
+                        switch (subMenuIndex) {
+                            case 0:
+                                main.showForm(new ThongKeThanhVienGUI());
+                                break;
+                            case 1:
+                                main.showForm(new ThongKeThietBiDuocMuonGUI());
+                                break;
+                            case 2:
+                                main.showForm(new ThanhVienGUI());
+                                break;
+                        }
                         break;
                     case 1:
                         switch (subMenuIndex) {
@@ -51,9 +62,6 @@ public class Main extends javax.swing.JFrame {
                                 main.showForm(new ThanhVienGUI());
                                 break;
                             case 2:
-                                main.showForm(new ThanhVienGUI());
-                                break;
-                            case 3:
                                 main.showForm(new ThanhVienGUI());
                                 break;
                         }
@@ -124,7 +132,7 @@ public class Main extends javax.swing.JFrame {
         //  Init google icon font
         // IconFontSwing.register(GoogleMaterialDesignIcons.getIconFont());
         //  Start with this form
-        main.showForm(new ThongKeGUI());
+        main.showForm(new ThongKeThanhVienGUI());
     }
 
     @SuppressWarnings("unchecked")
@@ -137,6 +145,7 @@ public class Main extends javax.swing.JFrame {
         setUndecorated(true);
 
         bg.setBackground(new java.awt.Color(245, 245, 245));
+        bg.setAutoscrolls(true);
         bg.setOpaque(true);
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);

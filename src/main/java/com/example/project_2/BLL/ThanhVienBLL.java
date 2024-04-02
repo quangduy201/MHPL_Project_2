@@ -21,8 +21,15 @@ public class ThanhVienBLL extends BaseBLL<ThanhVien> {
         thanhVienDAL = (ThanhVienDAL) getDAL();
     }
 
-    // Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
-    public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime) {
-        return thanhVienDAL.thongKeSoLuongThanhVien(startTime, endTime);
+    public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime, String khoa, String nganh) {
+        return thanhVienDAL.thongKeSoLuongThanhVien(startTime, endTime, khoa, nganh);
+    }
+    
+    public List<String> layDanhSachKhoa() {
+        return thanhVienDAL.layDanhSachKhoa();
+    }
+    
+    public List<String> layDanhSachNganh() {
+        return thanhVienDAL.layDanhSachNganh();
     }
 }

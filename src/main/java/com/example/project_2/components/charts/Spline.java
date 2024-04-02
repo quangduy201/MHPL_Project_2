@@ -41,6 +41,13 @@ public class Spline {
         p2 = p1 + 1;
         p3 = p2 + 1;
         p0 = p1 - 1;
+
+        // Kiểm tra xem các chỉ mục có nằm trong phạm vi của mảng không
+        if (p0 < 0 || p3 >= points.length) {
+            // Xử lý khi chỉ mục vượt quá giới hạn của mảng, ví dụ như trả về null
+            return null;
+        }
+
         t = t - (int) t;
         float tt = t * t;
         float ttt = tt * t;
