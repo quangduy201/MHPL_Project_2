@@ -28,14 +28,14 @@ import java.time.LocalTime;
  *
  * @author Hung
  */
-public class ThongKeThietBiDuocMuonGUI extends javax.swing.JPanel {
+public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
     private ThietBiBLL tbBLL = new ThietBiBLL();
     private DateRangeChooser dateRangeChooser = new DateRangeChooser();
 
     /**
      * Creates new form ThongKeGUI
      */
-    public ThongKeThietBiDuocMuonGUI() {
+    public ThongKeXuLyViPhamGUI() {
         initComponents();
         setOpaque(false);
         

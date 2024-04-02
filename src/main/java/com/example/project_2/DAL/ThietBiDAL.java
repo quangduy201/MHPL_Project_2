@@ -25,7 +25,7 @@ public class ThietBiDAL extends BaseDAL<ThietBi>{
         // language=HQL
         String hqlQuery = "SELECT DATE_FORMAT(tt.TGMuon, '%d-%m-%Y'), COUNT(tt) " +
                           "FROM ThongTinSD tt " +
-                          "WHERE (tt.TGMuon IS NOT NULL OR tt.TGTra IS NULL) " +
+                          "WHERE (tt.TGMuon IS NOT NULL AND tt.TGTra IS NOT NULL) " +
                           ("-1".equals(maTB) ? "" : "AND tt.thietBi.MaTB=:maTB ") +
                           "AND (tt.TGMuon BETWEEN :startTime AND :endTime)" +
                           "GROUP BY DATE_FORMAT(tt.TGMuon, '%d-%m-%Y')";
