@@ -49,7 +49,10 @@ public class Main extends javax.swing.JFrame {
                                 main.showForm(new ThongKeThietBiDuocMuonGUI());
                                 break;
                             case 2:
-                                main.showForm(new ThanhVienGUI());
+                                main.showForm(new ThongKeThietBiDangDuocMuonGUI());
+                                break;
+                            case 3:
+                                main.showForm(new ThongKeXuLyViPhamGUI());
                                 break;
                         }
                         break;
@@ -59,10 +62,10 @@ public class Main extends javax.swing.JFrame {
                                 main.showForm(new ThanhVienGUI());
                                 break;
                             case 1:
-                                main.showForm(new ThanhVienGUI());
+                                main.showForm(new QLTVMuonTraThietBiGUI());
                                 break;
                             case 2:
-                                main.showForm(new ThanhVienGUI());
+                                main.showForm(new QLTVVaoKhuHocTapGUI());
                                 break;
                         }
                         break;
