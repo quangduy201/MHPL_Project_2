@@ -4,11 +4,18 @@
  */
 package com.example.project_2.GUI;
 
+import com.example.project_2.BLL.ThanhVienBLL;
+import java.awt.Color;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.List;
+
 /**
  *
  * @author Hung
  */
 public class ThongKeGUI extends javax.swing.JPanel {
+    private ThanhVienBLL tvBLL = new ThanhVienBLL();
 
     /**
      * Creates new form ThongKeGUI
@@ -16,6 +23,25 @@ public class ThongKeGUI extends javax.swing.JPanel {
     public ThongKeGUI() {
         initComponents();
         setOpaque(false);
+        chart.setTitle("Chart Data");
+        chart.addLegend("Số lượng thành viên", Color.decode("#bbf7d0"), Color.decode("#4ade80"));
+        chart.addLegend("Thiết bị được mượn", Color.decode("#a5f3fc"), Color.decode("#22d3ee"));
+        chart.addLegend("Thiết bị đang được mượn", Color.decode("#c7d2fe"), Color.decode("#818cf8"));
+        chart.addLegend("Xử lý vi phạm", Color.decode("#fecaca"), Color.decode("#f87171"));
+        setData();
+    }
+    
+    
+    private void setData() {
+        LocalDateTime endTime = LocalDateTime.now();
+        LocalDateTime startTime = endTime.minus(Period.ofDays(30));
+        List<Object[]> data = tvBLL.thongKeSoLuongThanhVien(startTime, endTime);
+        for (Object[] e : data) {
+            for (Object obj : e) {
+                // Thực hiện xử lý với từng giá trị obj tại đây
+                System.out.println(obj); // In ra giá trị để kiểm tra
+            }
+        }
     }
 
     /**
@@ -28,26 +54,38 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        chart = new com.example.project_2.components.charts.CurveLineChart();
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(159, 159, 159));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Quản lý thiết bị nè");
+        jLabel1.setText("Số lượng sinh viên vào khu vực học tập");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(79, 79, 79)
+                .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.example.project_2.components.charts.CurveLineChart chart;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
