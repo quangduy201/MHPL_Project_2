@@ -42,10 +42,10 @@
     * `Sequence Diagram`
     * `Chụp màn hình các file code và GUI`
 
-#### 3.1 Số lượng thành viên vào khu học tập theo: thời gian, khoa, ngành.
-#### 3.2 Thiết bị đã được mượn theo thời gian, tên thiết bị
-#### 3.3 Thiết bị đang được mượn theo thời gian, tên thiết bị.
-#### 3.4 Xử lý vi phạm theo:
+#### 4.1 Số lượng thành viên vào khu học tập theo: thời gian, khoa, ngành.
+#### 4.2 Thiết bị đã được mượn theo thời gian, tên thiết bị
+#### 4.3 Thiết bị đang được mượn theo thời gian, tên thiết bị.
+#### 4.4 Xử lý vi phạm theo:
 * Đã được xử lý (nếu có bồi thường tiền thì tính tổng tiền bồi thường)
 * Đang xử lý
 
