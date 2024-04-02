@@ -5,8 +5,11 @@
 package com.example.project_2.DAL;
 
 import com.example.project_2.DTO.ThietBi;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -18,13 +21,22 @@ public class ThietBiDAL extends BaseDAL<ThietBi>{
     }
     
     //Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
-    public List<Object[]> thongKeThietBiDuocMuon() {
+    public List<Object[]> thongKeThietBiDuocMuon(LocalDateTime startTime, LocalDateTime endTime, String maTB) {
         // language=HQL
-        String hqlQuery = "SELECT tt.thietBi.TenTB, COUNT(tt) "
-                + "FROM ThongTinSD tt "
-                + "WHERE tt.TGMuon IS NOT NULL AND tt.TGTra IS NULL "
-                + "GROUP BY tt.thietBi.TenTB";
+        String hqlQuery = "SELECT DATE_FORMAT(tt.TGMuon, '%d-%m-%Y'), COUNT(tt) " +
+                          "FROM ThongTinSD tt " +
+                          "WHERE (tt.TGMuon IS NOT NULL OR tt.TGTra IS NULL) " +
+                          ("-1".equals(maTB) ? "" : "AND tt.thietBi.MaTB=:maTB ") +
+                          "AND (tt.TGMuon BETWEEN :startTime AND :endTime)" +
+                          "GROUP BY DATE_FORMAT(tt.TGMuon, '%d-%m-%Y')";
+        
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("startTime", startTime);
+        parameters.put("endTime", endTime);
+        if (!"-1".equals(maTB)) {
+            parameters.put("maTB", maTB);
+        }
 
-        return executeQuery(hqlQuery, Object[].class, null);
+        return executeQuery(hqlQuery, Object[].class, parameters);
     }
 }

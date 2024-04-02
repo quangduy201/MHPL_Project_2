@@ -3,7 +3,6 @@ package com.example.project_2.components.swing;
 import com.example.project_2.components.event.EventMenuSelected;
 import com.example.project_2.components.event.EventMenu;
 import com.example.project_2.components.model.ModelMenu;
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,6 +12,7 @@ import java.awt.event.ActionListener;
 import net.miginfocom.swing.MigLayout;
 
 public class MenuItem extends javax.swing.JPanel {
+    private boolean defaultOpen;
 
     public ModelMenu getMenu() {
         return menu;
@@ -28,6 +28,14 @@ public class MenuItem extends javax.swing.JPanel {
 
     public void setOpen(boolean open) {
         this.open = open;
+    }
+    
+    public void setDefaultOpen(boolean defaultOpen) {
+        this.defaultOpen = defaultOpen;
+    }
+    
+    public boolean isDefaultOpen() {
+        return defaultOpen;
     }
 
     public EventMenuSelected getEventSelected() {
@@ -48,11 +56,16 @@ public class MenuItem extends javax.swing.JPanel {
     private EventMenuSelected eventSelected;
     private int index;
 
-    public MenuItem(ModelMenu menu, EventMenu event, EventMenuSelected eventSelected, int index) {
+    public MenuItem(ModelMenu menu, EventMenu event, EventMenuSelected eventSelected, int index, boolean defaultOpen) {
         initComponents();
         this.menu = menu;
         this.eventSelected = eventSelected;
         this.index = index;
+        this.open = false;
+        
+        this.defaultOpen = defaultOpen; // Thiết lập trạng thái mở mặc định
+        
+        
         setOpaque(false);
         setLayout(new MigLayout("wrap, fillx, insets 0", "[fill]", "[fill, 40!]0[fill, 35!]"));
         MenuButton firstItem = new MenuButton(menu.getIcon(), "      " + menu.getMenuName());
@@ -79,6 +92,13 @@ public class MenuItem extends javax.swing.JPanel {
                 }
             });
             add(item);
+        }
+        
+        if (defaultOpen) {
+            if (event.menuPressed(MenuItem.this, !open)) {
+                open = !open;
+            }
+            eventSelected.menuSelected(index, -1);
         }
     }
 
@@ -130,7 +150,7 @@ public class MenuItem extends javax.swing.JPanel {
         g2.drawLine(x, (int) (y + ay), x + 4, (int) (y + ay1));
         g2.drawLine(x + 4, (int) (y + ay1), x + 8, (int) (y + ay));
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

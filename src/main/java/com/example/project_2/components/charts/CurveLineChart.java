@@ -231,34 +231,37 @@ public class CurveLineChart extends JComponent {
     }
 
     private void drawLabel(Graphics2D g2, SplinePoint s) {
-        g2.setStroke(new BasicStroke(1f));
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaLable * 0.3f));
-        g2.fill(new Ellipse2D.Double(s.getX() - 13, s.getY() - 13, 26, 26));
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaLable));
-        g2.fill(new Ellipse2D.Double(s.getX() - 8, s.getY() - 8, 16, 16));
-        g2.setColor(getForeground());
-        g2.fill(new Ellipse2D.Double(s.getX() - 5, s.getY() - 5, 10, 10));
-        if (selectedIndex >= 0) {
-            String text = blankPlotChart.getFormat().format(model.get(selectedIndex).getValues()[index]);
-            FontMetrics fm = g2.getFontMetrics();
-            Rectangle2D r2 = fm.getStringBounds(text, g2);
-            double space = 5;
-            double w = r2.getWidth() + space * 2;
-            double h = r2.getHeight() + space * 2;
-            double x = (s.getX() - r2.getWidth() / 2) - space;
-            double y = s.getY() + fm.getAscent() - r2.getHeight() - h - 13;
-            g2.translate(x, y);
-            g2.setColor(new Color(255, 255, 255, 100));
-            g2.fill(new RoundRectangle2D.Double(0, 0, w, h, 5, 5));
-            g2.setColor(new Color(200, 200, 200, 100));
-            g2.draw(new RoundRectangle2D.Double(0, 0, w, h, 5, 5));
+        if (s != null) { // Kiểm tra xem s có null không trước khi truy cập vào thuộc tính của nó
+            g2.setStroke(new BasicStroke(1f));
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaLable * 0.3f));
+            g2.fill(new Ellipse2D.Double(s.getX() - 13, s.getY() - 13, 26, 26));
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaLable));
+            g2.fill(new Ellipse2D.Double(s.getX() - 8, s.getY() - 8, 16, 16));
             g2.setColor(getForeground());
-            double fx = (w - r2.getWidth()) / 2;
-            double fy = (h - r2.getHeight()) / 2;
-            fy += fm.getAscent();
-            g2.drawString(text, (int) fx, (int) fy);
+            g2.fill(new Ellipse2D.Double(s.getX() - 5, s.getY() - 5, 10, 10));
+            if (selectedIndex >= 0) {
+                String text = blankPlotChart.getFormat().format(model.get(selectedIndex).getValues()[index]);
+                FontMetrics fm = g2.getFontMetrics();
+                Rectangle2D r2 = fm.getStringBounds(text, g2);
+                double space = 5;
+                double w = r2.getWidth() + space * 2;
+                double h = r2.getHeight() + space * 2;
+                double x = (s.getX() - r2.getWidth() / 2) - space;
+                double y = s.getY() + fm.getAscent() - r2.getHeight() - h - 13;
+                g2.translate(x, y);
+                g2.setColor(new Color(255, 255, 255, 100));
+                g2.fill(new RoundRectangle2D.Double(0, 0, w, h, 5, 5));
+                g2.setColor(new Color(200, 200, 200, 100));
+                g2.draw(new RoundRectangle2D.Double(0, 0, w, h, 5, 5));
+                g2.setColor(getForeground());
+                double fx = (w - r2.getWidth()) / 2;
+                double fy = (h - r2.getHeight()) / 2;
+                fy += fm.getAscent();
+                g2.drawString(text, (int) fx, (int) fy);
+            }
         }
     }
+
 
     public SplinePoint[] copyPoint(SplinePoint[] points) {
         SplinePoint[] newPoints = new SplinePoint[points.length];
