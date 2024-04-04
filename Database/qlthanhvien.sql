@@ -1,168 +1,145 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 24, 2024 lúc 03:41 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.0.30
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: qlthanhvien
+-- ------------------------------------------------------
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Cơ sở dữ liệu: `qlthanhvien`
+-- Table structure for table `thanhvien`
 --
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `thanhvien`
---
-
+DROP TABLE IF EXISTS `thanhvien`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `thanhvien` (
-  `MaTV` int(10) NOT NULL,
-  `HoTen` varchar(100) NOT NULL,
-  `Khoa` varchar(100) DEFAULT NULL,
-  `Nganh` varchar(100) DEFAULT NULL,
-  `SDT` int(10) DEFAULT NULL
+  `MaTV` int NOT NULL,
+  `HoTen` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `Khoa` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Nganh` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `SDT` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Email` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `Password` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`MaTV`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Đang đổ dữ liệu cho bảng `thanhvien`
+-- Dumping data for table `thanhvien`
 --
 
-INSERT INTO `thanhvien` (`MaTV`, `HoTen`, `Khoa`, `Nganh`, `SDT`) VALUES
-(1120150184, 'Trần Thị Nữ', 'GDTH', 'GDTH', 1111111111),
-(1121530087, 'Trần Thiếu Nam', 'TLH', 'QLGD', 1111111112),
-(1123330257, 'Ngô Tuyết Nhi', 'QTKD', 'QTKD', 1111111113),
-(2147483647, 'Nguyễn Văn Nam', 'CNTT', 'HTTT', 123456789);
-
--- --------------------------------------------------------
+LOCK TABLES `thanhvien` WRITE;
+/*!40000 ALTER TABLE `thanhvien` DISABLE KEYS */;
+INSERT INTO `thanhvien` VALUES (1120150184,'Trần Thị Nữ','GDTH','GDTH','1111111111','',NULL),(1121530087,'Trần Thiếu Nam','CNTT','QLGD','1111111112','',NULL),(1123330257,'Ngô Tuyết Nhi','QTKD','QTKD','1111111113','',NULL),(2147483647,'Nguyễn Văn Nam','CNTT','HTTT','123456789','',NULL);
+/*!40000 ALTER TABLE `thanhvien` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Cấu trúc bảng cho bảng `thietbi`
+-- Table structure for table `thietbi`
 --
 
+DROP TABLE IF EXISTS `thietbi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `thietbi` (
-  `MaTB` int(10) NOT NULL,
-  `TenTB` varchar(100) NOT NULL,
-  `MoTaTB` text DEFAULT NULL
+  `MaTB` int NOT NULL,
+  `TenTB` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `MoTaTB` text COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`MaTB`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Đang đổ dữ liệu cho bảng `thietbi`
+-- Dumping data for table `thietbi`
 --
 
-INSERT INTO `thietbi` (`MaTB`, `TenTB`, `MoTaTB`) VALUES
-(1000001, 'Micro', 'Micro không dây MS2023'),
-(1000002, 'Micro', 'Micro không dây MS2024'),
-(1000003, 'Bảng điện tử', 'Bản điện tử trình chiếu');
-
--- --------------------------------------------------------
+LOCK TABLES `thietbi` WRITE;
+/*!40000 ALTER TABLE `thietbi` DISABLE KEYS */;
+INSERT INTO `thietbi` VALUES (1000001,'Micro','Micro không dây MS2023'),(1000002,'Micro','Micro không dây MS2024'),(1000003,'Bảng điện tử','Bản điện tử trình chiếu');
+/*!40000 ALTER TABLE `thietbi` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Cấu trúc bảng cho bảng `thongtinsd`
+-- Table structure for table `thongtinsd`
 --
 
+DROP TABLE IF EXISTS `thongtinsd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `thongtinsd` (
-  `MaTT` int(10) NOT NULL,
-  `MaTV` int(10) NOT NULL,
-  `MaTB` int(10) DEFAULT NULL,
+  `MaTT` int NOT NULL,
+  `MaTV` int NOT NULL,
+  `MaTB` int DEFAULT NULL,
   `TGVao` datetime DEFAULT NULL,
   `TGMuon` datetime DEFAULT NULL,
-  `TGTra` datetime DEFAULT NULL
+  `TGTra` datetime DEFAULT NULL,
+  `TGDatcho` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`MaTT`),
+  KEY `MaTV` (`MaTV`,`MaTB`),
+  KEY `MaTB` (`MaTB`),
+  CONSTRAINT `thongtinsd_ibfk_1` FOREIGN KEY (`MaTV`) REFERENCES `thanhvien` (`MaTV`),
+  CONSTRAINT `thongtinsd_ibfk_2` FOREIGN KEY (`MaTB`) REFERENCES `thietbi` (`MaTB`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Đang đổ dữ liệu cho bảng `thongtinsd`
+-- Dumping data for table `thongtinsd`
 --
 
-INSERT INTO `thongtinsd` (`MaTT`, `MaTV`, `MaTB`, `TGVao`, `TGMuon`, `TGTra`) VALUES
-(1, 1120150184, NULL, '2024-01-05 09:00:00', NULL, NULL),
-(2, 1123330257, 1000001, NULL, '2024-02-12 10:00:32', '2024-02-12 14:00:00');
-
--- --------------------------------------------------------
+LOCK TABLES `thongtinsd` WRITE;
+/*!40000 ALTER TABLE `thongtinsd` DISABLE KEYS */;
+INSERT INTO `thongtinsd` VALUES (1,1120150184,NULL,'2024-03-05 09:00:00',NULL,NULL,NULL),(2,1123330257,1000001,NULL,'2024-02-12 10:00:32','2024-02-12 14:00:00',NULL),(3,1121530087,NULL,'2024-03-05 09:00:00',NULL,NULL,NULL),(4,2147483647,NULL,'2024-03-10 09:00:00',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `thongtinsd` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Cấu trúc bảng cho bảng `xuly`
+-- Table structure for table `xuly`
 --
 
+DROP TABLE IF EXISTS `xuly`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xuly` (
-  `MaXL` int(10) NOT NULL,
-  `MaTV` int(10) NOT NULL,
-  `HinhThucXL` varchar(250) DEFAULT NULL,
-  `SoTien` int(100) DEFAULT NULL,
+  `MaXL` int NOT NULL,
+  `MaTV` int NOT NULL,
+  `HinhThucXL` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `SoTien` int DEFAULT NULL,
   `NgayXL` datetime DEFAULT NULL,
-  `TrangThaiXL` int(2) DEFAULT NULL
+  `TrangThaiXL` int DEFAULT NULL,
+  PRIMARY KEY (`MaXL`),
+  KEY `MaTV` (`MaTV`),
+  KEY `MaTV_2` (`MaTV`),
+  CONSTRAINT `xuly_ibfk_1` FOREIGN KEY (`MaTV`) REFERENCES `thanhvien` (`MaTV`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Đang đổ dữ liệu cho bảng `xuly`
+-- Dumping data for table `xuly`
 --
 
-INSERT INTO `xuly` (`MaXL`, `MaTV`, `HinhThucXL`, `SoTien`, `NgayXL`, `TrangThaiXL`) VALUES
-(1, 1121530087, 'Khóa thẻ 1 tháng', NULL, '2023-09-12 08:00:00', 0),
-(2, 2147483647, 'Khóa thẻ 2 tháng', NULL, '2023-09-12 08:00:00', 0),
-(3, 1123330257, 'Bồi thường mất tài sản', 300000, '2023-09-12 08:00:00', 0);
+LOCK TABLES `xuly` WRITE;
+/*!40000 ALTER TABLE `xuly` DISABLE KEYS */;
+INSERT INTO `xuly` VALUES (1,1121530087,'Khóa thẻ 1 tháng',NULL,'2023-09-12 08:00:00',0),(2,2147483647,'Khóa thẻ 2 tháng',NULL,'2023-09-12 08:00:00',0),(3,1123330257,'Bồi thường mất tài sản',300000,'2023-09-12 08:00:00',0);
+/*!40000 ALTER TABLE `xuly` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `thanhvien`
---
-ALTER TABLE `thanhvien`
-  ADD PRIMARY KEY (`MaTV`);
-
---
--- Chỉ mục cho bảng `thietbi`
---
-ALTER TABLE `thietbi`
-  ADD PRIMARY KEY (`MaTB`);
-
---
--- Chỉ mục cho bảng `thongtinsd`
---
-ALTER TABLE `thongtinsd`
-  ADD PRIMARY KEY (`MaTT`),
-  ADD KEY `MaTV` (`MaTV`,`MaTB`),
-  ADD KEY `MaTB` (`MaTB`);
-
---
--- Chỉ mục cho bảng `xuly`
---
-ALTER TABLE `xuly`
-  ADD PRIMARY KEY (`MaXL`),
-  ADD KEY `MaTV` (`MaTV`),
-  ADD KEY `MaTV_2` (`MaTV`);
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `thongtinsd`
---
-ALTER TABLE `thongtinsd`
-  ADD CONSTRAINT `thongtinsd_ibfk_1` FOREIGN KEY (`MaTV`) REFERENCES `thanhvien` (`MaTV`),
-  ADD CONSTRAINT `thongtinsd_ibfk_2` FOREIGN KEY (`MaTB`) REFERENCES `thietbi` (`MaTB`);
-
---
--- Các ràng buộc cho bảng `xuly`
---
-ALTER TABLE `xuly`
-  ADD CONSTRAINT `xuly_ibfk_1` FOREIGN KEY (`MaTV`) REFERENCES `thanhvien` (`MaTV`);
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-04-04 14:16:18
