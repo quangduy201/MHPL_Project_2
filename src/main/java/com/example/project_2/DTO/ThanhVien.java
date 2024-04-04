@@ -22,6 +22,12 @@ public class ThanhVien {
 
     @Column(name = "HoTen", nullable = false, length = 100)
     private String HoTen;
+    
+    @Column(name = "Email", nullable = false, length = 25)
+    private String Email;
+    
+    @Column(name = "Password", length = 10)
+    private String Password;
 
     @Column(name = "Khoa", length = 100)
     private String Khoa;
@@ -29,8 +35,8 @@ public class ThanhVien {
     @Column(name = "Nganh", length = 100)
     private String Nganh;
 
-    @Column(name = "SDT")
-    private Integer SDT;
+    @Column(name = "SDT", length = 15)
+    private String SDT;
 
     @OneToMany(mappedBy = "thanhVien", orphanRemoval = true)
     private Set<ThongTinSD> ThongTinSD = new LinkedHashSet<>();
@@ -38,11 +44,13 @@ public class ThanhVien {
     public ThanhVien() {
     }
     
-    public ThanhVien(int MaTV, String HoTen, String Khoa, String Nganh, int SDT) {
+    public ThanhVien(int MaTV, String HoTen, String Email, String Password, String Khoa, String Nganh, String SDT) {
         this.MaTV = MaTV;
         this.HoTen = HoTen;
         this.Khoa = Khoa;
         this.Nganh = Nganh;
+        this.Email = Email;
+        this.Password = Password;
         this.SDT = SDT;
     }
 
@@ -52,6 +60,30 @@ public class ThanhVien {
 
     public void setMaTV(Integer MaTV) {
         this.MaTV = MaTV;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
+
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
     }
 
     public String getHoTen() {
@@ -76,14 +108,6 @@ public class ThanhVien {
 
     public void setNganh(String Nganh) {
         this.Nganh = Nganh;
-    }
-
-    public Integer getSDT() {
-        return SDT;
-    }
-
-    public void setSDT(Integer SDT) {
-        this.SDT = SDT;
     }
 
     public Set<ThongTinSD> getThongTinSD() {

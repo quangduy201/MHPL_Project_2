@@ -38,16 +38,20 @@ public class ThongTinSD {
     @Column(name = "TGTra")
     private LocalDateTime TGTra;
     
+    @Column(name = "TGDatcho")
+    private LocalDateTime TGDatcho;
+    
     public ThongTinSD() {
     }
     
-    public ThongTinSD(int MaTT, ThanhVien thanhVien, ThietBi thietBi, LocalDateTime TGVao, LocalDateTime TGMuon, LocalDateTime TGTra) {
+    public ThongTinSD(int MaTT, ThanhVien thanhVien, ThietBi thietBi, LocalDateTime TGVao, LocalDateTime TGMuon, LocalDateTime TGTra, LocalDateTime TGDatcho) {
         this.MaTT = MaTT;
         this.thanhVien = thanhVien;
         this.thietBi = thietBi;
         this.TGVao = TGVao;
         this.TGMuon = TGMuon;
         this.TGTra = TGTra;
+        this.TGDatcho = TGDatcho;
     }
 
     public Integer getMaTT() {
@@ -96,6 +100,14 @@ public class ThongTinSD {
 
     public void setTGTra(LocalDateTime TGTra) {
         this.TGTra = TGTra;
+    }
+
+    public LocalDateTime getTGDatcho() {
+        return TGDatcho;
+    }
+
+    public void setTGDatcho(LocalDateTime TGDatcho) {
+        this.TGDatcho = TGDatcho;
     }
 
     @Override
