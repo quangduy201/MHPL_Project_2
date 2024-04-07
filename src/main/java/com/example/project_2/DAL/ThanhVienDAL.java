@@ -22,15 +22,28 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
     }
 
     // Thống kê số lượng thành viên vào khu học tập theo: thời gian, khoa.
-    public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime, String khoa, String nganh) {
+    public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime, String khoa, String nganh, boolean isTable) {
+        
+        String hqlQuery = "";
+        
         // language=HQL
-        String hqlQuery = "SELECT DATE_FORMAT(tt.TGVao, '%d-%m-%Y'), COUNT(tt) " +
-                          "FROM ThongTinSD tt " +
-                          "INNER JOIN ThanhVien tv ON tt.thanhVien.MaTV = tv.MaTV " +
-                          "WHERE (tt.TGVao BETWEEN :startTime AND :endTime)" +
-                          (khoa != null && !"".equals(khoa) ? " AND tv.Khoa = :khoa " : " ") +
-                          (nganh != null && !"".equals(nganh) ? " AND tv.Nganh = :nganh " : " ") +
-                          "GROUP BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y')";
+        if (isTable) {
+            hqlQuery = "SELECT tt.thanhVien.MaTV, tt.thanhVien.HoTen, tt.thanhVien.Khoa, tt.thanhVien.Nganh, DATE_FORMAT(tt.TGVao, '%d-%m-%Y')" +
+                        "FROM ThongTinSD tt " +
+                        "WHERE (tt.TGVao BETWEEN :startTime AND :endTime)" +
+                        (khoa != null && !"".equals(khoa) ? " AND tt.thanhVien.Khoa = :khoa " : " ") +
+                        (nganh != null && !"".equals(nganh) ? " AND tt.thanhVien.Nganh = :nganh " : " ") +
+                        "ORDER BY tt.TGVao ASC";
+        } else {
+            hqlQuery = "SELECT DATE_FORMAT(tt.TGVao, '%d-%m-%Y'), COUNT(tt) " +
+                        "FROM ThongTinSD tt " +
+                        "WHERE (tt.TGVao BETWEEN :startTime AND :endTime)" +
+                        (khoa != null && !"".equals(khoa) ? " AND tt.thanhVien.Khoa = :khoa " : " ") +
+                        (nganh != null && !"".equals(nganh) ? " AND tt.thanhVien.Nganh = :nganh " : " ") +
+                        "GROUP BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y') " +
+                        "ORDER BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y') ASC";
+        }
+        
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("startTime", startTime);

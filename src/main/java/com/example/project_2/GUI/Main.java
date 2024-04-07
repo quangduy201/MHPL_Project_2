@@ -210,7 +210,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane bg;
     // End of variables declaration//GEN-END:variables

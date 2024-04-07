@@ -21,16 +21,28 @@ public class ThietBiDAL extends BaseDAL<ThietBi>{
     }
     
     //Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
-    public List<Object[]> thongKeThietBiDuocMuon(LocalDateTime startTime, LocalDateTime endTime, String maTB) {
-        // language=HQL
-        String hqlQuery = "SELECT DATE_FORMAT(tt.TGMuon, '%d-%m-%Y'), COUNT(tt) " +
-                          "FROM ThongTinSD tt " +
-                          "WHERE (tt.TGMuon IS NOT NULL AND tt.TGTra IS NOT NULL) " +
-                          ("-1".equals(maTB) ? "" : "AND tt.thietBi.MaTB=:maTB ") +
-                          "AND ((tt.TGMuon BETWEEN :startTime AND :endTime) " +
-                          "OR (tt.TGTra BETWEEN :startTime AND :endTime)) " +
-                          "GROUP BY DATE_FORMAT(tt.TGMuon, '%d-%m-%Y')";
+    public List<Object[]> thongKeThietBiDuocMuon(LocalDateTime startTime, LocalDateTime endTime, String maTB, boolean isTable) {
+        String hqlQuery = "";
         
+        if (isTable) {
+            hqlQuery = "SELECT tt.thietBi.MaTB, tt.thietBi.TenTB, tt.thanhVien.MaTV, tt.thanhVien.HoTen, DATE_FORMAT(tt.TGMuon, '%d-%m-%Y') " +
+                    "FROM ThongTinSD tt " +
+                    "WHERE (tt.TGMuon IS NOT NULL AND tt.TGTra IS NOT NULL) " +
+                    ("-1".equals(maTB) ? "" : "AND tt.thietBi.MaTB=:maTB ") +
+                    "AND ((tt.TGMuon BETWEEN :startTime AND :endTime) " +
+                    "OR (tt.TGTra BETWEEN :startTime AND :endTime)) " +
+                    "ORDER BY DATE_FORMAT(tt.TGMuon, '%d-%m-%Y') ASC";
+        } else {
+            hqlQuery = "SELECT DATE_FORMAT(tt.TGMuon, '%d-%m-%Y'), COUNT(tt) " +
+                    "FROM ThongTinSD tt " +
+                    "WHERE (tt.TGMuon IS NOT NULL AND tt.TGTra IS NOT NULL) " +
+                    ("-1".equals(maTB) ? "" : "AND tt.thietBi.MaTB=:maTB ") +
+                    "AND ((tt.TGMuon BETWEEN :startTime AND :endTime) " +
+                    "OR (tt.TGTra BETWEEN :startTime AND :endTime)) " +
+                    "GROUP BY DATE_FORMAT(tt.TGMuon, '%d-%m-%Y') " +
+                    "ORDER BY DATE_FORMAT(tt.TGMuon, '%d-%m-%Y') ASC";
+        }
+
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("startTime", startTime);
         parameters.put("endTime", endTime);
