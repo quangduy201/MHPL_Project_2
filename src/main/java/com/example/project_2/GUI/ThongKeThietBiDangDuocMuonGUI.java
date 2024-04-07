@@ -12,6 +12,8 @@ import com.example.project_2.components.date_range_chooser.DateRangeBetween;
 import com.example.project_2.components.date_range_chooser.DateRangeChooser;
 import com.example.project_2.DTO.ThietBi;
 import com.example.project_2.components.model.ModelChartData;
+import com.example.project_2.utils.DateRange;
+import com.example.project_2.utils.Helper;
 
 import java.awt.Color;
 import java.awt.event.ItemEvent;
@@ -79,7 +81,10 @@ public class ThongKeThietBiDangDuocMuonGUI extends javax.swing.JPanel {
     }
     private final ItemListener thietBiItemListener = (ItemEvent evt) -> {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-
+            DateRangeBetween dgb = dateRangeChooser.getSelectedDateBetween();
+            DateRange dr = Helper.convertDateBetweenToLocalDateTime(dgb);
+            setData(dr.startTime, dr.endTime);
+            setDataForTable(dr.startTime, dr.endTime);
          
         }
     };
@@ -266,8 +271,8 @@ public class ThongKeThietBiDangDuocMuonGUI extends javax.swing.JPanel {
 
         table.removeAllRow();
 
-        for (Object[] o : data) {
-            table.addRow(o);
+        for (Object[] obj : data) {
+            table.addRow(obj);
         }
 
     }
