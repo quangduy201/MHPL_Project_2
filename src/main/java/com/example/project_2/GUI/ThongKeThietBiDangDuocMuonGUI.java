@@ -10,8 +10,8 @@ import com.example.project_2.components.date_range_chooser.DateChooserAction;
 import com.example.project_2.components.date_range_chooser.DateChooserAdapter;
 import com.example.project_2.components.date_range_chooser.DateRangeBetween;
 import com.example.project_2.components.date_range_chooser.DateRangeChooser;
-import com.example.project_2.components.model.ModelThanhVien;
 import com.example.project_2.DTO.ThietBi;
+import com.example.project_2.components.model.ModelChartData;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
@@ -75,7 +75,7 @@ public class ThongKeThietBiDangDuocMuonGUI extends javax.swing.JPanel {
     
     private void setData(LocalDateTime startTime, LocalDateTime endTime) {
 
-        List<Object[]> data = tbBLL.thongKeThietBiDuocMuon(
+        List<Object[]> data = tbBLL.thongKeThietBiDaDuocMuon(
                 startTime,
                 endTime,
                 thietBiCbx.getSelectedItem().toString().equals("Tất cả thiết bị") 
@@ -83,17 +83,17 @@ public class ThongKeThietBiDangDuocMuonGUI extends javax.swing.JPanel {
                         ((ThietBi) thietBiCbx.getSelectedItem()).getMaTB().toString()
         );
         
-        List<ModelThanhVien> tvList = new ArrayList<>();
+        List<ModelChartData> tvList = new ArrayList<>();
         
         for (Object[] o : data) {
-            tvList.add(new ModelThanhVien(o[0].toString(), Integer.parseInt(o[1].toString())));
+            tvList.add(new ModelChartData(o[0].toString(), Integer.parseInt(o[1].toString())));
         }
         
         System.out.println(tvList.size());
         
-        for (int i = tvList.size() - 1; i >= 0; i--) {
-            ModelThanhVien tv = tvList.get(i);
-            chart.addData(new ModelCurveLineChart(tv.getKhoa(), new double[] {tv.getTotal()}));
+        for (int i = 0; i < tvList.size(); i++) {
+            ModelChartData tv = tvList.get(i);
+            chart.addData(new ModelCurveLineChart(tv.getLabel(), new double[] {tv.getTotal()}));
         }
         
         if (tvList.size() == 1) {

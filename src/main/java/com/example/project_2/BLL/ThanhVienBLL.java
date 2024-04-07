@@ -22,7 +22,11 @@ public class ThanhVienBLL extends BaseBLL<ThanhVien> {
     }
 
     public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime, String khoa, String nganh) {
-        return thanhVienDAL.thongKeSoLuongThanhVien(startTime, endTime, khoa, nganh);
+        return thanhVienDAL.thongKeSoLuongThanhVien(startTime, endTime, khoa, nganh, false);
+    }
+    
+    public List<Object[]> thongKeSoLuongThanhVienForTable(LocalDateTime startTime, LocalDateTime endTime, String khoa, String nganh) {
+        return thanhVienDAL.thongKeSoLuongThanhVien(startTime, endTime, khoa, nganh, true);
     }
     
     public List<String> layDanhSachKhoa() {

@@ -8,21 +8,21 @@ package com.example.project_2.components.model;
  *
  * @author Hung
  */
-public class ModelThanhVien {
-    private String khoa;
+public class ModelChartData {
+    private String label;
     private int total;
 
-    public ModelThanhVien(String khoa, int total) {
-        this.khoa = khoa;
+    public ModelChartData(String label, int total) {
+        this.label = label;
         this.total = total;
     }
 
-    public String getKhoa() {
-        return khoa;
+    public String getLabel() {
+        return label;
     }
 
-    public void setKhoa(String khoa) {
-        this.khoa = khoa;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public int getTotal() {

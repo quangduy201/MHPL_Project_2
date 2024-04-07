@@ -54,7 +54,7 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void initMenuItem() {
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/2.png")), "Thống kê", "Thành viên vào học tập", "Thiết bị được mượn", "Thiết bị đang được mượn", "Xử lý vi phạm"), true);
+        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/2.png")), "Thống kê", "Thành viên vào học tập", "Thiết bị đã được mượn", "Thiết bị đang được mượn", "Xử lý vi phạm"), true);
         addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/21.png")), "Quản lý thành viên", "Trang chủ", "Vào khu vực học tập", "Mượn, trả thiết bị"), false);
         addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/18.png")), "Quản lý thiết bị"), false);
         addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/icons/22.png")), "Xử lý vi phạm"), false);
