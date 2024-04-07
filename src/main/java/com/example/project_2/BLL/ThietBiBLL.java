@@ -19,12 +19,12 @@ public class ThietBiBLL extends BaseBLL<ThietBi> {
     }
 
     // Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
-    public List<Object[]> thongKeThietBiDuocMuon(LocalDateTime startTime, LocalDateTime endTime, String maTB) {
-        return thietBiDAL.thongKeThietBiDuocMuon(startTime, endTime, maTB, false);
+    public List<Object[]> thongKeThietBiDaDuocMuon(LocalDateTime startTime, LocalDateTime endTime, String maTB) {
+        return thietBiDAL.thongKeThietBiDaDuocMuon(startTime, endTime, maTB, false);
     }
     
     // Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
-    public List<Object[]> thongKeThietBiDuocMuonForTable(LocalDateTime startTime, LocalDateTime endTime, String maTB) {
-        return thietBiDAL.thongKeThietBiDuocMuon(startTime, endTime, maTB, true);
+    public List<Object[]> thongKeThietBiDaDuocMuonForTable(LocalDateTime startTime, LocalDateTime endTime, String maTB) {
+        return thietBiDAL.thongKeThietBiDaDuocMuon(startTime, endTime, maTB, true);
     }
 }

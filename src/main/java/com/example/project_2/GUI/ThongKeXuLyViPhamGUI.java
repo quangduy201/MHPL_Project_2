@@ -75,7 +75,7 @@ public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
     
     private void setData(LocalDateTime startTime, LocalDateTime endTime) {
 
-        List<Object[]> data = tbBLL.thongKeThietBiDuocMuon(
+        List<Object[]> data = tbBLL.thongKeThietBiDaDuocMuon(
                 startTime,
                 endTime,
                 thietBiCbx.getSelectedItem().toString().equals("Tất cả thiết bị") 

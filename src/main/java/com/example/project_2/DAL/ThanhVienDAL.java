@@ -28,12 +28,12 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
         
         // language=HQL
         if (isTable) {
-            hqlQuery = "SELECT tt.thanhVien.MaTV, tt.thanhVien.HoTen, tt.thanhVien.Khoa, tt.thanhVien.Nganh, DATE_FORMAT(tt.TGVao, '%d-%m-%Y')" +
+            hqlQuery = "SELECT tt.thanhVien.MaTV, tt.thanhVien.HoTen, tt.thanhVien.Khoa, tt.thanhVien.Nganh, DATE_FORMAT(tt.TGVao, '%d-%m-%Y %H:%i:%s')" +
                         "FROM ThongTinSD tt " +
                         "WHERE (tt.TGVao BETWEEN :startTime AND :endTime)" +
                         (khoa != null && !"".equals(khoa) ? " AND tt.thanhVien.Khoa = :khoa " : " ") +
                         (nganh != null && !"".equals(nganh) ? " AND tt.thanhVien.Nganh = :nganh " : " ") +
-                        "ORDER BY tt.TGVao ASC";
+                        "ORDER BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y %H:%i:%s') ASC";
         } else {
             hqlQuery = "SELECT DATE_FORMAT(tt.TGVao, '%d-%m-%Y'), COUNT(tt) " +
                         "FROM ThongTinSD tt " +
