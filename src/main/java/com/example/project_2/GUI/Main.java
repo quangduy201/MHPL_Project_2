@@ -62,10 +62,10 @@ public class Main extends javax.swing.JFrame {
                                 main.showForm(new ThanhVienGUI());
                                 break;
                             case 1:
-                                main.showForm(new QLTVMuonTraThietBiGUI());
+                                main.showForm(new QLTVVaoKhuHocTapGUI());
                                 break;
                             case 2:
-                                main.showForm(new QLTVVaoKhuHocTapGUI());
+                                main.showForm(new QLTVMuonTraThietBiGUI());
                                 break;
                         }
                         break;
