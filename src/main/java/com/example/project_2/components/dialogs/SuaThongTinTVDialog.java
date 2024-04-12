@@ -52,6 +52,7 @@ public class SuaThongTinTVDialog extends javax.swing.JPanel {
         jLabel2.setText("Mã thành viên:");
 
         txtMaTV.setEditable(false);
+        txtMaTV.setEditable(false);
         txtMaTV.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

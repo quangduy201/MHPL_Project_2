@@ -51,24 +51,28 @@ public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
         jLabel4.setText("Khu vực học tập");
 
         txtKhoa.setEditable(false);
+        txtKhoa.setEditable(false);
         txtKhoa.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Khoa:");
 
         txtKhoa.setEditable(false);
+        txtHoTen.setEditable(false);
         txtHoTen.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Số điện thoại:");
 
         txtKhoa.setEditable(false);
+        txtNganh.setEditable(false);
         txtNganh.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Ngành:");
 
         txtKhoa.setEditable(false);
+        txtSdt.setEditable(false);
         txtSdt.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
