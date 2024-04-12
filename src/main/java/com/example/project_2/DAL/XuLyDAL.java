@@ -5,9 +5,11 @@
 package com.example.project_2.DAL;
 
 import com.example.project_2.DTO.XuLy;
+import java.time.LocalDateTime;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -18,32 +20,27 @@ public class XuLyDAL extends BaseDAL<XuLy>{
         super(XuLy.class);
     }
 
-    public List<XuLy> layThongTinViPhamVaTongTien() {
-        List<XuLy> thongTinViPhamVaTien = new ArrayList<>();
-        // language=HQL
-        String hqlQuery = "SELECT xl, SUM(xl.SoTien) " +
-                "FROM XuLy xl " +
-                "WHERE xl.TrangThaiXL = 1 " +
-                "GROUP BY xl";
+    public List<Object[]> thongKeXuLy(LocalDateTime startTime, LocalDateTime endTime, int trangThai, boolean isTable) {
+        String hqlQuery = "";
+        
+        if (isTable) {
+            hqlQuery = "SELECT xl.MaXL, xl.thanhVien.HoTen, xl.HinhThucXL, xl.SoTien, DATE_FORMAT(xl.NgayXL, '%d-%m-%Y') "
+                + "FROM XuLy xl WHERE " + (trangThai != -1 ? "xl.TrangThaiXL = " + trangThai + " AND " : "")
+                + "(xl.NgayXL BETWEEN :startTime AND :endTime)";
 
-        List<Object[]> results = executeQuery(hqlQuery, Object[].class, null);
-        for (Object[] result : results) {
-            if (result[0] != null && result[1] != null) {
-                XuLy xuLy = (XuLy) result[0];
-                Long tongTienLong = (Long) result[1];
-                xuLy.setTongTien(tongTienLong);
-                thongTinViPhamVaTien.add(xuLy);
-            }
+
+        } else {
+            hqlQuery = "SELECT DATE_FORMAT(xl.NgayXL, '%d-%m-%Y'), count(xl.MaXL), count(xl.SoTien) "
+                + "FROM XuLy xl WHERE " + (trangThai != -1 ? "xl.TrangThaiXL = " + trangThai + " AND " : "")
+                + "(xl.NgayXL BETWEEN :startTime AND :endTime) "
+                + "GROUP BY DATE_FORMAT(xl.NgayXL, '%d-%m-%Y')";
+        
         }
-        return thongTinViPhamVaTien;
-    }
 
-    public List<XuLy> thongKeXuLyDangXuLy() {
-        List<XuLy> danhSachXuLy;
-        // language=HQL
-        String hqlQuery = "FROM XuLy xl WHERE xl.TrangThaiXL = 0";
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("startTime", startTime);
+        parameters.put("endTime", endTime);
 
-        danhSachXuLy = executeQuery(hqlQuery, XuLy.class, null);
-        return danhSachXuLy;
+        return executeQuery(hqlQuery, Object[].class, parameters);
     }
 }

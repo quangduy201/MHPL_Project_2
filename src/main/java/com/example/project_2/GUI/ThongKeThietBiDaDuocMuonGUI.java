@@ -123,7 +123,6 @@ public class ThongKeThietBiDaDuocMuonGUI extends javax.swing.JPanel {
     
     
     private void setData(LocalDateTime startTime, LocalDateTime endTime) {
-
         List<Object[]> data = tbBLL.thongKeThietBiDaDuocMuon(
                 startTime,
                 endTime,
