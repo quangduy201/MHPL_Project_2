@@ -19,6 +19,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        comboSuggestionUI1 = new com.example.project_2.components.combobox.ComboSuggestionUI();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableThietBi = new com.example.project_2.components.table.Table();
         jLabel2 = new javax.swing.JLabel();
@@ -33,6 +34,8 @@ public class ThietBiGUI extends javax.swing.JPanel {
         tfMaThietBi = new com.example.project_2.components.swing.TextField();
         tfTenThietBi = new com.example.project_2.components.swing.TextField();
         tfMoTa = new com.example.project_2.components.swing.TextField();
+        comboBoxSuggestion1 = new com.example.project_2.components.combobox.ComboBoxSuggestion();
+        btnHuy1 = new com.example.project_2.components.swing.Button();
 
         setPreferredSize(new java.awt.Dimension(1064, 726));
 
@@ -88,16 +91,17 @@ public class ThietBiGUI extends javax.swing.JPanel {
 
         btnNhapExcel.setText("Nhập Excel");
 
-        tfMaThietBi.setText("Type here...");
         tfMaThietBi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfMaThietBiActionPerformed(evt);
             }
         });
 
-        tfTenThietBi.setText("Type here...");
-
-        tfMoTa.setText("Type here...");
+        tfTenThietBi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfTenThietBiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout JPanelChuaThongTinLayout = new javax.swing.GroupLayout(JPanelChuaThongTin);
         JPanelChuaThongTin.setLayout(JPanelChuaThongTinLayout);
@@ -151,29 +155,56 @@ public class ThietBiGUI extends javax.swing.JPanel {
                 .addContainerGap(82, Short.MAX_VALUE))
         );
 
+        comboBoxSuggestion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxSuggestion1ActionPerformed(evt);
+            }
+        });
+
+        btnHuy1.setText("Xóa thiết bị theo điều kiện");
+        btnHuy1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuy1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHuy1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(JPanelChuaThongTin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(336, Short.MAX_VALUE)
+                    .addContainerGap(337, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(317, 317, 317)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(JPanelChuaThongTin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(98, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHuy1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxSuggestion1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JPanelChuaThongTin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(126, 126, 126))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -191,12 +222,27 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfMaThietBiActionPerformed
 
+    private void btnHuy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuy1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHuy1ActionPerformed
+
+    private void comboBoxSuggestion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxSuggestion1ActionPerformed
+
+    private void tfTenThietBiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTenThietBiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTenThietBiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanelChuaThongTin;
     private com.example.project_2.components.swing.Button btnHuy;
+    private com.example.project_2.components.swing.Button btnHuy1;
     private com.example.project_2.components.swing.Button btnNhapExcel;
     private com.example.project_2.components.swing.Button btnThem;
+    private com.example.project_2.components.combobox.ComboBoxSuggestion comboBoxSuggestion1;
+    private com.example.project_2.components.combobox.ComboSuggestionUI comboSuggestionUI1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
