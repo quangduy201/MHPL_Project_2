@@ -4,16 +4,19 @@
  */
 package com.example.project_2.GUI;
 
-import com.example.project_2.BLL.ThietBiBLL;
+import com.example.project_2.BLL.XuLyBLL;
 import com.example.project_2.components.charts.ModelCurveLineChart;
 import com.example.project_2.components.date_range_chooser.DateChooserAction;
 import com.example.project_2.components.date_range_chooser.DateChooserAdapter;
 import com.example.project_2.components.date_range_chooser.DateRangeBetween;
 import com.example.project_2.components.date_range_chooser.DateRangeChooser;
-import com.example.project_2.DTO.ThietBi;
-import com.example.project_2.components.model.ModelChartData;
+import com.example.project_2.components.model.ModelChartOtherData;
+import com.example.project_2.utils.DateRange;
+import com.example.project_2.utils.Helper;
 
 import java.awt.Color;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -29,7 +32,7 @@ import java.time.LocalTime;
  * @author Hung
  */
 public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
-    private ThietBiBLL tbBLL = new ThietBiBLL();
+    private XuLyBLL xlBLL = new XuLyBLL();
     private DateRangeChooser dateRangeChooser = new DateRangeChooser();
 
     /**
@@ -37,10 +40,11 @@ public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
      */
     public ThongKeXuLyViPhamGUI() {
         initComponents();
-        setOpaque(false);
+        table1.fixTable(jScrollPane1);
         
-        chart.setTitle("Chart Data");
-        chart.addLegend("Thiết bị được mượn", Color.decode("#bbf7d0"), Color.decode("#4ade80"));
+        chart.setTitle("Thống kê xử lý vi phạm");
+        chart.addLegend("Đã xử lý vi phạm", Color.decode("#bbf7d0"), Color.decode("#4ade80"));
+        chart.addLegend("Đang xử lý vi phạm", Color.decode("#f59e0b"), Color.decode("#fde68a"));
         
         dateRangeChooser.setTextField(chDate);
         dateRangeChooser.setDateSelectionMode(DateRangeChooser.DateSelectionMode.BETWEEN_DATE_SELECTED);
@@ -63,38 +67,100 @@ public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
                 chart.clear();
                 
                 setData(startTime, endTime);
+                setDataForTable(startTime, endTime);
             }
         });
         
-        setThietBiCbx();
+        
+        setXuLyViPhamCbx();
+        
+        // Thêm lắng nghe sự kiện ItemListener
+        xuLyViPhamCbx.addItemListener(xuLyViPhamItemListener);
         
         LocalDateTime endTime = LocalDateTime.now();
         LocalDateTime startTime = endTime.minus(Period.ofDays(30));
         setData(startTime, endTime);
+        setDataForTable(startTime, endTime);
+    }
+    
+    // Bộ lắng nghe sự kiện ItemListener cho nganhCbx
+    private final ItemListener xuLyViPhamItemListener = (ItemEvent evt) -> {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            // Xử lý khi giá trị được chọn thay đổi
+            xuLyViPhamCbxItemStateChanged(evt);
+        }
+    };
+    
+    private void xuLyViPhamCbxItemStateChanged(ItemEvent evt) {                                          
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            DateRangeBetween dateRangeBetween = dateRangeChooser.getSelectedDateBetween();
+
+            DateRange dateRange = Helper.convertDateBetweenToLocalDateTime(dateRangeBetween);
+
+            setData(dateRange.startTime, dateRange.endTime);
+            setDataForTable(dateRange.startTime, dateRange.endTime);
+        }
+    }
+    
+    private List<Object[]> getData(LocalDateTime startTime, LocalDateTime endTime) {
+        if (xuLyViPhamCbx.getSelectedItem().toString().equals("Đã xử lý")) {
+            return xlBLL.thongKeXuLyDaXuLy(
+                startTime,
+                endTime
+            );
+        }
+        
+        return xlBLL.thongKeXuLyDangXuLy(
+            startTime,
+            endTime
+        );
+    }
+    
+    private List<Object[]> getDataForTable(LocalDateTime startTime, LocalDateTime endTime) {
+        if (xuLyViPhamCbx.getSelectedItem().toString().equals("Đã xử lý")) {
+            return xlBLL.thongKeXuLyDaXuLyForTable(
+                startTime,
+                endTime
+            );
+        }
+        
+        return xlBLL.thongKeXuLyDangXuLyForTable(
+            startTime,
+            endTime
+        );
+    }
+    
+    private void setDataForTable(LocalDateTime startTime, LocalDateTime endTime) {
+        List<Object[]> data = getDataForTable(startTime, endTime);
+        
+        table1.removeAllRow();
+
+        for (Object[] o : data) {
+            table1.addRow(o);
+        }
     }
     
     private void setData(LocalDateTime startTime, LocalDateTime endTime) {
-
-        List<Object[]> data = tbBLL.thongKeThietBiDaDuocMuon(
-                startTime,
-                endTime,
-                thietBiCbx.getSelectedItem().toString().equals("Tất cả thiết bị") 
-                        ? "-1" : 
-                        ((ThietBi) thietBiCbx.getSelectedItem()).getMaTB().toString()
-        );
+        List<Object[]> data = getData(startTime, endTime);
         
-        List<ModelChartData> tvList = new ArrayList<>();
+        List<ModelChartOtherData> chartList = new ArrayList<>();
         
         for (Object[] o : data) {
-            tvList.add(new ModelChartData(o[0].toString(), Integer.parseInt(o[1].toString())));
+            chartList.add(
+                new ModelChartOtherData(
+                    o[0].toString(), 
+                    Integer.parseInt(o[1].toString()), 
+                    Double.parseDouble(o[2].toString())
+                )
+            );
         }
         
-        for (int i = 0; i < tvList.size(); i++) {
-            ModelChartData tv = tvList.get(i);
-            chart.addData(new ModelCurveLineChart(tv.getLabel(), new double[] {tv.getTotal()}));
+        for (int i = 0; i < chartList.size(); i++) {
+            ModelChartOtherData tv = chartList.get(i);
+            chart.addData(new ModelCurveLineChart(tv.getLabel(), new double[] {tv.getCountTotal(), tv.getPriceTotal()}));
         }
         
-        if (tvList.size() == 1) {
+        if (chartList.size() == 1) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String formattedEndTime = endTime.format(formatter);
             chart.addData(new ModelCurveLineChart(formattedEndTime, new double[] {0}));
@@ -103,17 +169,12 @@ public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
         chart.start();
     }
     
-    private void setThietBiCbx() {
-        thietBiCbx.removeAllItems();
-        thietBiCbx.addItem(new ThietBi(-1, "Tất cả thiết bị", ""));
+    private void setXuLyViPhamCbx() {
+        xuLyViPhamCbx.removeAllItems();
+        xuLyViPhamCbx.addItem("Đã xử lý");
+        xuLyViPhamCbx.addItem("Đang xử lý");
         
-        List<ThietBi> tbList = tbBLL.getAll();
-        
-        for (ThietBi tb : tbList) {
-            thietBiCbx.addItem(tb);
-        }
-        
-        thietBiCbx.setSelectedIndex(0);
+        xuLyViPhamCbx.setSelectedIndex(0);
     }
 
     /**
@@ -128,37 +189,59 @@ public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         chDate = new com.example.project_2.components.swing.TextField();
+        xuLyViPhamCbx = new com.example.project_2.components.combobox.ComboBoxSuggestion();
         chart = new com.example.project_2.components.charts.CurveLineChart();
-        thietBiCbx = new com.example.project_2.components.combobox.ComboBoxSuggestion();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table1 = new com.example.project_2.components.table.Table();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setAutoscrolls(true);
+        setPreferredSize(new java.awt.Dimension(1065, 726));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(159, 159, 159));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Thiết bị được mượn");
+        jLabel1.setText("Thống kê xử lý vi phạm");
 
         jLabel2.setText("Lọc theo ngày:");
 
         chart.setFillColor(true);
 
+        table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã Xử Lý", "Tên Thành Viên", "Hình Thức Xử Lý", "Số Tiền Xử Lý", "Ngày Xử Lý"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(table1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(thietBiCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 505, Short.MAX_VALUE)
+                        .addComponent(xuLyViPhamCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,11 +252,13 @@ public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(thietBiCbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(xuLyViPhamCbx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -183,6 +268,8 @@ public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
     private com.example.project_2.components.charts.CurveLineChart chart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private com.example.project_2.components.combobox.ComboBoxSuggestion thietBiCbx;
+    private javax.swing.JScrollPane jScrollPane1;
+    private com.example.project_2.components.table.Table table1;
+    private com.example.project_2.components.combobox.ComboBoxSuggestion xuLyViPhamCbx;
     // End of variables declaration//GEN-END:variables
 }
