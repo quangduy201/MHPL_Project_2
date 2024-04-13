@@ -19,7 +19,7 @@ public class XuLy {
     @Column(name = "MaXL", nullable = false)
     private Integer MaXL;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "MaTV", nullable = false)
     private ThanhVien thanhVien;
 
