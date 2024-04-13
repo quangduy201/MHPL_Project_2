@@ -84,6 +84,9 @@
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.swing.TextField" name="chDate">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chDateActionPerformed"/>
+      </Events>
     </Component>
     <Component class="com.example.project_2.components.combobox.ComboBoxSuggestion" name="nganhCbx">
     </Component>

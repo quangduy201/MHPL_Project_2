@@ -225,6 +225,12 @@ public class ThongKeThanhVienGUI extends javax.swing.JPanel {
 
         jLabel2.setText("Lọc theo ngày:");
 
+        chDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chDateActionPerformed(evt);
+            }
+        });
+
         chart.setFillColor(true);
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
@@ -291,6 +297,10 @@ public class ThongKeThanhVienGUI extends javax.swing.JPanel {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void chDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chDateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
