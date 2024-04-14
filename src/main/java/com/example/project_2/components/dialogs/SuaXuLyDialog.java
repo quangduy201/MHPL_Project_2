@@ -5,6 +5,8 @@
 package com.example.project_2.components.dialogs;
 
 import com.example.project_2.DTO.XuLy;
+import com.example.project_2.components.date_chooser.DateChooser;
+import com.example.project_2.components.date_chooser.SelectedDate;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
 public class SuaXuLyDialog extends javax.swing.JDialog {
     private int DEFALUT_WIDTH;
     private DefaultTableModel model;
+    private DateChooser dateChooser = new DateChooser();
     
     public boolean isOk() {
         return ok;
@@ -65,14 +68,16 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         
         
+        dateChooser.setTextReference(chDate);
     }
     public void setDataForm(XuLy xuly){
         tfMaXuLy.setText(String.valueOf(xuly.getMaXL()));
         tfMaThanhVien.setText(String.valueOf(xuly.getThanhVien().getMaTV()));
         tfHinhThucXuLy.setText(xuly.getHinhThucXL());
         tfTienBoiThuong.setText(String.valueOf(xuly.getSoTien()));
-//        chDate.setText(xuly.getMaXL());
+        dateChooser.setSelectedDate(new SelectedDate(03, 01, 2003));
     }
+    
     public void showDialog() {
         animator.start();
         setVisible(true);
@@ -170,6 +175,11 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
             }
         });
 
+        chDate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                chDateMouseClicked(evt);
+            }
+        });
         chDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chDateActionPerformed(evt);
@@ -318,6 +328,10 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
     private void chDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chDateActionPerformed
 
     }//GEN-LAST:event_chDateActionPerformed
+
+    private void chDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chDateMouseClicked
+       dateChooser.showPopup();
+    }//GEN-LAST:event_chDateMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

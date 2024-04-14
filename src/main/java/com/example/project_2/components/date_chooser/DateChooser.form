@@ -115,6 +115,9 @@
                 </Property>
                 <Property name="paintBackground" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMonthActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lb">
               <Properties>
@@ -136,6 +139,9 @@
                 </Property>
                 <Property name="paintBackground" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdYearActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
           <LayoutCode>
@@ -214,6 +220,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdPreviousActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cmdPreviousKeyPressed"/>
           </Events>
         </Component>
       </SubComponents>
