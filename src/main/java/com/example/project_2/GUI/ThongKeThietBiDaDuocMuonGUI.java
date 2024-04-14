@@ -106,6 +106,7 @@ public class ThongKeThietBiDaDuocMuonGUI extends javax.swing.JPanel {
     }
     
     private void setDataForTable(LocalDateTime startTime, LocalDateTime endTime) {
+        chart.clear();
         List<Object[]> data = tbBLL.thongKeThietBiDaDuocMuonForTable(
                 startTime,
                 endTime,

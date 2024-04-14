@@ -27,120 +27,140 @@
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd2">
       <Properties>
         <Property name="text" type="java.lang.String" value="2010"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd1">
       <Properties>
         <Property name="text" type="java.lang.String" value="2011"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd3">
       <Properties>
         <Property name="text" type="java.lang.String" value="2012"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd6">
       <Properties>
         <Property name="text" type="java.lang.String" value="2013"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd5">
       <Properties>
         <Property name="text" type="java.lang.String" value="2014"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd4">
       <Properties>
         <Property name="text" type="java.lang.String" value="2015"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd7">
       <Properties>
         <Property name="text" type="java.lang.String" value="2016"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd9">
       <Properties>
         <Property name="text" type="java.lang.String" value="2017"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd8">
       <Properties>
         <Property name="text" type="java.lang.String" value="2018"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd11">
       <Properties>
         <Property name="text" type="java.lang.String" value="2019"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd10">
       <Properties>
         <Property name="text" type="java.lang.String" value="2020"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd12">
       <Properties>
         <Property name="text" type="java.lang.String" value="2021"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd21">
       <Properties>
         <Property name="text" type="java.lang.String" value="2022"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd22">
       <Properties>
         <Property name="text" type="java.lang.String" value="2023"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd23">
       <Properties>
         <Property name="text" type="java.lang.String" value="2024"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd24">
       <Properties>
         <Property name="text" type="java.lang.String" value="2025"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd25">
       <Properties>
         <Property name="text" type="java.lang.String" value="2026"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd26">
       <Properties>
         <Property name="text" type="java.lang.String" value="2027"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd27">
       <Properties>
         <Property name="text" type="java.lang.String" value="2028"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.date_chooser.DateChooserButton" name="cmd28">
       <Properties>
         <Property name="text" type="java.lang.String" value="2029"/>
+        <Property name="name" type="java.lang.String" value="year" noResource="true"/>
         <Property name="paintBackground" type="boolean" value="false"/>
       </Properties>
     </Component>
