@@ -92,6 +92,8 @@ public class ThongKeThanhVienGUI extends javax.swing.JPanel {
     }
     
     private void setData(LocalDateTime startTime, LocalDateTime endTime) {
+        chart.clear();
+        
         List<Object[]> data = tvBLL.thongKeSoLuongThanhVien(
                 startTime,
                 endTime,

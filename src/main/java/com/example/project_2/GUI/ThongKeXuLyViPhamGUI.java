@@ -42,6 +42,7 @@ public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
         initComponents();
         table1.fixTable(jScrollPane1);
         
+        chart.isReadOnly = true;
         chart.setTitle("Thống kê xử lý vi phạm");
         chart.addLegend("Đã xử lý vi phạm", Color.decode("#bbf7d0"), Color.decode("#4ade80"));
         chart.addLegend("Đang xử lý vi phạm", Color.decode("#f59e0b"), Color.decode("#fde68a"));
@@ -99,16 +100,25 @@ public class ThongKeXuLyViPhamGUI extends javax.swing.JPanel {
 
             setData(dateRange.startTime, dateRange.endTime);
             setDataForTable(dateRange.startTime, dateRange.endTime);
+          
         }
     }
     
     private List<Object[]> getData(LocalDateTime startTime, LocalDateTime endTime) {
         if (xuLyViPhamCbx.getSelectedItem().toString().equals("Đã xử lý")) {
+            chart.selectedLegend(0, (selectedIndex) -> {
+                // Thực hiện các hành động sau khi legend được chọn
+            });
+            
             return xlBLL.thongKeXuLyDaXuLy(
                 startTime,
                 endTime
             );
         }
+        
+        chart.selectedLegend(1, (selectedIndex) -> {
+            // Thực hiện các hành động sau khi legend được chọn
+        });
         
         return xlBLL.thongKeXuLyDangXuLy(
             startTime,
