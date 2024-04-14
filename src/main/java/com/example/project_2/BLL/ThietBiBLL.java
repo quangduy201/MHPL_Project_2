@@ -27,4 +27,13 @@ public class ThietBiBLL extends BaseBLL<ThietBi> {
     public List<Object[]> thongKeThietBiDaDuocMuonForTable(LocalDateTime startTime, LocalDateTime endTime, String maTB) {
         return thietBiDAL.thongKeThietBiDaDuocMuon(startTime, endTime, maTB, true);
     }
+      // Thống kê thiết bị đang mượn theo: thời gian, tên thiết bị
+    public List<Object[]> thongKeThietBiDangDuocMuon(LocalDateTime startTime,LocalDateTime endTime, String maTB) {
+        return thietBiDAL.thongKeThietBiDangMuon(startTime,endTime,maTB, false);
+    }
+    
+    // Thống kê thiết bị đang mượn theo: thời gian, tên thiết bị
+    public List<Object[]> thongKeThietBiDangDuocMuonForTable(LocalDateTime startTime,LocalDateTime endTime, String maTB) {
+        return thietBiDAL.thongKeThietBiDangMuon(startTime,endTime,maTB, true);
+    }
 }
