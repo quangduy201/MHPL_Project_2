@@ -34,7 +34,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="slider" max="32767" attributes="0"/>
+                  <Component id="slide" max="32767" attributes="0"/>
                   <Component id="header" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -46,7 +46,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="header" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="slider" pref="156" max="32767" attributes="0"/>
+              <Component id="slide" pref="156" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,7 +55,7 @@
     <Container class="javax.swing.JPanel" name="header">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="5d" green="5d" red="cc" type="rgb"/>
+          <Color blue="e9" green="a5" red="e" type="rgb"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[262, 40]"/>
@@ -218,7 +218,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="com.example.project_2.components.date_chooser.Slider" name="slider">
+    <Container class="com.example.project_2.components.date_chooser.Slider" name="slide">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
     </Container>
