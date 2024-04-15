@@ -12,14 +12,14 @@ public class SearchWithIcon extends javax.swing.JPanel {
     public SearchWithIcon(String placeholder) {
         initComponents();
         setOpaque(false);
-//        addPlaceholderStyle(textField1);
+        addPlaceholderStyle(textField1);
         this.placeholder = placeholder;
     }
     
     public SearchWithIcon() {
         initComponents();
         setOpaque(false);
-//        addPlaceholderStyle(textField1);
+        addPlaceholderStyle(textField1);
     }
     
     public String getPlaceholder() {
@@ -63,9 +63,8 @@ public class SearchWithIcon extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -83,7 +82,7 @@ public class SearchWithIcon extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.example.project_2.components.swing.Button button1;
-    private com.example.project_2.components.swing.TextField textField1;
+    public com.example.project_2.components.swing.Button button1;
+    public com.example.project_2.components.swing.TextField textField1;
     // End of variables declaration//GEN-END:variables
 }

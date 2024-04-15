@@ -97,6 +97,8 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
         
         List<ModelChartOtherData> chartList = new ArrayList<>();
         
+        double total = 0;
+        
         for (Object[] o : data) {
             chartList.add(
                 new ModelChartOtherData(
@@ -105,7 +107,11 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
                     Double.parseDouble(o[2].toString())
                 )
             );
+            
+            total += Double.parseDouble(o[2].toString());
         }
+        
+        txtTotal.setText(String.valueOf(total));
         
         for (int i = 0; i < chartList.size(); i++) {
             ModelChartOtherData tv = chartList.get(i);
@@ -136,6 +142,7 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
         chart = new com.example.project_2.components.charts.CurveLineChart();
         jScrollPane1 = new javax.swing.JScrollPane();
         table1 = new com.example.project_2.components.table.Table();
+        txtTotal = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setAutoscrolls(true);
@@ -168,6 +175,8 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(table1);
 
+        txtTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,7 +187,9 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -192,9 +203,10 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -209,5 +221,6 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private com.example.project_2.components.table.Table table1;
+    private javax.swing.JLabel txtTotal;
     // End of variables declaration//GEN-END:variables
 }

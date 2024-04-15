@@ -1,6 +1,12 @@
 package com.example.project_2.DAL;
 
 import com.example.project_2.utils.HibernateUtil;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Path;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -135,6 +141,75 @@ public abstract class BaseDAL<DTO> {
             return customQuery.getResultList();
         } catch (Exception e) {
             System.out.println("Error while executing custom query: " + e);
+            return List.of();
+        } finally {
+            closeSession();
+        }
+    }
+    
+    public int executeUpdate(String query, Map<String, Object> parameters) {
+        openSession();
+        Transaction transaction = null;
+        int rowCount = 0;
+        try {
+            transaction = session.beginTransaction();
+            Query<?> customQuery = session.createQuery(query);
+            if (parameters != null) {
+                for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+                    customQuery.setParameter(entry.getKey(), entry.getValue());
+                }
+            }
+            rowCount = customQuery.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            System.out.println("Error while executing update query: " + e);
+        } finally {
+            closeSession();
+        }
+        return rowCount;
+    }
+    
+    public List<DTO> search(Map<String, Object> searchCriteria) {
+        openSession();
+        try {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<DTO> criteriaQuery = criteriaBuilder.createQuery(type);
+            Root<DTO> root = criteriaQuery.from(type);
+
+            if (searchCriteria.isEmpty()) {
+                // Nếu searchCriteria rỗng, trả về tất cả các bản ghi
+                criteriaQuery.select(root);
+            } else {
+                List<Predicate> predicates = new ArrayList<>();
+                for (Map.Entry<String, Object> entry : searchCriteria.entrySet()) {
+                    String fieldName = entry.getKey();
+                    Object value = entry.getValue();
+                    if (value instanceof String) {
+                        // Nếu giá trị là chuỗi, sử dụng like
+                        predicates.add(criteriaBuilder.like(root.get(fieldName), "%" + value + "%"));
+                    } else if (value instanceof Number) {
+                        // Nếu giá trị là số, chuyển đổi thành chuỗi và sử dụng like
+                        String stringValue = value.toString();
+                        predicates.add(criteriaBuilder.like(root.get(fieldName), "%" + stringValue + "%"));
+                    } else {
+                        // Nếu giá trị không phải chuỗi hoặc số, sử dụng equal
+                        predicates.add(criteriaBuilder.equal(root.get(fieldName), value));
+                    }
+                }
+
+                // Kết hợp các điều kiện tìm kiếm bằng OR
+                Predicate finalPredicate = criteriaBuilder.or(predicates.toArray(new Predicate[0]));
+
+                criteriaQuery.select(root).where(finalPredicate);
+            }
+
+            Query<DTO> query = session.createQuery(criteriaQuery);
+            return query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Error while executing search query: " + e);
             return List.of();
         } finally {
             closeSession();
