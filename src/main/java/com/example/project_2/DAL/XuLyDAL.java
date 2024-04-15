@@ -43,4 +43,5 @@ public class XuLyDAL extends BaseDAL<XuLy>{
 
         return executeQuery(hqlQuery, Object[].class, parameters);
     }
+    
 }
