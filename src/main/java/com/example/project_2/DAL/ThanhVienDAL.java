@@ -7,7 +7,6 @@ package com.example.project_2.DAL;
 import com.example.project_2.DTO.ThanhVien;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,10 +22,9 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
 
     // Thống kê số lượng thành viên vào khu học tập theo: thời gian, khoa.
     public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime, String khoa, String nganh, boolean isTable) {
-        
-        String hqlQuery = "";
-        
         // language=HQL
+        String hqlQuery;
+
         if (isTable) {
             hqlQuery = "SELECT tt.thanhVien.MaTV, tt.thanhVien.HoTen, tt.thanhVien.Khoa, tt.thanhVien.Nganh, DATE_FORMAT(tt.TGVao, '%d-%m-%Y %H:%i:%s')" +
                         "FROM ThongTinSD tt " +
@@ -61,6 +59,7 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
     }
     
     public List<String> layDanhSachKhoa() {
+        // language=HQL
         String hqlQuery = "SELECT DISTINCT tv.Khoa " +
                 "FROM ThanhVien tv";
         
@@ -68,6 +67,7 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
     }
     
     public List<String> layDanhSachNganh() {
+        // language=HQL
         String hqlQuery = "SELECT DISTINCT tv.Nganh " +
                 "FROM ThanhVien tv";
         

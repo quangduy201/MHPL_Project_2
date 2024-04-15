@@ -5,9 +5,9 @@
 package com.example.project_2.DAL;
 
 import com.example.project_2.DTO.ThietBi;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +23,8 @@ public class ThietBiDAL extends BaseDAL<ThietBi> {
 
     //Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
     public List<Object[]> thongKeThietBiDaDuocMuon(LocalDateTime startTime, LocalDateTime endTime, String maTB, boolean isTable) {
-        String hqlQuery = "";
+        // language=HQL
+        String hqlQuery;
 
         if (isTable) {
             hqlQuery = "SELECT tt.thietBi.MaTB, tt.thietBi.TenTB, tt.thanhVien.MaTV, tt.thanhVien.HoTen, DATE_FORMAT(tt.TGMuon, '%d-%m-%Y %H:%i:%s'), DATE_FORMAT(tt.TGTra, '%d-%m-%Y %H:%i:%s') " +
@@ -57,6 +58,7 @@ public class ThietBiDAL extends BaseDAL<ThietBi> {
     //thống kê thiết bị đang mượn theo: thời gian,tên thiết bị
     public List<Object[]> thongKeThietBiDangMuon(LocalDateTime startTime, LocalDateTime endTime, String maTB, boolean isTable) {
         String hqlQuery = "";
+        // language=HQL
         if (isTable) {
             hqlQuery = "SELECT tt.thietBi.MaTB, tt.thietBi.TenTB, tt.thanhVien.MaTV, tt.thanhVien.HoTen, DATE_FORMAT(tt.TGMuon, '%d-%m-%Y %H:%i:%s') "
                     + "FROM ThongTinSD tt "

@@ -42,7 +42,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         EventAction<XuLy> eventAction = new EventAction<XuLy>() {
             @Override
             public void update(XuLy xuly) {
-//                SuaXuLyDialog dialog = new SuaXuLyDialog(Main.getFrames()[0], true,xuly);
+//                SuaXuLyDialog dialog = new SuaXuLyDialog(Main.getFrames()[0], true, xuly);
 //                dialog.showDialog();
                 
                 Message mess = new Message(Main.getFrames()[0], true);
