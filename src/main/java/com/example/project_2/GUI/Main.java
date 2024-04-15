@@ -52,7 +52,10 @@ public class Main extends javax.swing.JFrame {
                                 main.showForm(new ThongKeThietBiDangDuocMuonGUI());
                                 break;
                             case 3:
-                                main.showForm(new ThongKeXuLyViPhamGUI());
+                                main.showForm(new ThongKeDangXuLyViPhamGUI());
+                                break;
+                            case 4:
+                                main.showForm(new ThongKeDaXuLyViPhamGUI());
                                 break;
                         }
                         break;

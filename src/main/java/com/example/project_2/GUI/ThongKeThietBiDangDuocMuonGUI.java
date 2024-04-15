@@ -90,7 +90,7 @@ public class ThongKeThietBiDangDuocMuonGUI extends javax.swing.JPanel {
     };
 
     private void setData(LocalDateTime startTime, LocalDateTime endTime) {
-
+        chart.clear();
         List<Object[]> data = tbBLL.thongKeThietBiDangDuocMuon(
                 startTime,
                 endTime,
@@ -104,8 +104,6 @@ public class ThongKeThietBiDangDuocMuonGUI extends javax.swing.JPanel {
         for (Object[] o : data) {
             tvList.add(new ModelChartData(o[0].toString(), Integer.parseInt(o[1].toString())));
         }
-
-        System.out.println(tvList.size());
 
         for (int i = 0; i < tvList.size(); i++) {
             ModelChartData tv = tvList.get(i);

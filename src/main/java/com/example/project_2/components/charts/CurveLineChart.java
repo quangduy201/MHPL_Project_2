@@ -36,6 +36,7 @@ public class CurveLineChart extends JComponent {
     }
 
     private final List<ModelCurveLineLegend> legends = new ArrayList<>();
+    private final List<CurveLineLegendItem> legendItems = new ArrayList<>();
     private final List<ModelCurveLineChart> model = new ArrayList<>();
     private Animator animator;
     private Animator animatorChange;
@@ -49,6 +50,7 @@ public class CurveLineChart extends JComponent {
     private Color color1;
     private Color color2;
     private boolean fillColor = false;
+    public boolean isReadOnly = false;
     private TimingTarget timingColor1;
     private TimingTarget timingColor2;
     private int selectedIndex = -1;
@@ -264,6 +266,9 @@ public class CurveLineChart extends JComponent {
 
 
     public SplinePoint[] copyPoint(SplinePoint[] points) {
+        if (points == null) {
+            return null;
+        }
         SplinePoint[] newPoints = new SplinePoint[points.length];
         for (int i = 0; i < points.length; i++) {
             newPoints[i] = points[i].copy();
@@ -309,7 +314,7 @@ public class CurveLineChart extends JComponent {
         CurveLineLegendItem legend = new CurveLineLegendItem(data, legends.size() - 1);
         legend.setForeground(getForeground());
         legend.addActionListener((ActionEvent e) -> {
-            if (animate > 0) {
+            if (animate > 0 && !isReadOnly) {
                 startChange(legend.getIndex());
                 clearLegendSelected(legend);
             }
@@ -317,9 +322,28 @@ public class CurveLineChart extends JComponent {
         if (legends.size() - 1 == index) {
             legend.setSelected(true);
         }
+        
+        legendItems.add(legend);
         panelLegend.add(legend);
         panelLegend.repaint();
         panelLegend.revalidate();
+    }
+    
+    public interface LegendCallback {
+    void onLegendSelected(int index);
+}
+
+    public void selectedLegend(int index, LegendCallback callback) {
+        if (animate > 0 && legendItems.size() > 0) {
+            System.out.println(legendItems.get(index).getIndex());
+            startChange(legendItems.get(index).getIndex());
+            clearLegendSelected(legendItems.get(index));
+
+            // Gọi callback
+            if (callback != null) {
+                callback.onLegendSelected(index);
+            }
+        }
     }
 
     private void clearLegendSelected(CurveLineLegendItem item) {

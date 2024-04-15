@@ -5,6 +5,7 @@
 package com.example.project_2.components.dialogs;
 
 import com.example.project_2.DTO.XuLy;
+import com.example.project_2.components.date_chooser.DateChooser;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
 public class ThemXuLyDialog extends javax.swing.JDialog {
     private int DEFALUT_WIDTH;
     private DefaultTableModel model;
+    private DateChooser dateChooser = new DateChooser();
     
     public boolean isOk() {
         return ok;
@@ -61,6 +63,8 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
         animator.setAcceleration(0.5f);
         
         setLocationRelativeTo(null);
+        
+        dateChooser.setTextReference(chDate);
     }
     
     public void showDialog() {
@@ -153,6 +157,11 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
             }
         });
 
+        chDate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                chDateMouseClicked(evt);
+            }
+        });
         chDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chDateActionPerformed(evt);
@@ -301,6 +310,10 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
     private void chDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chDateActionPerformed
 
     }//GEN-LAST:event_chDateActionPerformed
+
+    private void chDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chDateMouseClicked
+        dateChooser.showPopup();
+    }//GEN-LAST:event_chDateMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.example.project_2.components.swing.Button btnHuy;

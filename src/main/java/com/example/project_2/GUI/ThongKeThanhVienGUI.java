@@ -58,15 +58,11 @@ public class ThongKeThanhVienGUI extends javax.swing.JPanel {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 LocalDate startDate = LocalDate.parse(dateFrom, formatter);
                 LocalDate endDate = LocalDate.parse(dateTo, formatter);
-                
 
                 LocalDateTime startTime = startDate.atStartOfDay();
                 LocalDateTime endTime = endDate.atTime(LocalTime.MAX);
                 
                 chart.clear();
-                
-                System.out.println(dateFrom);
-                System.out.println(dateTo);
                 
                 setData(startTime, endTime);
                 setDataForTable(startTime, endTime);
@@ -92,6 +88,8 @@ public class ThongKeThanhVienGUI extends javax.swing.JPanel {
     }
     
     private void setData(LocalDateTime startTime, LocalDateTime endTime) {
+        chart.clear();
+        
         List<Object[]> data = tvBLL.thongKeSoLuongThanhVien(
                 startTime,
                 endTime,

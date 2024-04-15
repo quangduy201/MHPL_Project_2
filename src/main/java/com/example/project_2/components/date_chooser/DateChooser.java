@@ -16,15 +16,15 @@ import javax.swing.SwingUtilities;
 
 public final class DateChooser extends javax.swing.JPanel {
 
-    public JTextField getTextRefernce() {
-        return textRefernce;
+    public JTextField getTextReference() {
+        return textReference;
     }
 
     public void addEventDateChooser(EventDateChooser event) {
         events.add(event);
     }
 
-    private JTextField textRefernce;
+    private JTextField textReference;
     private final String MONTH_ENGLISH[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private String dateFormat = "dd-MM-yyyy";
     private int MONTH = 1;
@@ -47,13 +47,13 @@ public final class DateChooser extends javax.swing.JPanel {
         toDay(false);
     }
 
-    public void setTextRefernce(JTextField txt) {
-        this.textRefernce = txt;
-        this.textRefernce.setEditable(false);
-        this.textRefernce.addMouseListener(new MouseAdapter() {
+    public void setTextReference(JTextField txt) {
+        this.textReference = txt;
+        this.textReference.setEditable(false);
+        this.textReference.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                if (textRefernce.isEnabled()) {
+                if (textReference.isEnabled()) {
                     showPopup();
                 }
             }
@@ -62,11 +62,11 @@ public final class DateChooser extends javax.swing.JPanel {
     }
 
     private void setText(boolean runEvent, int act) {
-        if (textRefernce != null) {
+        if (textReference != null) {
             try {
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                 Date date = df.parse(DAY + "-" + MONTH + "-" + YEAR);
-                textRefernce.setText(new SimpleDateFormat(dateFormat).format(date));
+                textReference.setText(new SimpleDateFormat(dateFormat).format(date));
             } catch (ParseException e) {
                 System.err.println(e);
             }
@@ -206,7 +206,7 @@ public final class DateChooser extends javax.swing.JPanel {
     }
 
     public void showPopup() {
-        popup.show(textRefernce, 0, textRefernce.getHeight());
+        popup.show(textReference, 0, textReference.getHeight());
     }
 
     public void hidePopup() {
@@ -256,6 +256,11 @@ public final class DateChooser extends javax.swing.JPanel {
         cmdMonth.setText("January");
         cmdMonth.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cmdMonth.setPaintBackground(false);
+        cmdMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMonthActionPerformed(evt);
+            }
+        });
         MY.add(cmdMonth);
 
         lb.setForeground(new java.awt.Color(255, 255, 255));
@@ -267,6 +272,11 @@ public final class DateChooser extends javax.swing.JPanel {
         cmdYear.setText("2018");
         cmdYear.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cmdYear.setPaintBackground(false);
+        cmdYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdYearActionPerformed(evt);
+            }
+        });
         MY.add(cmdYear);
 
         cmdPrevious.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/previous.png"))); // NOI18N
@@ -274,6 +284,11 @@ public final class DateChooser extends javax.swing.JPanel {
         cmdPrevious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmdPreviousActionPerformed(evt);
+            }
+        });
+        cmdPrevious.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmdPreviousKeyPressed(evt);
             }
         });
 
@@ -321,12 +336,107 @@ public final class DateChooser extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdForwardActionPerformed
-        // TODO add your handling code here:
+        if (STATUS == 1) {   //  Date
+            if (MONTH == 12) {
+                MONTH = 1;
+                YEAR++;
+            } else {
+                MONTH++;
+            }
+            setDateNext();
+        } else if (STATUS == 3) {    //  Year
+            setYearNext();
+        } else {
+            YEAR++;
+            Months months = new Months();
+            months.setEvent(getEventMonth());
+            slide.slideToLeft(months);
+            cmdYear.setText(YEAR + "");
+        }
     }//GEN-LAST:event_cmdForwardActionPerformed
 
     private void cmdPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdPreviousActionPerformed
-        // TODO add your handling code here:
+        if (STATUS == 1) {   //  Date
+            if (MONTH == 1) {
+                MONTH = 12;
+                YEAR--;
+            } else {
+                MONTH--;
+            }
+            setDateBack();
+        } else if (STATUS == 3) {    //  Year
+            setYearBack();
+        } else {
+            if (YEAR >= 1000) {
+                YEAR--;
+                Months months = new Months();
+                months.setEvent(getEventMonth());
+                slide.slideToLeft(months);
+                cmdYear.setText(YEAR + "");
+            }
+        }
     }//GEN-LAST:event_cmdPreviousActionPerformed
+
+    private void cmdMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMonthActionPerformed
+        if (STATUS != 2) {
+            STATUS = 2;
+            Months months = new Months();
+            months.setEvent(getEventMonth());
+            slide.slideToDown(months);
+        } else {
+            Dates dates = new Dates();
+            dates.setForeground(getForeground());
+            dates.setEvent(getEventDay(dates));
+            dates.showDate(MONTH, YEAR, selectedDate);
+            slide.slideToDown(dates);
+            STATUS = 1;
+        }
+    }//GEN-LAST:event_cmdMonthActionPerformed
+
+    private void cmdYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdYearActionPerformed
+        if (STATUS != 3) {
+            STATUS = 3;
+            Years years = new Years();
+            years.setEvent(getEventYear());
+            startYear = years.showYear(YEAR);
+            slide.slideToDown(years);
+        } else {
+            Dates dates = new Dates();
+            dates.setForeground(getForeground());
+            dates.setEvent(getEventDay(dates));
+            dates.showDate(MONTH, YEAR, selectedDate);
+            slide.slideToDown(dates);
+            STATUS = 1;
+        }
+    }//GEN-LAST:event_cmdYearActionPerformed
+
+    private void cmdPreviousKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmdPreviousKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            Component com = slide.getComponent(0);
+            if (com instanceof Dates) {
+                Dates d = (Dates) com;
+                d.up();
+            }
+        } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            Component com = slide.getComponent(0);
+            if (com instanceof Dates) {
+                Dates d = (Dates) com;
+                d.down();
+            }
+        } else if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            Component com = slide.getComponent(0);
+            if (com instanceof Dates) {
+                Dates d = (Dates) com;
+                d.back();
+            }
+        } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            Component com = slide.getComponent(0);
+            if (com instanceof Dates) {
+                Dates d = (Dates) com;
+                d.next();
+            }
+        }
+    }//GEN-LAST:event_cmdPreviousKeyPressed
 
     public String getDateFormat() {
         return dateFormat;
