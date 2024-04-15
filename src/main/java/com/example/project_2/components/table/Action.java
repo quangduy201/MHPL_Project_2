@@ -9,18 +9,18 @@ public class Action extends javax.swing.JPanel {
 
     public Action(ModelAction data) {
         initComponents();
-//        cmdEdit.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                data.getEvent().update(data.getObject());
-//            }
-//        });
-//        cmdDelete.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                data.getEvent().delete(data.getObject());
-//            }
-//        });
+        cmdEdit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                data.getEvent().update(data.getObject());
+            }
+        });
+        cmdDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                data.getEvent().delete(data.getObject());
+            }
+        });
     }
 
     @Override
