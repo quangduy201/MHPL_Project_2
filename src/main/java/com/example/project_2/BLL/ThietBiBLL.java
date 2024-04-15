@@ -36,4 +36,8 @@ public class ThietBiBLL extends BaseBLL<ThietBi> {
     public List<Object[]> thongKeThietBiDangDuocMuonForTable(LocalDateTime startTime,LocalDateTime endTime, String maTB) {
         return thietBiDAL.thongKeThietBiDangMuon(startTime,endTime,maTB, true);
     }
+    
+    public boolean deleteAllById(String maTb) {
+        return thietBiDAL.deleteAllById(maTb);
+    }
 }

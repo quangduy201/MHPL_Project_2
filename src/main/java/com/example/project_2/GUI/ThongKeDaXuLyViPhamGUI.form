@@ -28,15 +28,15 @@
           <Group type="102" attributes="0">
               <EmptySpace pref="23" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="chDate" min="-2" pref="222" max="-2" attributes="0"/>
-                      <EmptySpace pref="505" max="32767" attributes="0"/>
-                      <Component id="xuLyViPhamCbx" min="-2" pref="210" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="txtTotal" min="-2" pref="324" max="-2" attributes="0"/>
                   </Group>
                   <Component id="chart" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="1021" max="32767" attributes="0"/>
                   <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="21" max="32767" attributes="0"/>
@@ -50,14 +50,12 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="chDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="xuLyViPhamCbx" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="chDate" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="txtTotal" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-              <Component id="chart" min="-2" pref="313" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="chart" min="-2" pref="320" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="231" max="-2" attributes="0"/>
               <EmptySpace pref="18" max="32767" attributes="0"/>
@@ -75,7 +73,7 @@
           <Color blue="9f" green="9f" red="9f" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea; x&#x1eed; l&#xfd; vi ph&#x1ea1;m"/>
+        <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea; &#x111;&#xe3; x&#x1eed; l&#xfd; vi ph&#x1ea1;m"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -84,8 +82,6 @@
       </Properties>
     </Component>
     <Component class="com.example.project_2.components.swing.TextField" name="chDate">
-    </Component>
-    <Component class="com.example.project_2.components.combobox.ComboBoxSuggestion" name="xuLyViPhamCbx">
     </Component>
     <Component class="com.example.project_2.components.charts.CurveLineChart" name="chart">
       <Properties>
@@ -146,5 +142,10 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="txtTotal">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
