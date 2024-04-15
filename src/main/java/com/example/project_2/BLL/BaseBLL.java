@@ -3,6 +3,7 @@ package com.example.project_2.BLL;
 import com.example.project_2.DAL.BaseDAL;
 
 import java.util.List;
+import java.util.Map;
 
 public class BaseBLL<DTO> {
     private final BaseDAL<DTO> dal;
@@ -41,5 +42,9 @@ public class BaseBLL<DTO> {
 
     public DTO getById(int id) {
         return dal.getById(id);
+    }
+    
+    public List<DTO> search(Map<String, Object> searchCriteria) {
+        return dal.search(searchCriteria);
     }
 }

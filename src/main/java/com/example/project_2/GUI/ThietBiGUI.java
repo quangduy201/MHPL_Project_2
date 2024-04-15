@@ -6,10 +6,13 @@ import com.example.project_2.DTO.ThietBi;
 import com.example.project_2.components.dialogs.Message;
 import com.example.project_2.components.dialogs.SuaThietBiDialog;
 import com.example.project_2.components.dialogs.ThemThietBiDialog;
+import com.example.project_2.components.dialogs.XoaNhieuThietBiDialog;
 import com.example.project_2.components.table.EventAction;
 import com.example.project_2.components.table.ModelAction;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -21,7 +24,6 @@ public class ThietBiGUI extends javax.swing.JPanel {
      * Creates new form ThietBiGUI
      */
     private List<ThietBi> thietbi = new ArrayList<>();
-    private ThietBiDAL thietbiDAL = new ThietBiDAL();
     private ThietBiBLL thietBiBLL = new ThietBiBLL();
     
     public ThietBiGUI() {
@@ -30,6 +32,28 @@ public class ThietBiGUI extends javax.swing.JPanel {
         tableThietBi.fixTable(jScrollPane1);
         setOpaque(false);
         loadThietBi();
+        
+        addEventForSearchIcon();
+        addEventForSearchTextField();
+    }
+    
+    private void addEventForSearchTextField() {
+        search.textField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+                    loadThietBi();
+                }
+            }
+        });
+    }
+    private void addEventForSearchIcon() {
+        search.button1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loadThietBi();
+            }
+        });
     }
     
     
@@ -44,8 +68,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         btnXoaDieuKien = new com.example.project_2.components.swing.Button();
         btnNhapExcel = new com.example.project_2.components.swing.Button();
         btnThem = new com.example.project_2.components.swing.Button();
-        search = new com.example.project_2.components.swing.TextField();
-        btnSearch = new com.example.project_2.components.swing.Button();
+        search = new com.example.project_2.components.swing.SearchWithIcon();
 
         setPreferredSize(new java.awt.Dimension(1064, 726));
 
@@ -78,6 +101,11 @@ public class ThietBiGUI extends javax.swing.JPanel {
         jLabel2.setText("Quản lý thiết bị");
 
         btnXoaDieuKien.setText("Xóa thiết bị theo điều kiện");
+        btnXoaDieuKien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaDieuKienMouseClicked(evt);
+            }
+        });
         btnXoaDieuKien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoaDieuKienActionPerformed(evt);
@@ -86,8 +114,6 @@ public class ThietBiGUI extends javax.swing.JPanel {
 
         btnNhapExcel.setText("Nhập Excel");
 
-        btnThem.setBackground(new java.awt.Color(51, 102, 255));
-        btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setText("Thêm thiết bị");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,48 +121,38 @@ public class ThietBiGUI extends javax.swing.JPanel {
             }
         });
 
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnXoaDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                        .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(337, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(317, 317, 317)))
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(98, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnXoaDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXoaDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(32, 32, 32)
@@ -171,26 +187,41 @@ public class ThietBiGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tableThietBiMouseClicked
 
+    private void btnXoaDieuKienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaDieuKienMouseClicked
+        XoaNhieuThietBiDialog dialog = new XoaNhieuThietBiDialog(Main.getFrames()[0], true);
+        dialog.showDialog();
+        if (dialog.isOk()) {
+            loadThietBi();
+        }
+    }//GEN-LAST:event_btnXoaDieuKienMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.example.project_2.components.swing.Button btnNhapExcel;
-    private com.example.project_2.components.swing.Button btnSearch;
     private com.example.project_2.components.swing.Button btnThem;
     private com.example.project_2.components.swing.Button btnXoaDieuKien;
     private com.example.project_2.components.combobox.ComboSuggestionUI comboSuggestionUI1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.example.project_2.components.swing.TextField search;
+    private com.example.project_2.components.swing.SearchWithIcon search;
     private com.example.project_2.components.table.Table tableThietBi;
     // End of variables declaration//GEN-END:variables
 
     private void loadThietBi() {
         tableThietBi.removeAllRow();
-        thietbi = thietbiDAL.getAll();
-
-        String searchText = search.getText().trim();
         
-        if (searchText.equalsIgnoreCase(searchText)) searchText = ""; 
+        String searchText = search.textField1.getText().trim();
+        
+        if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = "";
+        
+        Map<String, Object> searchCriteria = new HashMap<>();
+        
+        if (!searchText.isEmpty()) {
+            searchCriteria.put("TenTB", searchText);
+        }
+
+        thietbi = thietBiBLL.search(searchCriteria);
+        
         EventAction<ThietBi> eventAction = new EventAction<ThietBi>() {
             @Override
             public void update(ThietBi thietbi) {

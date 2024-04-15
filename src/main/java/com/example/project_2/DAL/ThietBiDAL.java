@@ -83,4 +83,16 @@ public class ThietBiDAL extends BaseDAL<ThietBi> {
         return executeQuery(hqlQuery, Object[].class, parameters);
     }
     
+    public boolean deleteAllById(String id) {
+        char firstDigit = id.charAt(0);
+
+        String hqlQuery = "DELETE FROM ThietBi WHERE SUBSTRING(id, 1, 1) = :firstDigit";
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("firstDigit", Character.toString(firstDigit));
+
+        int rowsAffected = executeUpdate(hqlQuery, parameters);
+
+        return rowsAffected > 0;
+    }
 }
