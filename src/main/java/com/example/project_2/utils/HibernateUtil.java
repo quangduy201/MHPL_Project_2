@@ -1,5 +1,7 @@
 package com.example.project_2.utils;
 
+import com.example.project_2.Project_2;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -21,8 +23,11 @@ public class HibernateUtil {
                 Database.initializeDatabase();
             }
             buildSessionFactory();
+        } catch (HibernateException e) {
+            System.out.println("Failed to connect: " + e.getMessage());
+            Project_2.shutdown();
         } catch (Exception e) {
-            System.out.println("Failed to connect.");
+            System.out.println("Failed to connect: " + e.getMessage());
             initialize();
         }
     }

@@ -75,6 +75,65 @@ public class Table extends JTable {
             }
         });
     }
+
+    public Table(DefaultTableModel model) {
+        setShowHorizontalLines(true);
+        setGridColor(new Color(230, 230, 230));
+        setRowHeight(40);
+        getTableHeader().setReorderingAllowed(false);
+        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                TableHeader header = new TableHeader(o + "");
+                header.setHorizontalAlignment(JLabel.CENTER);
+                return header;
+            }
+        });
+        setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean focus, int i, int i1) {
+                if (o instanceof ModelAction) {
+                    ModelAction data = (ModelAction) o;
+                    if (!isOtherAction) {
+                        Action cell = new Action(data);
+                        
+                        if (selected) {
+                            cell.setBackground(new Color(239, 244, 255));
+                        } else {
+                            cell.setBackground(Color.WHITE);
+                        }
+                        return cell;
+                    } else {
+                        OtherAction cell = new OtherAction(data, isOnlyUpdate);
+                        
+                        if (selected) {
+                            cell.setBackground(new Color(239, 244, 255));
+                        } else {
+                            cell.setBackground(Color.WHITE);
+                        }
+                        
+                        return cell;
+                    }
+                } else {
+                    Component com = super.getTableCellRendererComponent(jtable, o, selected, focus, i, i1);
+                    setBorder(noFocusBorder);
+                    com.setForeground(new Color(102, 102, 102));
+                    if (selected) {
+                        com.setBackground(new Color(239, 244, 255));
+                    } else {
+                        com.setBackground(Color.WHITE);
+                    }
+                    
+                    // Căn giữa cell
+                    ((JLabel) com).setHorizontalAlignment(SwingConstants.CENTER);
+                    ((JLabel) com).setVerticalAlignment(SwingConstants.CENTER);
+        
+                    return com;
+                }
+            }
+        });
+		this.setModel(model);
+    }
     
     public boolean getIsOnlyUpdate() {
         return isOnlyUpdate;

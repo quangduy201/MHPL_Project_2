@@ -37,7 +37,7 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
     private boolean show = true;
     
 //    private 
-    public SuaXuLyDialog(java.awt.Frame parent, boolean modal,XuLy xuly) {
+    public SuaXuLyDialog(java.awt.Frame parent, boolean modal, XuLy xuly) {
         super(parent, modal);
         initComponents();
             

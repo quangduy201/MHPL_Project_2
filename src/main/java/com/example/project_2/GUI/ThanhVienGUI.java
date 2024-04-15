@@ -4,18 +4,88 @@
  */
 package com.example.project_2.GUI;
 
+import com.example.project_2.BLL.ThanhVienBLL;
+import com.example.project_2.DTO.ThanhVien;
+import com.example.project_2.components.dialogs.ExcelDialog;
+import com.example.project_2.components.dialogs.Message;
+import com.example.project_2.components.dialogs.SuaThongTinTVDialog;
+import com.example.project_2.components.table.EventAction;
+import com.example.project_2.components.table.ModelAction;
+import com.example.project_2.utils.Excel;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.swing.*;
+import java.util.List;
+
 /**
  *
  * @author Hung
  */
 public class ThanhVienGUI extends javax.swing.JPanel {
+	private final ThanhVienBLL thanhVienBLL = new ThanhVienBLL();
+	private final EventAction<ThanhVien> eventAction = new EventAction<>() {
+        @Override
+        public void delete(ThanhVien thanhVien) {
+            Message modal = new Message(Main.getFrames()[0], true);
+            modal.showMessage("Bạn có chắc chắn muốn xóa thành viên " + thanhVien.getMaTV() + "?");
+
+//            if (modal.isOk()) {
+//                thanhVienBLL.delete(thanhVien);
+//            } else {
+//                System.out.println("Đã hủy xóa thành viên");
+//            }
+        }
+
+        @Override
+        public void update(ThanhVien thanhVien) {
+            SuaThongTinTVDialog modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, thanhVien.getMaTV());
+            modal.showDialog();
+
+//            while (modal.isDeleted) {
+//                modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, thanhVien.getMaTV());
+//                modal.showDialog();
+//            }
+
+            loadData();
+            if (modal.isOk()) {
+                txtSearch.setText("");
+            }
+        }
+	};
 
     /**
      * Creates new form ThanhVienGUI
      */
     public ThanhVienGUI() {
         initComponents();
+		loadData();
         setOpaque(false);
+    }
+
+	public void loadData() {
+		List<ThanhVien> thanhVienList = thanhVienBLL.getAll();
+		setTableThanhVien(thanhVienList);
+	}
+
+	public void setTableThanhVien(List<ThanhVien> thanhVienList) {
+		table.removeAllRow();
+
+		for (var thanhVien : thanhVienList) {
+			table.addRow(new Object[]{
+				thanhVien.getMaTV(),
+				thanhVien.getHoTen(),
+				thanhVien.getKhoa(),
+				thanhVien.getNganh(),
+				thanhVien.getSDT(),
+				new ModelAction<>(thanhVien, eventAction)
+			});
+		}
+	}
+
+    private boolean showMessage(String message) {
+        Message obj = new Message(Main.getFrames()[0], true);
+        obj.showMessage(message);
+        return obj.isOk();
     }
 
     /**
@@ -30,6 +100,8 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         cbxSearch = new com.example.project_2.components.combobox.ComboBoxSuggestion();
         jPanel1 = new javax.swing.JPanel();
+        btnImport = new com.example.project_2.components.swing.Button();
+        btnAdd = new com.example.project_2.components.swing.Button();
         btnSearch = new com.example.project_2.components.swing.Button();
         txtSearch = new com.example.project_2.components.swing.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -42,15 +114,38 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
 
+        btnImport.setText("Nhập");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
+            }
+        });
+
+        btnAdd.setText("Thêm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 49, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 8, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
@@ -69,6 +164,11 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(table);
@@ -129,8 +229,59 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         cbxSearch.addItem("Số điện thoại");
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        if (evt.getClickCount() == 2) {
+            int selectedRow = table.getSelectedRow();
+
+            if (selectedRow != -1) {
+                int maTV = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+
+                SuaThongTinTVDialog modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, maTV);
+                modal.showDialog();
+
+//                loadData();
+//                if (modal.isOk()) {
+//                    txtSearch.setText("");
+//                }
+            } else {
+                showMessage("Vui lòng chọn thành viên trong bảng.");
+            }
+        }
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+		ExcelDialog dialog = new ExcelDialog(Main.getFrames()[0], true, List.of(
+                List.of("Mã TV", Excel.Type.NUMERIC),
+			    List.of("Họ tên", Excel.Type.STRING),
+			    List.of("Khoa", Excel.Type.STRING),
+			    List.of("Ngành", Excel.Type.STRING),
+			    List.of("SĐT", Excel.Type.STRING),
+			    List.of("Email", Excel.Type.STRING)
+		), row -> {
+            int maTV = Integer.parseInt(row.get(0));
+            String hoTen = StringUtils.capitalize(row.get(1));
+            String khoa = row.get(2).toUpperCase();
+            String nganh = row.get(3).toUpperCase();
+            String sdt = row.get(4);
+            String email = row.get(5);
+            ThanhVien thanhVien = new ThanhVien(maTV, hoTen, email, "", khoa, nganh, sdt);
+            return thanhVienBLL.add(thanhVien);
+        });
+		dialog.setVisible(true);
+        if (!dialog.isCancel()) {
+            String title = "Thông báo";
+            JOptionPane.showMessageDialog(this, "Nhập dữ liệu thành công.", title, JOptionPane.INFORMATION_MESSAGE);
+            loadData();
+        }
+    }//GEN-LAST:event_btnImportActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.example.project_2.components.swing.Button btnAdd;
+    private com.example.project_2.components.swing.Button btnImport;
     private com.example.project_2.components.swing.Button btnSearch;
     private com.example.project_2.components.combobox.ComboBoxSuggestion cbxSearch;
     private javax.swing.JLabel jLabel1;

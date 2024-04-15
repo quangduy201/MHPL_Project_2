@@ -5,19 +5,85 @@
 package com.example.project_2.components.dialogs;
 
 import com.example.project_2.GUI.*;
+import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
+import org.jdesktop.animation.timing.TimingTargetAdapter;
+
+import java.awt.*;
 
 /**
  *
  * @author Hung
  */
-public class SuaThongTinTVDialog extends javax.swing.JPanel {
+public class SuaThongTinTVDialog extends javax.swing.JDialog {
+    private final int maTV;
+
+    public boolean isOk() {
+        return ok;
+    }
+
+    public void setOk(boolean ok) {
+        this.ok = ok;
+    }
+
+    private boolean ok;
+    private final Animator animator;
+    private boolean show = true;
 
     /**
      * Creates new form ThanhVienGUI
      */
-    public SuaThongTinTVDialog() {
+    public SuaThongTinTVDialog(Frame parent, boolean modal, int maTV) {
+        super(parent, modal);
         initComponents();
-        setOpaque(false);
+
+        this.maTV = maTV;
+
+        setOpacity(0f);
+        getContentPane().setBackground(Color.WHITE);
+        TimingTarget target = new TimingTargetAdapter() {
+            @Override
+            public void timingEvent(float fraction) {
+                if (show) {
+                    setOpacity(fraction);
+                } else {
+                    setOpacity(1f - fraction);
+                }
+            }
+
+            @Override
+            public void end() {
+                if (show == false) {
+                    setVisible(false);
+                }
+            }
+
+        };
+        animator = new Animator(200, target);
+        animator.setResolution(0);
+        animator.setAcceleration(0.5f);
+
+        setLocationRelativeTo(null);
+    }
+
+    public void showDialog() {
+        animator.start();
+        setVisible(true);
+    }
+
+    private void closeMenu() {
+        if (animator.isRunning()) {
+            animator.stop();
+        }
+        show = false;
+        animator.start();
+    }
+
+    public void closeMenuWithoutAnimation() {
+        if (animator.isRunning()) {
+            animator.stop();
+        }
+        dispose();
     }
 
     /**
@@ -42,6 +108,8 @@ public class SuaThongTinTVDialog extends javax.swing.JPanel {
         txtSdt = new com.example.project_2.components.swing.SearchText();
         btnCancel = new com.example.project_2.components.swing.Button();
         btnEdit = new com.example.project_2.components.swing.Button();
+
+        setUndecorated(true);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(159, 159, 159));
@@ -85,8 +153,8 @@ public class SuaThongTinTVDialog extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -156,6 +224,7 @@ public class SuaThongTinTVDialog extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        ok = true;
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditActionPerformed
 
