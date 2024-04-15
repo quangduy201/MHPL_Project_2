@@ -32,6 +32,8 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="chDate" min="-2" pref="222" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="txtTotal" min="-2" pref="324" max="-2" attributes="0"/>
                   </Group>
                   <Component id="chart" alignment="0" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" alignment="0" pref="1021" max="32767" attributes="0"/>
@@ -50,9 +52,10 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="chDate" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="txtTotal" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-              <Component id="chart" min="-2" pref="313" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="chart" min="-2" pref="320" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="231" max="-2" attributes="0"/>
               <EmptySpace pref="18" max="32767" attributes="0"/>
@@ -139,5 +142,10 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="txtTotal">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
