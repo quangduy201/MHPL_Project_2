@@ -7,6 +7,7 @@ package com.example.project_2.GUI;
 import com.example.project_2.DAL.ThanhVienDAL;
 import com.example.project_2.DAL.XuLyDAL;
 import com.example.project_2.DTO.XuLy;
+import com.example.project_2.components.dialogs.Message;
 import com.example.project_2.components.dialogs.SuaXuLyDialog;
 import com.example.project_2.components.dialogs.ThemXuLyDialog;
 import com.example.project_2.components.table.EventAction;
@@ -25,6 +26,10 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
     public XuLyViPhamGUI() {
         initComponents();
         setOpaque(false);
+        
+        tableXuLyViPham.setActionColumn(7);
+        tableXuLyViPham.fixTable(jScrollPane1);
+        
         loadXuLy();
     }
 
@@ -37,8 +42,12 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         EventAction<XuLy> eventAction = new EventAction<XuLy>() {
             @Override
             public void update(XuLy xuly) {
-                SuaXuLyDialog dialog = new SuaXuLyDialog(Main.getFrames()[0], true,xuly);
-                dialog.showDialog();
+//                SuaXuLyDialog dialog = new SuaXuLyDialog(Main.getFrames()[0], true,xuly);
+//                dialog.showDialog();
+                
+                Message mess = new Message(Main.getFrames()[0], true);
+                System.out.println("ádawdwadwadwadwadwadwadwadwad");
+                mess.showMessage("ấdawdasdawdwadawdwadwadawdwadawdawdwadwadwadwadawdwad");
             }
             @Override
             public void delete(XuLy xuly) {
@@ -68,9 +77,9 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableXuLyViPham = new com.example.project_2.components.table.Table();
         jPanel1 = new javax.swing.JPanel();
-        btnThemXuLy = new com.example.project_2.components.swing.Button();
         btnSearch = new com.example.project_2.components.swing.Button();
         search = new com.example.project_2.components.swing.TextField();
+        btnThemViPham = new com.example.project_2.components.swing.Button();
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(159, 159, 159));
@@ -86,7 +95,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -97,20 +106,14 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(244, 244, 244));
 
-        btnThemXuLy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnThemXuLy.setText("Thêm mới vi phạm");
-        btnThemXuLy.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnThemXuLyMouseClicked(evt);
-            }
-        });
-        btnThemXuLy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemXuLyActionPerformed(evt);
-            }
-        });
-
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
+
+        btnThemViPham.setText("Thêm mới vi phạm");
+        btnThemViPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemViPhamActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,17 +124,19 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnThemXuLy, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnThemViPham, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThemXuLy, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnThemViPham, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(11, 11, 11))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -158,23 +163,19 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemXuLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemXuLyActionPerformed
-        
-    }//GEN-LAST:event_btnThemXuLyActionPerformed
-
-    private void btnThemXuLyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemXuLyMouseClicked
+    private void btnThemViPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemViPhamActionPerformed
         ThemXuLyDialog dialog = new ThemXuLyDialog(Main.getFrames()[0], true);
-        dialog.showDialog();
-    }//GEN-LAST:event_btnThemXuLyMouseClicked
+        dialog.showDialog();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemViPhamActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.example.project_2.components.swing.Button btnSearch;
-    private javax.swing.JButton btnThemXuLy;
+    private com.example.project_2.components.swing.Button btnThemViPham;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

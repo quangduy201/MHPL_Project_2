@@ -82,5 +82,5 @@ public class ThietBiDAL extends BaseDAL<ThietBi> {
 
         return executeQuery(hqlQuery, Object[].class, parameters);
     }
-
+    
 }
