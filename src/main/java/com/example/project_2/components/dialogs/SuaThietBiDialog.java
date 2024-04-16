@@ -5,7 +5,6 @@
 package com.example.project_2.components.dialogs;
 
 import java.awt.Color;
-import javax.swing.table.DefaultTableModel;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -18,9 +17,6 @@ import com.example.project_2.GUI.Main;
  * @author Admin
  */
 public class SuaThietBiDialog extends javax.swing.JDialog {
-    private int DEFALUT_WIDTH;
-    private DefaultTableModel model;
-    
     private ThietBiBLL thietbiBLL = new ThietBiBLL();
 
     public boolean isOk() {

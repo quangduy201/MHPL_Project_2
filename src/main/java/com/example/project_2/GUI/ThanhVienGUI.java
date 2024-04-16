@@ -12,10 +12,12 @@ import com.example.project_2.components.dialogs.SuaThongTinTVDialog;
 import com.example.project_2.components.table.EventAction;
 import com.example.project_2.components.table.ModelAction;
 import com.example.project_2.utils.Excel;
+import java.util.HashMap;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -52,13 +54,51 @@ public class ThanhVienGUI extends javax.swing.JPanel {
      */
     public ThanhVienGUI() {
         initComponents();
-		loadData();
+		
         setOpaque(false);
+        
+        table.setActionColumn(5);
+        table.fixTable(jScrollPane1);
+        
+        addEventForSearchIcon();
+        addEventForSearchTextField();
+        
+        loadData();
+    }
+    
+    private void addEventForSearchTextField() {
+        search.textField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+                    loadData();
+                }
+            }
+        });
+    }
+    private void addEventForSearchIcon() {
+        search.button1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loadData();
+            }
+        });
     }
 
 	public void loadData() {
-		List<ThanhVien> thanhVienList = thanhVienBLL.getAll();
-		setTableThanhVien(thanhVienList);
+            String searchText = search.textField1.getText().trim();
+        
+            if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = "";
+
+            Map<String, Object> searchCriteria = new HashMap<>();
+
+            if (!searchText.isEmpty()) {
+                searchCriteria.put("HoTen", searchText);
+            }
+            
+            List<ThanhVien> thanhVienList = thanhVienBLL.search(searchCriteria);
+            
+            setTableThanhVien(thanhVienList);
 	}
 
 	public void setTableThanhVien(List<ThanhVien> thanhVienList) {
@@ -93,20 +133,39 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         cbxSearch = new com.example.project_2.components.combobox.ComboBoxSuggestion();
-        jPanel1 = new javax.swing.JPanel();
-        btnImport = new com.example.project_2.components.swing.Button();
-        btnAdd = new com.example.project_2.components.swing.Button();
-        btnSearch = new com.example.project_2.components.swing.Button();
-        txtSearch = new com.example.project_2.components.swing.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new com.example.project_2.components.table.Table();
+        btnImport = new com.example.project_2.components.swing.Button();
+        btnAdd = new com.example.project_2.components.swing.Button();
+        search = new com.example.project_2.components.swing.SearchWithIcon();
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(159, 159, 159));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Quản lý thành viên");
 
-        jPanel1.setBackground(new java.awt.Color(245, 245, 245));
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã Thành Viên", "Họ tên", "Khoa", "Ngành", "Số điện thoại", "Tùy chọn"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
 
         btnImport.setText("Nhập");
         btnImport.addActionListener(new java.awt.event.ActionListener() {
@@ -122,95 +181,40 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(122, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 8, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
-
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Mã Thành Viên", "Họ tên", "Khoa", "Ngành", "Số điện thoại", "null"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(table);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 987, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1052, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 987, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(cbxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1052, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(29, 29, 29)
+                    .addComponent(cbxSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnImport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(117, Short.MAX_VALUE))
         );
@@ -233,10 +237,11 @@ public class ThanhVienGUI extends javax.swing.JPanel {
                 SuaThongTinTVDialog modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, maTV);
                 modal.showDialog();
 
-//                loadData();
-//                if (modal.isOk()) {
-//                    txtSearch.setText("");
-//                }
+                
+                if (modal.isOk()) {
+                    search.textField1.setText("");
+                    loadData();
+                }
             } else {
                 showMessage("Vui lòng chọn thành viên trong bảng.");
             }
@@ -265,7 +270,9 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             ThanhVien thanhVien = new ThanhVien(maTV, hoTen, email, "", khoa, nganh, sdt);
             return thanhVienBLL.add(thanhVien);
         });
-		dialog.setVisible(true);
+                
+        dialog.setVisible(true);
+        
         if (!dialog.isCancel()) {
             String title = "Thông báo";
             JOptionPane.showMessageDialog(this, "Nhập dữ liệu thành công.", title, JOptionPane.INFORMATION_MESSAGE);
@@ -276,12 +283,10 @@ public class ThanhVienGUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.example.project_2.components.swing.Button btnAdd;
     private com.example.project_2.components.swing.Button btnImport;
-    private com.example.project_2.components.swing.Button btnSearch;
     private com.example.project_2.components.combobox.ComboBoxSuggestion cbxSearch;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.example.project_2.components.swing.SearchWithIcon search;
     private com.example.project_2.components.table.Table table;
-    private com.example.project_2.components.swing.TextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

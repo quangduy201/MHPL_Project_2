@@ -13,8 +13,7 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
  *
  * @author Admin
  */
-public class SuaThongTinTVDialog extends javax.swing.JDialog {
-    private final long maTV;
+public class ThemThongTinTVDialog extends javax.swing.JDialog {
 
     public boolean isOk() {
         return ok;
@@ -28,12 +27,10 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
     private final Animator animator;
     private boolean show = true;
     
-    public SuaThongTinTVDialog(java.awt.Frame parent, boolean modal, long maTV) {
+    public ThemThongTinTVDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
-        this.maTV = maTV;
-            
         setOpacity(0f);
         getContentPane().setBackground(Color.WHITE);
         TimingTarget target = new TimingTargetAdapter() {
