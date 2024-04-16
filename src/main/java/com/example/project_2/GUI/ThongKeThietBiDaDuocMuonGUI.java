@@ -111,7 +111,7 @@ public class ThongKeThietBiDaDuocMuonGUI extends javax.swing.JPanel {
                 endTime,
                 thietBiCbx.getSelectedItem().toString().equals("Tất cả thiết bị") 
                         ? "-1" : 
-                        ((ThietBi) thietBiCbx.getSelectedItem()).getMaTB().toString()
+                        String.valueOf(((ThietBi) thietBiCbx.getSelectedItem()).getMaTB())
         );
         
         table1.removeAllRow();
@@ -130,7 +130,7 @@ public class ThongKeThietBiDaDuocMuonGUI extends javax.swing.JPanel {
                 endTime,
                 thietBiCbx.getSelectedItem().toString().equals("Tất cả thiết bị") 
                         ? "-1" : 
-                        ((ThietBi) thietBiCbx.getSelectedItem()).getMaTB().toString()
+                        String.valueOf(((ThietBi) thietBiCbx.getSelectedItem()).getMaTB())
         );
         
         List<ModelChartData> tvList = new ArrayList<>();

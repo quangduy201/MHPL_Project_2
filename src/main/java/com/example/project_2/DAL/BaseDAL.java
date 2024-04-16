@@ -117,7 +117,7 @@ public abstract class BaseDAL<DTO> {
         }
     }
     
-    public DTO getById(int id) {
+    public DTO getById(Object id) {
         openSession();
         try {
             return session.find(type, id);
