@@ -72,8 +72,8 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
     }
     public void setDataForm(XuLy xuly){
         tfMaXuLy.setText(String.valueOf(xuly.getMaXL()));
-        tfMaThanhVien.setText(String.valueOf(xuly.getThanhVien().getMaTV()));
-        tfHinhThucXuLy.setText(xuly.getHinhThucXL());
+//        tfMaThanhVien.setText(String.valueOf(xuly.getThanhVien().getMaTV()));
+//        tfHinhThucXuLy.setText(xuly.getHinhThucXL());
         tfTienBoiThuong.setText(String.valueOf(xuly.getSoTien()));
         dateChooser.setSelectedDate(new SelectedDate(03, 01, 2003));
     }
@@ -100,8 +100,6 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
         btnCancel = new com.example.project_2.components.swing.Button();
         btnUpdate = new com.example.project_2.components.swing.Button();
         tfMaXuLy = new com.example.project_2.components.swing.TextField();
-        tfMaThanhVien = new com.example.project_2.components.swing.TextField();
-        tfHinhThucXuLy = new com.example.project_2.components.swing.TextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -112,6 +110,8 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        cbbMaTV = new com.example.project_2.components.combobox.ComboBoxSuggestion();
+        cbbHTXL = new com.example.project_2.components.combobox.ComboBoxSuggestion();
 
         setUndecorated(true);
 
@@ -139,18 +139,6 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
         tfMaXuLy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfMaXuLyActionPerformed(evt);
-            }
-        });
-
-        tfMaThanhVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfMaThanhVienActionPerformed(evt);
-            }
-        });
-
-        tfHinhThucXuLy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfHinhThucXuLyActionPerformed(evt);
             }
         });
 
@@ -198,29 +186,32 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(tfTienBoiThuong, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfMaXuLy, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(toggleTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfHinhThucXuLy, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfMaThanhVien, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13)
-                            .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 88, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbbHTXL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbbMaTV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfTienBoiThuong, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(tfMaXuLy, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(toggleTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chDate, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(88, 88, 88))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,12 +225,12 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(tfMaThanhVien, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addComponent(cbbMaTV, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(tfHinhThucXuLy, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbbHTXL, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfTienBoiThuong, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,14 +296,6 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfTienBoiThuongActionPerformed
 
-    private void tfHinhThucXuLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfHinhThucXuLyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfHinhThucXuLyActionPerformed
-
-    private void tfMaThanhVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMaThanhVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfMaThanhVienActionPerformed
-
     private void tfMaXuLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMaXuLyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfMaXuLyActionPerformed
@@ -329,6 +312,8 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup4;
+    private com.example.project_2.components.combobox.ComboBoxSuggestion cbbHTXL;
+    private com.example.project_2.components.combobox.ComboBoxSuggestion cbbMaTV;
     private com.example.project_2.components.swing.TextField chDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
@@ -338,8 +323,6 @@ public class SuaXuLyDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private com.example.project_2.components.swing.TextField tfHinhThucXuLy;
-    private com.example.project_2.components.swing.TextField tfMaThanhVien;
     private com.example.project_2.components.swing.TextField tfMaXuLy;
     private com.example.project_2.components.swing.TextField tfTienBoiThuong;
     private com.example.project_2.components.swing.ToggleButton toggleTrangThai;

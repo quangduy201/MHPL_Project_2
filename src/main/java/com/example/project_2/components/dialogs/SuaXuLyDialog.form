@@ -58,34 +58,38 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfTienBoiThuong" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                      <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel6" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                      <Component id="tfMaXuLy" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="toggleTrangThai" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="tfHinhThucXuLy" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="cbbHTXL" max="32767" attributes="0"/>
+                      <Component id="cbbMaTV" max="32767" attributes="0"/>
+                      <Component id="tfTienBoiThuong" alignment="1" pref="320" max="32767" attributes="0"/>
+                      <Component id="tfMaXuLy" alignment="1" pref="320" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="toggleTrangThai" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="chDate" alignment="1" pref="320" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="btnCancel" min="-2" pref="115" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnUpdate" min="-2" pref="115" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                              <Component id="tfMaThanhVien" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
                               <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="chDate" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnCancel" min="-2" pref="115" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnUpdate" min="-2" pref="115" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="88" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
               </Group>
-              <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -100,12 +104,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel7" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                  <Component id="tfMaThanhVien" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <Component id="cbbMaTV" min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" pref="25" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                  <Component id="tfHinhThucXuLy" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="cbbHTXL" min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Component id="jLabel9" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tfTienBoiThuong" min="-2" pref="50" max="-2" attributes="0"/>
@@ -170,16 +174,6 @@
         <Component class="com.example.project_2.components.swing.TextField" name="tfMaXuLy">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfMaXuLyActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="com.example.project_2.components.swing.TextField" name="tfMaThanhVien">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfMaThanhVienActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="com.example.project_2.components.swing.TextField" name="tfHinhThucXuLy">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfHinhThucXuLyActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
@@ -258,6 +252,10 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t vi ph&#x1ea1;m"/>
           </Properties>
+        </Component>
+        <Component class="com.example.project_2.components.combobox.ComboBoxSuggestion" name="cbbMaTV">
+        </Component>
+        <Component class="com.example.project_2.components.combobox.ComboBoxSuggestion" name="cbbHTXL">
         </Component>
       </SubComponents>
     </Container>
