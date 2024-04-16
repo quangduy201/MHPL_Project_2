@@ -15,7 +15,7 @@ import jakarta.persistence.*;
 public class ThietBi {
     @Id
     @Column(name = "MaTB", nullable = false)
-    private Long MaTB;
+    private long MaTB;
 
     @Column(name = "TenTB", nullable = false, length = 100)
     private String TenTB;
@@ -26,17 +26,17 @@ public class ThietBi {
     public ThietBi() {
     }
     
-    public ThietBi(Long MaTB, String TenTB, String MoTaTB) {
+    public ThietBi(long MaTB, String TenTB, String MoTaTB) {
         this.MaTB = MaTB;
         this.TenTB = TenTB;
         this.MoTaTB = MoTaTB;
     }
     
-    public Long getMaTB() {
+    public long getMaTB() {
         return MaTB;
     }
 
-    public void setMaTB(Long MaTB) {
+    public void setMaTB(long MaTB) {
         this.MaTB = MaTB;
     }
 

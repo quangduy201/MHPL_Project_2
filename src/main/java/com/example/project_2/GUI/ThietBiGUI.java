@@ -1,18 +1,21 @@
 package com.example.project_2.GUI;
 
 import com.example.project_2.BLL.ThietBiBLL;
-import com.example.project_2.DAL.ThietBiDAL;
 import com.example.project_2.DTO.ThietBi;
+import com.example.project_2.components.dialogs.ExcelDialog;
 import com.example.project_2.components.dialogs.Message;
 import com.example.project_2.components.dialogs.SuaThietBiDialog;
 import com.example.project_2.components.dialogs.ThemThietBiDialog;
 import com.example.project_2.components.dialogs.XoaNhieuThietBiDialog;
 import com.example.project_2.components.table.EventAction;
 import com.example.project_2.components.table.ModelAction;
+import com.example.project_2.utils.Excel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -113,6 +116,11 @@ public class ThietBiGUI extends javax.swing.JPanel {
         });
 
         btnNhapExcel.setText("Nhập Excel");
+        btnNhapExcel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNhapExcelMouseClicked(evt);
+            }
+        });
 
         btnThem.setText("Thêm thiết bị");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -145,11 +153,12 @@ public class ThietBiGUI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(98, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnXoaDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnXoaDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
@@ -195,6 +204,27 @@ public class ThietBiGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnXoaDieuKienMouseClicked
 
+    private void btnNhapExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelMouseClicked
+        ExcelDialog dialog = new ExcelDialog(Main.getFrames()[0], true, List.of(
+            List.of("Mã TB", Excel.Type.NUMERIC),
+            List.of("Tên TB", Excel.Type.STRING),
+            List.of("Mô tả TB", Excel.Type.STRING)
+        ), row -> {
+            int maTB = Integer.parseInt(row.get(0));
+            String tenTB = StringUtils.capitalize(row.get(1));
+            String moTa = row.get(2);
+            ThietBi tb = new ThietBi(maTB, tenTB, moTa);
+            return thietBiBLL.add(tb);
+        });
+        
+        dialog.setVisible(true);
+        
+        if (!dialog.isCancel()) {
+            String title = "Thông báo";
+            JOptionPane.showMessageDialog(this, "Nhập dữ liệu thành công.", title, JOptionPane.INFORMATION_MESSAGE);
+            loadThietBi();
+        }
+    }//GEN-LAST:event_btnNhapExcelMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.example.project_2.components.swing.Button btnNhapExcel;
