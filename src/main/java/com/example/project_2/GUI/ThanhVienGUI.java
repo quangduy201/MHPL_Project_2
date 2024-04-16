@@ -29,11 +29,11 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             Message modal = new Message(Main.getFrames()[0], true);
             modal.showMessage("Bạn có chắc chắn muốn xóa thành viên " + thanhVien.getMaTV() + "?");
 
-//            if (modal.isOk()) {
-//                thanhVienBLL.delete(thanhVien);
-//            } else {
-//                System.out.println("Đã hủy xóa thành viên");
-//            }
+            if (modal.isOk()) {
+                thanhVienBLL.delete(thanhVien);
+            } else {
+                System.out.println("Đã hủy xóa thành viên");
+            }
         }
 
         @Override
@@ -41,14 +41,8 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             SuaThongTinTVDialog modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, thanhVien.getMaTV());
             modal.showDialog();
 
-//            while (modal.isDeleted) {
-//                modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, thanhVien.getMaTV());
-//                modal.showDialog();
-//            }
-
-            loadData();
             if (modal.isOk()) {
-                txtSearch.setText("");
+                loadData();
             }
         }
 	};
@@ -262,7 +256,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 			    List.of("SĐT", Excel.Type.STRING),
 			    List.of("Email", Excel.Type.STRING)
 		), row -> {
-            int maTV = Integer.parseInt(row.get(0));
+            long maTV = Long.parseLong(row.get(0));
             String hoTen = StringUtils.capitalize(row.get(1));
             String khoa = row.get(2).toUpperCase();
             String nganh = row.get(3).toUpperCase();

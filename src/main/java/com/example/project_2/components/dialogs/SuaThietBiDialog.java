@@ -35,7 +35,7 @@ public class SuaThietBiDialog extends javax.swing.JDialog {
     private final Animator animator;
     private boolean show = true;
     
-    public SuaThietBiDialog(java.awt.Frame parent, boolean modal, long maTb) {
+    public SuaThietBiDialog(java.awt.Frame parent, boolean modal, long maTB) {
         super(parent, modal);
         initComponents();
             
@@ -65,7 +65,7 @@ public class SuaThietBiDialog extends javax.swing.JDialog {
         
         setLocationRelativeTo(null);
         
-        LoadThongTinThietBi(maTb);
+        LoadThongTinThietBi(maTB);
     }
     
     private void LoadThongTinThietBi(long maTB) {
@@ -78,7 +78,7 @@ public class SuaThietBiDialog extends javax.swing.JDialog {
     public void suaThietBi(){
         if (CheckValid()){
             
-            int matb = Integer.parseInt(tfMaTB.getText());
+            long matb = Integer.parseInt(tfMaTB.getText());
             String tentb = tfTenThietBi.getText();
             String mota = tfMota.getText();
         
@@ -133,6 +133,7 @@ public class SuaThietBiDialog extends javax.swing.JDialog {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(159, 159, 159));
@@ -221,7 +222,7 @@ public class SuaThietBiDialog extends javax.swing.JDialog {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(tfMota, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))

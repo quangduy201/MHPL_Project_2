@@ -255,7 +255,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         EventAction<ThietBi> eventAction = new EventAction<ThietBi>() {
             @Override
             public void update(ThietBi thietbi) {
-                SuaThietBiDialog dialog = new SuaThietBiDialog(Main.getFrames()[0], true,thietbi.getMaTB());
+                SuaThietBiDialog dialog = new SuaThietBiDialog(Main.getFrames()[0], true, thietbi.getMaTB());
                 dialog.showDialog();
                 loadThietBi();
             }

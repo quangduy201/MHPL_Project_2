@@ -155,7 +155,7 @@ public class ThongKeThietBiDaDuocMuonGUI extends javax.swing.JPanel {
     
     private void setThietBiCbx() {
         thietBiCbx.removeAllItems();
-        thietBiCbx.addItem(new ThietBi(-1, "Tất cả thiết bị", ""));
+        thietBiCbx.addItem(new ThietBi(-1L, "Tất cả thiết bị", ""));
         
         List<ThietBi> tbList = tbBLL.getAll();
         
