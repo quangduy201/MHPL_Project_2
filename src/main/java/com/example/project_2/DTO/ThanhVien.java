@@ -18,7 +18,7 @@ import java.util.Set;
 public class ThanhVien {
     @Id
     @Column(name = "MaTV", nullable = false)
-    private Integer MaTV;
+    private Long MaTV;
 
     @Column(name = "HoTen", nullable = false, length = 100)
     private String HoTen;
@@ -44,7 +44,7 @@ public class ThanhVien {
     public ThanhVien() {
     }
     
-    public ThanhVien(int MaTV, String HoTen, String Email, String Password, String Khoa, String Nganh, String SDT) {
+    public ThanhVien(Long MaTV, String HoTen, String Email, String Password, String Khoa, String Nganh, String SDT) {
         this.MaTV = MaTV;
         this.HoTen = HoTen;
         this.Khoa = Khoa;
@@ -54,11 +54,11 @@ public class ThanhVien {
         this.SDT = SDT;
     }
 
-    public int getMaTV() {
+    public Long getMaTV() {
         return MaTV;
     }
 
-    public void setMaTV(Integer MaTV) {
+    public void setMaTV(Long MaTV) {
         this.MaTV = MaTV;
     }
 

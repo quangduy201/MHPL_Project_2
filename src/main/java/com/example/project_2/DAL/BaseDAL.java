@@ -3,7 +3,6 @@ package com.example.project_2.DAL;
 import com.example.project_2.utils.HibernateUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -117,7 +116,7 @@ public abstract class BaseDAL<DTO> {
         }
     }
     
-    public DTO getById(int id) {
+    public DTO getById(Object id) {
         openSession();
         try {
             return session.find(type, id);

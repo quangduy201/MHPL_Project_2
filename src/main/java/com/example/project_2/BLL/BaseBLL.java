@@ -40,7 +40,7 @@ public class BaseBLL<DTO> {
         return dal.getAll();
     }
 
-    public DTO getById(int id) {
+    public DTO getById(Object id) {
         return dal.getById(id);
     }
     

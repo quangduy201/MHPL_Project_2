@@ -82,7 +82,7 @@ public class ThemThietBiDialog extends javax.swing.JDialog {
     
     public void themThietBi(){
         if (checkValid()){
-            int matb = Integer.parseInt(tfMaTB.getText().trim());
+            long matb = Integer.parseInt(tfMaTB.getText().trim());
             String tentb = tfTenTB.getText().trim();
             String mota = tfMota.getText().trim();
             ThietBi newThietBi = new ThietBi(matb, tentb, mota);
