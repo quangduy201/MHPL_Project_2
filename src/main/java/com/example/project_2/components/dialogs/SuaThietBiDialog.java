@@ -35,7 +35,7 @@ public class SuaThietBiDialog extends javax.swing.JDialog {
     private final Animator animator;
     private boolean show = true;
     
-    public SuaThietBiDialog(java.awt.Frame parent, boolean modal, int maTb) {
+    public SuaThietBiDialog(java.awt.Frame parent, boolean modal, long maTB) {
         super(parent, modal);
         initComponents();
             
@@ -65,10 +65,10 @@ public class SuaThietBiDialog extends javax.swing.JDialog {
         
         setLocationRelativeTo(null);
         
-        LoadThongTinThietBi(maTb);
+        LoadThongTinThietBi(maTB);
     }
     
-    private void LoadThongTinThietBi(int maTB) {
+    private void LoadThongTinThietBi(long maTB) {
         
         ThietBi tb = thietbiBLL.getById(maTB);
         tfMaTB.setOpaque(false);
@@ -79,7 +79,7 @@ public class SuaThietBiDialog extends javax.swing.JDialog {
     public void suaThietBi(){
         if (CheckValid()){
             
-            int matb = Integer.parseInt(tfMaTB.getText());
+            long matb = Integer.parseInt(tfMaTB.getText());
             String tentb = tfTenThietBi.getText();
             String mota = tfMota.getText();
         

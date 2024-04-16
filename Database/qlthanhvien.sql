@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `thanhvien`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `thanhvien` (
-  `MaTV` int NOT NULL,
+  `MaTV` bigint NOT NULL,
   `HoTen` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `Khoa` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Nganh` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `thietbi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `thietbi` (
-  `MaTB` int NOT NULL,
+  `MaTB` bigint NOT NULL,
   `TenTB` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `MoTaTB` text COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`MaTB`)
@@ -78,8 +78,8 @@ DROP TABLE IF EXISTS `thongtinsd`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `thongtinsd` (
   `MaTT` int NOT NULL,
-  `MaTV` int NOT NULL,
-  `MaTB` int DEFAULT NULL,
+  `MaTV` bigint NOT NULL,
+  `MaTB` bigint DEFAULT NULL,
   `TGVao` datetime DEFAULT NULL,
   `TGMuon` datetime DEFAULT NULL,
   `TGTra` datetime DEFAULT NULL,
@@ -111,7 +111,7 @@ DROP TABLE IF EXISTS `xuly`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xuly` (
   `MaXL` int NOT NULL,
-  `MaTV` int NOT NULL,
+  `MaTV` bigint NOT NULL,
   `HinhThucXL` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `SoTien` int DEFAULT NULL,
   `NgayXL` datetime DEFAULT NULL,

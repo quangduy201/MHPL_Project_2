@@ -16,7 +16,7 @@ import java.awt.*;
  * @author Hung
  */
 public class SuaThongTinTVDialog extends javax.swing.JDialog {
-    private final int maTV;
+    private final long maTV;
 
     public boolean isOk() {
         return ok;
@@ -33,7 +33,7 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
     /**
      * Creates new form ThanhVienGUI
      */
-    public SuaThongTinTVDialog(Frame parent, boolean modal, int maTV) {
+    public SuaThongTinTVDialog(Frame parent, boolean modal, long maTV) {
         super(parent, modal);
         initComponents();
 

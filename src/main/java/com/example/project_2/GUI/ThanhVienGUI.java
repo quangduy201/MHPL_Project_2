@@ -262,7 +262,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 			    List.of("SĐT", Excel.Type.STRING),
 			    List.of("Email", Excel.Type.STRING)
 		), row -> {
-            int maTV = Integer.parseInt(row.get(0));
+            long maTV = Long.parseLong(row.get(0));
             String hoTen = StringUtils.capitalize(row.get(1));
             String khoa = row.get(2).toUpperCase();
             String nganh = row.get(3).toUpperCase();
