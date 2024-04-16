@@ -21,6 +21,8 @@ import java.util.List;
 import com.example.project_2.utils.Excel;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
 
@@ -87,7 +89,14 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                 
             }
         };
-        xuly = xulyBLL.getAll();
+        
+        Map<String, Object> searchCriteria = new HashMap<>();
+        
+        if (!searchText.isEmpty()) {
+            searchCriteria.put("HoTen", searchText);
+        }
+        
+        xuly = xulyBLL.search(searchCriteria);
         
         for(XuLy c : xuly)
         {   
