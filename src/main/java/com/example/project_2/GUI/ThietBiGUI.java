@@ -250,14 +250,14 @@ public class ThietBiGUI extends javax.swing.JPanel {
             searchCriteria.put("TenTB", searchText);
         }
 
-        thietbi = thietBiBLL.search(searchCriteria);
+        thietbi = thietBiBLL.search(searchCriteria, ThietBi.class);
         
         EventAction<ThietBi> eventAction = new EventAction<ThietBi>() {
             @Override
             public void update(ThietBi thietbi) {
                 SuaThietBiDialog dialog = new SuaThietBiDialog(Main.getFrames()[0], true, thietbi.getMaTB());
                 dialog.showDialog();
-                loadThietBi();
+                Main.recreateGUI(new ThietBiGUI());
             }
             @Override
             public void delete(ThietBi thietbi) {
@@ -267,7 +267,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
                     if (thietBiBLL.delete(thietbi)) {
                         mess = new Message(Main.getFrames()[0], true);
                         mess.showMessage("Xóa thiết bị thành công");
-                        loadThietBi();
+                        Main.recreateGUI(new ThietBiGUI());
                     } else {
                         mess = new Message(Main.getFrames()[0], true);
                         mess.showMessage("Xóa thiết bị thất bại");

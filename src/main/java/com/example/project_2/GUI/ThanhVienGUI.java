@@ -26,27 +26,28 @@ import java.util.Map;
 public class ThanhVienGUI extends javax.swing.JPanel {
 	private final ThanhVienBLL thanhVienBLL = new ThanhVienBLL();
 	private final EventAction<ThanhVien> eventAction = new EventAction<>() {
-        @Override
-        public void delete(ThanhVien thanhVien) {
-            Message modal = new Message(Main.getFrames()[0], true);
-            modal.showMessage("Bạn có chắc chắn muốn xóa thành viên " + thanhVien.getMaTV() + "?");
+            @Override
+            public void delete(ThanhVien thanhVien) {
+                Message modal = new Message(Main.getFrames()[0], true);
+                modal.showMessage("Bạn có chắc chắn muốn xóa thành viên " + thanhVien.getMaTV() + "?");
 
-            if (modal.isOk()) {
-                thanhVienBLL.delete(thanhVien);
-            } else {
-                System.out.println("Đã hủy xóa thành viên");
+                if (modal.isOk()) {
+                    thanhVienBLL.delete(thanhVien);
+                    Main.recreateGUI(new ThanhVienGUI());
+                } else {
+                    System.out.println("Đã hủy xóa thành viên");
+                }
             }
-        }
 
-        @Override
-        public void update(ThanhVien thanhVien) {
-            SuaThongTinTVDialog modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, thanhVien.getMaTV());
-            modal.showDialog();
+            @Override
+            public void update(ThanhVien thanhVien) {
+                SuaThongTinTVDialog modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, thanhVien.getMaTV());
+                modal.showDialog();
 
-            if (modal.isOk()) {
-                loadData();
+                if (modal.isOk()) {
+                    Main.recreateGUI(new ThanhVienGUI());
+                }
             }
-        }
 	};
 
     /**
@@ -96,7 +97,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
                 searchCriteria.put("HoTen", searchText);
             }
             
-            List<ThanhVien> thanhVienList = thanhVienBLL.search(searchCriteria);
+            List<ThanhVien> thanhVienList = thanhVienBLL.search(searchCriteria, ThanhVien.class);
             
             setTableThanhVien(thanhVienList);
 	}
@@ -239,8 +240,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 
                 
                 if (modal.isOk()) {
-                    search.textField1.setText("");
-                    loadData();
+                    Main.recreateGUI(new ThanhVienGUI());
                 }
             } else {
                 showMessage("Vui lòng chọn thành viên trong bảng.");

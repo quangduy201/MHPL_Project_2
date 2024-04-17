@@ -3,6 +3,8 @@ package com.example.project_2.DAL;
 import com.example.project_2.utils.HibernateUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -171,41 +173,80 @@ public abstract class BaseDAL<DTO> {
         return rowCount;
     }
     
-    public List<DTO> search(Map<String, Object> searchCriteria) {
+    public <T> List<T> search(String attributeName, Object searchValue, Class<T> entityClass) {
         openSession();
         try {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<DTO> criteriaQuery = criteriaBuilder.createQuery(type);
-            Root<DTO> root = criteriaQuery.from(type);
+            CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            Root<T> root = criteriaQuery.from(entityClass);
 
-            if (searchCriteria.isEmpty()) {
-                // Nếu searchCriteria rỗng, trả về tất cả các bản ghi
-                criteriaQuery.select(root);
+            // Joining the related entity if needed
+            if (attributeName.contains(".")) {
+                String[] parts = attributeName.split("\\.");
+                Join<T, ?> join = root.join(parts[0], JoinType.INNER);
+                for (int i = 1; i < parts.length - 1; i++) {
+                    join = join.join(parts[i], JoinType.INNER);
+                }
+                attributeName = parts[parts.length - 1];
+            }
+
+            // Creating the predicate based on the search value type
+            Predicate predicate;
+            if (searchValue instanceof String) {
+                predicate = criteriaBuilder.like(root.get(attributeName).as(String.class), "%" + searchValue + "%");
             } else {
+                predicate = criteriaBuilder.equal(root.get(attributeName), searchValue);
+            }
+
+            criteriaQuery.select(root).where(predicate);
+
+            Query<T> query = session.createQuery(criteriaQuery);
+            return query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Error while executing search query: " + e);
+            return List.of(); // Return an empty list or handle the exception as appropriate
+        } finally {
+            closeSession(); // Close the session in the finally block
+        }
+    }
+    
+    public <T> List<T> search(Map<String, Object> searchCriteria, Class<T> entityClass) {
+        openSession();
+        try {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            Root<T> root = criteriaQuery.from(entityClass);
+
+            if (!searchCriteria.isEmpty()) {
                 List<Predicate> predicates = new ArrayList<>();
                 for (Map.Entry<String, Object> entry : searchCriteria.entrySet()) {
                     String fieldName = entry.getKey();
                     Object value = entry.getValue();
-                    if (value instanceof String) {
-                        // Nếu giá trị là chuỗi, sử dụng like
-                        predicates.add(criteriaBuilder.like(root.get(fieldName), "%" + value + "%"));
-                    } else if (value instanceof Number) {
-                        // Nếu giá trị là số, chuyển đổi thành chuỗi và sử dụng like
-                        String stringValue = value.toString();
-                        predicates.add(criteriaBuilder.like(root.get(fieldName), "%" + stringValue + "%"));
+                    if (fieldName.contains(".")) {
+                        String[] parts = fieldName.split("\\.");
+                        Join<T, ?> join = root.join(parts[0], JoinType.INNER);
+                        
+                        predicates.add(criteriaBuilder.like(join.get(parts[parts.length - 1]).as(String.class), "%" + value + "%"));
                     } else {
-                        // Nếu giá trị không phải chuỗi hoặc số, sử dụng equal
-                        predicates.add(criteriaBuilder.equal(root.get(fieldName), value));
+                        if (value instanceof String) {
+                            predicates.add(criteriaBuilder.like(root.get(fieldName).as(String.class), "%" + value + "%"));
+                        } else if (value instanceof Number) {
+                            String stringValue = value.toString();
+                            predicates.add(criteriaBuilder.like(root.get(fieldName).as(String.class), "%" + stringValue + "%"));
+                        } else {
+                            predicates.add(criteriaBuilder.equal(root.get(fieldName), value));
+                        }
                     }
                 }
 
-                // Kết hợp các điều kiện tìm kiếm bằng OR
                 Predicate finalPredicate = criteriaBuilder.or(predicates.toArray(new Predicate[0]));
 
                 criteriaQuery.select(root).where(finalPredicate);
+            } else {
+                criteriaQuery.select(root);
             }
 
-            Query<DTO> query = session.createQuery(criteriaQuery);
+            Query<T> query = session.createQuery(criteriaQuery);
             return query.getResultList();
         } catch (Exception e) {
             System.out.println("Error while executing search query: " + e);
@@ -214,4 +255,5 @@ public abstract class BaseDAL<DTO> {
             closeSession();
         }
     }
+
 }
