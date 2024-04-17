@@ -81,17 +81,17 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
         buttonGroup4 = new javax.swing.ButtonGroup();
         jProgressBar1 = new javax.swing.JProgressBar();
         jPanel3 = new javax.swing.JPanel();
-        txtSdt = new com.example.project_2.components.swing.SearchText();
+        txtSdt = new com.example.project_2.components.swing.TextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        txtMaTV = new com.example.project_2.components.swing.SearchText();
-        txtKhoa = new com.example.project_2.components.swing.SearchText();
+        txtMaTV = new com.example.project_2.components.swing.TextField();
+        txtKhoa = new com.example.project_2.components.swing.TextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnCancel = new com.example.project_2.components.swing.Button();
-        txtNganh = new com.example.project_2.components.swing.SearchText();
+        txtNganh = new com.example.project_2.components.swing.TextField();
         jLabel5 = new javax.swing.JLabel();
-        txtHoTen = new com.example.project_2.components.swing.SearchText();
+        txtHoTen = new com.example.project_2.components.swing.TextField();
         btnEdit = new com.example.project_2.components.swing.Button();
         jLabel10 = new javax.swing.JLabel();
 
@@ -106,21 +106,21 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
                 txtSdtActionPerformed(evt);
             }
         });
-        jPanel3.add(txtSdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 210, 40));
+        jPanel3.add(txtSdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 210, 47));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Khoa:");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Số điện thoại:");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         txtMaTV.setEditable(false);
         txtMaTV.setEditable(false);
         txtMaTV.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel3.add(txtMaTV, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 210, 40));
-        jPanel3.add(txtKhoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 210, 40));
+        jPanel3.add(txtMaTV, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 210, 47));
+        jPanel3.add(txtKhoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 210, 47));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Mã thành viên:");
@@ -139,23 +139,23 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
                 btnCancelActionPerformed(evt);
             }
         });
-        jPanel3.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 110, 40));
-        jPanel3.add(txtNganh, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 210, 40));
+        jPanel3.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 120, 40));
+        jPanel3.add(txtNganh, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 210, 47));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Họ tên:");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
-        jPanel3.add(txtHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 210, 40));
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        jPanel3.add(txtHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 210, 47));
 
         btnEdit.setBackground(new java.awt.Color(51, 102, 255));
         btnEdit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Sửa");
-        jPanel3.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, 110, 40));
+        jPanel3.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 120, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Ngành:");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,7 +165,7 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         pack();
