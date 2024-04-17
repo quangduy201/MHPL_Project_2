@@ -38,6 +38,7 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
     private ThanhVienBLL thanhVienBLL = new ThanhVienBLL();
     private XuLyBLL xulyBLL = new XuLyBLL();
     ThanhVien thanhvien = new ThanhVien();
+    private int lastIndex;
     public boolean isOk() {
         return ok;
     }
@@ -49,7 +50,7 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
     private boolean ok;
     private final Animator animator;
     private boolean show = true;
-    public ThemXuLyDialog(java.awt.Frame parent, boolean modal) {
+    public ThemXuLyDialog(java.awt.Frame parent, boolean modal ) {
         super(parent, modal);
         
         initComponents();
@@ -80,8 +81,17 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
         
         setLocationRelativeTo(null);
         
+        lastIndex = xulyBLL.getAll().size()+1;
+        
+        tfXuLy.setText(String.valueOf(lastIndex));
+        tfXuLy.setEnabled(false);
+        
         dateChooser.setTextReference(chDate);
-
+        
+        
+        tfTienBoiThuong.setEnabled(false);
+        tfTienBoiThuong.setBackground(new Color(240, 240, 240));
+        
         setCbxHinhThuc();
         setCbxThanhVien();
         cbbHTXL.addActionListener(new java.awt.event.ActionListener() {
@@ -92,26 +102,27 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
         
     }
     private void cbbHTXLActionPerformed(java.awt.event.ActionEvent evt) {
-    String selectedOption = (String) cbbHTXL.getSelectedItem();
-    if (selectedOption != null) {
-        switch (selectedOption) {
-            case "Khóa thẻ 1 tháng":
-            case "Khóa thẻ 2 tháng":
-            case "Khóa thẻ 3 tháng":
-                tfTienBoiThuong.setEnabled(false);
-                tfTienBoiThuong.setBackground(new Color(240, 240, 240));
-                break;
-            case "Bồi thường":
-            case "Khóa thẻ 1 tháng và bồi thường":
-                tfTienBoiThuong.setEnabled(true);
-                tfTienBoiThuong.setBackground(Color.WHITE);
-                break;
-            default:
-                tfTienBoiThuong.setEnabled(false);
-                break;
+        String selectedOption = (String) cbbHTXL.getSelectedItem();
+        if (selectedOption != null) {
+            switch (selectedOption) {
+                case "Khóa thẻ 1 tháng":
+                case "Khóa thẻ 2 tháng":
+                case "Khóa thẻ 3 tháng":
+                    tfTienBoiThuong.setEnabled(false);
+                    tfTienBoiThuong.setText("0");
+                    tfTienBoiThuong.setBackground(new Color(240, 240, 240));
+                    break;
+                case "Bồi thường mất tài sản":
+                case "Khóa thẻ 1 tháng và bồi thường":
+                    tfTienBoiThuong.setEnabled(true);
+                    tfTienBoiThuong.setBackground(Color.WHITE);
+                    break;
+                default:
+                    tfTienBoiThuong.setEnabled(false);
+                    break;
+            }
         }
     }
-}
 
     public void showDialog() {
         animator.start();
@@ -152,7 +163,7 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
                 "Khóa thẻ 1 tháng",
                 "Khóa thẻ 2 tháng",
                 "Khóa thẻ 3 tháng",
-                "Bồi thường",
+                "Bồi thường mất tài sản",
                 "Khóa thẻ 1 tháng và bồi thường"
         );
 
@@ -160,15 +171,6 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
             cbbHTXL.addItem(htxl);
         }
         cbbHTXL.setSelectedIndex(0);
-
-//        String selectedOption = (String) cbbHTXL.getSelectedItem();
-//        if (selectedOption != null && (selectedOption.equals("Bồi thường") || selectedOption.equals("Khóa thẻ 1 tháng và bồi thường"))) {
-//            tfTienBoiThuong.setEnabled(true);
-//            
-//        } else {
-//            tfTienBoiThuong.setEnabled(false);
-//            
-//        }
     }
   
     private String getMaThanhVienFromSelectedItem() {
@@ -188,40 +190,88 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
 
     
     public void themXuLy(){
-        int maXuLy = Integer.parseInt(tfXuLy.getText());
-        long maThanhVien = Long.parseLong(getMaThanhVienFromSelectedItem());
-        String htxl = (String) cbbHTXL.getSelectedItem();
-        int sotien = 0;
-        if (cbbHTXL.getSelectedIndex() == 3 || cbbHTXL.getSelectedIndex() == 4){
-            sotien = Integer.parseInt(tfTienBoiThuong.getText());
-        } 
-        
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); 
-        LocalDate date = LocalDate.parse(chDate.getText(), inputFormatter);
+        if (checkValid()) {
+            int maXuLy = Integer.parseInt(tfXuLy.getText());
+            long maThanhVien = Long.parseLong(getMaThanhVienFromSelectedItem());
+            String htxl = (String) cbbHTXL.getSelectedItem();
+            int sotien = 0;
+            if (cbbHTXL.getSelectedIndex() == 3 || cbbHTXL.getSelectedIndex() == 4) {
+                sotien = Integer.parseInt(tfTienBoiThuong.getText());
+            }
 
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String formattedDate = date.format(outputFormatter); 
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate date = LocalDate.parse(chDate.getText(), inputFormatter);
 
-        LocalTime defaultTime = LocalTime.of(Integer.parseInt(tfGio.getText()),Integer.parseInt(tfPhut.getText()));
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.parse(formattedDate), defaultTime);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String formattedDate = date.format(outputFormatter);
 
-        int trangthai = toggleTrangThai.isSelected()? 1 : 0 ;
-        
-        XuLy xuLy = new XuLy(maXuLy, thanhVienBLL.getById(maThanhVien), htxl, sotien, dateTime, trangthai);
-//        LocalDateTime time = LocalDateTime.parse();
-        if (xulyBLL.add(xuLy)){
+            LocalTime defaultTime = LocalTime.of(Integer.parseInt(tfGio.getText()), Integer.parseInt(tfPhut.getText()));
+            LocalDateTime dateTime = LocalDateTime.of(LocalDate.parse(formattedDate), defaultTime);
+
+            int trangthai = toggleTrangThai.isSelected() ? 1 : 0;
+
+            XuLy xuLy = new XuLy(maXuLy, thanhVienBLL.getById(maThanhVien), htxl, sotien, dateTime, trangthai);
+            if (xulyBLL.add(xuLy)) {
                 Message mess = new Message(Main.getFrames()[0], true);
                 mess.showMessage("Thêm xử lý vi phạm thành công");
                 dispose();
-            }
-            else{
+            } else {
                 Message mess = new Message(Main.getFrames()[0], true);
                 mess.showMessage("Thêm xử lý vi phạm thất bại");
             }
-        
+        }
     }
-    
+    private boolean checkValid() {
+        if (!tfXuLy.getText().matches("\\d+")) {
+            Message mess = new Message(Main.getFrames()[0], true);
+            mess.showMessage("Vui lòng nhập số cho mã kí tự");
+            return false;
+        }
+        if (xulyBLL.getById(Integer.parseInt(tfXuLy.getText())) != null) {
+            Message mess = new Message(Main.getFrames()[0], true);
+            mess.showMessage("Mã xử lý đã tồn tại");
+            return false;
+        }
+        if (tfGio.getText().isBlank() || tfPhut.getText().isBlank()) {
+            Message mess = new Message(Main.getFrames()[0], true);
+            mess.showMessage("Không được để trống thời gian");
+            return false;
+        }
+        if (tfGio.getText().isBlank() || tfPhut.getText().isBlank()) {
+            Message mess = new Message(Main.getFrames()[0], true);
+            mess.showMessage("Không được để trống thời gian");
+            return false;
+        }
+        if (!tfTienBoiThuong.isEnabled()) {
+            if (tfTienBoiThuong.getText().isBlank()) {
+                // Nếu trống, hiển thị thông báo và trả về false
+                Message mess = new Message(Main.getFrames()[0], true);
+                mess.showMessage("Không được để trống tiền bồi thường");
+                return false;
+            }
+            if (!tfTienBoiThuong.getText().matches("\\d+")) {
+            Message mess = new Message(Main.getFrames()[0], true);
+            mess.showMessage("Vui lòng nhập số tiền bồi thường");
+            return false;
+        }
+        }
 
+        if (!tfGio.getText().matches("\\d+") || !tfPhut.getText().matches("\\d+")) {
+            Message mess = new Message(Main.getFrames()[0], true);
+            mess.showMessage("Vui lòng nhập số cho giờ và phút");
+            return false;
+        }
+
+        int gio = Integer.parseInt(tfGio.getText());
+        int phut = Integer.parseInt(tfPhut.getText());
+
+        if (gio < 0 || gio > 23 || phut < 0 || phut > 59) {
+            Message mess = new Message(Main.getFrames()[0], true);
+            mess.showMessage("Thời gian không hợp lệ");
+            return false;
+        }
+        return true;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -357,20 +407,22 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel8)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel13)
+                                            .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel15)
                                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel13)
-                                                .addGap(129, 129, 129)
-                                                .addComponent(jLabel15))
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGap(11, 11, 11)
                                                 .addComponent(tfGio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(0, 0, 0)
                                                 .addComponent(jLabel16)
                                                 .addGap(0, 0, 0)
-                                                .addComponent(tfPhut, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                                                .addComponent(tfPhut, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,7 +463,6 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(51, 51, 51)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toggleTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
