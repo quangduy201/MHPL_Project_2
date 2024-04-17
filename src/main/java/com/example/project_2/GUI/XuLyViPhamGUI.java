@@ -38,11 +38,10 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
 
     public XuLyViPhamGUI() {
         initComponents();
-        setOpaque(false);
         
         tableXuLyViPham.setActionColumn(7);
         tableXuLyViPham.fixTable(jScrollPane1);
-        
+        setOpaque(false);
         loadXuLy();
         
         addEventForSearchIcon();
@@ -75,28 +74,39 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         
         if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = ""; 
         
+        System.out.println(searchText);
+        
+        Map<String, Object> searchCriteria = new HashMap<>();
+        
+        if (!searchText.isEmpty()) {
+            searchCriteria.put("MaTV.HoTen",searchText);
+        }
+        
+        xuly = xulyBLL.search(searchCriteria);
+        
         EventAction<XuLy> eventAction = new EventAction<XuLy>() {
             @Override
             public void update(XuLy xuly) {
                 SuaXuLyDialog dialog = new SuaXuLyDialog(Main.getFrames()[0], true, xuly);
                 dialog.showDialog();
-                if (dialog.isOk()) {
-                    loadXuLy();
-                }
+                loadXuLy();
             }
             @Override
             public void delete(XuLy xuly) {
-                
+                Message mess = new Message(Main.getFrames()[0], true);
+                mess.showMessage("Bạn muốn xóa thiết bị ???");
+                if (mess.isOk()){
+                    if (xulyBLL.delete(xuly)) {
+                        mess = new Message(Main.getFrames()[0], true);
+                        mess.showMessage("Xóa thiết bị thành công");
+                        loadXuLy();
+                    } else {
+                        mess = new Message(Main.getFrames()[0], true);
+                        mess.showMessage("Xóa thiết bị thất bại");
+                    }
+                }
             }
         };
-        
-        Map<String, Object> searchCriteria = new HashMap<>();
-        
-        if (!searchText.isEmpty()) {
-            searchCriteria.put("HoTen", searchText);
-        }
-        
-        xuly = xulyBLL.search(searchCriteria);
         
         for(XuLy c : xuly)
         {   
@@ -115,6 +125,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSpinner1 = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableXuLyViPham = new com.example.project_2.components.table.Table();
@@ -189,17 +200,18 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnThemViPham, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnThemViPham, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemViPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemViPhamActionPerformed
         ThemXuLyDialog dialog = new ThemXuLyDialog(Main.getFrames()[0], true);
         dialog.showDialog();        // TODO add your handling code here:
+        loadXuLy();
     }//GEN-LAST:event_btnThemViPhamActionPerformed
 
     private void btnNhapExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelMouseClicked
@@ -244,6 +256,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
     private com.example.project_2.components.swing.Button btnThemViPham;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private com.example.project_2.components.swing.SearchWithIcon search;
     private com.example.project_2.components.table.Table tableXuLyViPham;
     // End of variables declaration//GEN-END:variables
