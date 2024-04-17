@@ -6,7 +6,6 @@ package com.example.project_2.GUI;
 
 import com.example.project_2.BLL.ThanhVienBLL;
 import com.example.project_2.BLL.XuLyBLL;
-import com.example.project_2.DAL.XuLyDAL;
 import com.example.project_2.DTO.XuLy;
 import com.example.project_2.DTO.ThanhVien;
 
@@ -21,6 +20,7 @@ import java.util.List;
 import com.example.project_2.utils.Excel;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -74,22 +74,22 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         
         if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = ""; 
         
-        System.out.println(searchText);
-        
         Map<String, Object> searchCriteria = new HashMap<>();
         
         if (!searchText.isEmpty()) {
-            searchCriteria.put("MaTV.HoTen",searchText);
+            searchCriteria.put("HinhThucXL", searchText);
+            searchCriteria.put("thanhVien.HoTen", searchText);
+            searchCriteria.put("MaXL", searchText);
         }
         
-        xuly = xulyBLL.search(searchCriteria);
-        
+        xuly = xulyBLL.search(searchCriteria, XuLy.class);
+
         EventAction<XuLy> eventAction = new EventAction<XuLy>() {
             @Override
             public void update(XuLy xuly) {
                 SuaXuLyDialog dialog = new SuaXuLyDialog(Main.getFrames()[0], true, xuly);
                 dialog.showDialog();
-                loadXuLy();
+                Main.recreateGUI(new XuLyViPhamGUI());
             }
             @Override
             public void delete(XuLy xuly) {
@@ -99,7 +99,8 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                     if (xulyBLL.delete(xuly)) {
                         mess = new Message(Main.getFrames()[0], true);
                         mess.showMessage("Xóa thiết bị thành công");
-                        loadXuLy();
+                        
+                        Main.recreateGUI(new XuLyViPhamGUI());
                     } else {
                         mess = new Message(Main.getFrames()[0], true);
                         mess.showMessage("Xóa thiết bị thất bại");
@@ -108,19 +109,23 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             }
         };
         
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        
         for(XuLy c : xuly)
-        {   
+        {
+            String ngay = c.getNgayXL().format(formatter);
             tableXuLyViPham.addRow(new Object[]{
                 c.getMaXL(),
                 c.getThanhVien().getMaTV(),
                 c.getThanhVien().getHoTen(),
                 c.getHinhThucXL(),
                 c.getSoTien() != null? c.getSoTien():0,
-                c.getNgayXL(),
+                ngay,
                 c.getTrangThaiXL() == 0? "Chưa xử lý":"Đã xử lý",
                 new ModelAction<>(c, eventAction)});
         }
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -219,7 +224,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             List.of("Mã XL", Excel.Type.NUMERIC),
             List.of("Mã TV", Excel.Type.NUMERIC),
             List.of("Hình Thức Xử Lý", Excel.Type.STRING),
-            List.of("Số Tiền", Excel.Type.NUMERIC),
+            List.of("Số Tiền", Excel.Type.STRING),
             List.of("Ngày Xử Lý", Excel.Type.STRING),
             List.of("Trạng Thái Xử Lý", Excel.Type.STRING)
 
@@ -227,7 +232,12 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             int maXL = Integer.parseInt(row.get(0));
             long maTV = Long.parseLong(row.get(1));
             String hinhThucXuLy = StringUtils.capitalize(row.get(2));
-            int soTien = Integer.parseInt(row.get(3));
+            int soTien = 0;
+            
+            if (row.get(3) != null || !row.get(3).isEmpty() || !row.get(3).isBlank()) {
+                soTien = Integer.parseInt(row.get(3));
+            }
+            
             LocalDateTime ngayXuLy = LocalDateTime.parse(row.get(4));
             int trangThai = Integer.parseInt(row.get(5));
             

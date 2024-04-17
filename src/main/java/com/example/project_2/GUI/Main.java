@@ -214,6 +214,20 @@ public class Main extends javax.swing.JFrame {
         });
     }
     
+    private void recreateComponents(Component compo) {
+        // Đảm bảo rằng frame được hiển thị lại
+        main.showForm(compo);
+    }
+
+    public static void recreateGUI(Component compo) {
+        Main mainFrame = (Main) java.awt.Window.getWindows()[0]; // Lấy ra frame chính
+        if (mainFrame != null) {
+            // Tái tạo lại các thành phần GUI
+            mainFrame.recreateComponents(compo);
+        }
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane bg;
     // End of variables declaration//GEN-END:variables

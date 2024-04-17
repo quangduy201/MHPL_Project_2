@@ -13,13 +13,13 @@ public class MainForm extends javax.swing.JPanel {
         setBorder(new EmptyBorder(10, 20, 10, 20));
     }
 
-    public void showForm(Component form) {
+    public  void showForm(Component form) {
         removeAll();
         add(form);
         repaint();
         revalidate();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -44,7 +44,8 @@ public class BaseBLL<DTO> {
         return dal.getById(id);
     }
     
-    public List<DTO> search(Map<String, Object> searchCriteria) {
-        return dal.search(searchCriteria);
+    public <T> List<T> search(Map<String, Object> searchCriteria, Class<T> entityClass) {
+        return dal.search(searchCriteria, entityClass);
     }
+
 }

@@ -5,11 +5,20 @@
 package com.example.project_2.DAL;
 
 import com.example.project_2.DTO.XuLy;
+import com.example.project_2.DTO.ThanhVien;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -41,5 +50,9 @@ public class XuLyDAL extends BaseDAL<XuLy>{
 
         return executeQuery(hqlQuery, Object[].class, parameters);
     }
+    
+    
+
+
     
 }
