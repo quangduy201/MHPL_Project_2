@@ -9,11 +9,13 @@ import com.example.project_2.DTO.ThanhVien;
 import com.example.project_2.components.dialogs.ExcelDialog;
 import com.example.project_2.components.dialogs.Message;
 import com.example.project_2.components.dialogs.SuaThongTinTVDialog;
+import com.example.project_2.components.dialogs.ThemThongTinTVDialog;
 import com.example.project_2.components.table.EventAction;
 import com.example.project_2.components.table.ModelAction;
 import com.example.project_2.utils.Excel;
+import com.example.project_2.utils.StringUtils;
+
 import java.util.HashMap;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import java.util.List;
@@ -28,10 +30,10 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 	private final EventAction<ThanhVien> eventAction = new EventAction<>() {
             @Override
             public void delete(ThanhVien thanhVien) {
-                Message modal = new Message(Main.getFrames()[0], true);
-                modal.showMessage("Bạn có chắc chắn muốn xóa thành viên " + thanhVien.getMaTV() + "?");
+                Message message = new Message(Main.getFrames()[0], true);
+                message.showMessage("Bạn có chắc chắn muốn xóa thành viên " + thanhVien.getMaTV() + "?");
 
-                if (modal.isOk()) {
+                if (message.isOk()) {
                     thanhVienBLL.delete(thanhVien);
                     Main.recreateGUI(new ThanhVienGUI());
                 } else {
@@ -65,25 +67,6 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         addEventForSearchTextField();
         
         loadData();
-    }
-    
-    private void addEventForSearchTextField() {
-        search.textField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            @Override
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-                    loadData();
-                }
-            }
-        });
-    }
-    private void addEventForSearchIcon() {
-        search.button1.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                loadData();
-            }
-        });
     }
 
 	public void loadData() {
@@ -228,17 +211,36 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         cbxSearch.addItem("Số điện thoại");
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addEventForSearchIcon() {
+        search.button1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loadData();
+            }
+        });
+    }
+
+    private void addEventForSearchTextField() {
+        search.textField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+                    loadData();
+                }
+            }
+        });
+    }
+
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         if (evt.getClickCount() == 2) {
             int selectedRow = table.getSelectedRow();
 
             if (selectedRow != -1) {
-                int maTV = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+                long maTV = Long.parseLong(table.getValueAt(selectedRow, 0).toString());
 
                 SuaThongTinTVDialog modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, maTV);
                 modal.showDialog();
 
-                
                 if (modal.isOk()) {
                     Main.recreateGUI(new ThanhVienGUI());
                 }
@@ -249,7 +251,12 @@ public class ThanhVienGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_tableMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        ThemThongTinTVDialog modal = new ThemThongTinTVDialog(Main.getFrames()[0], true);
+        modal.showDialog();
+
+        if (modal.isOk()) {
+            Main.recreateGUI(new ThanhVienGUI());
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
@@ -262,7 +269,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 			    List.of("Email", Excel.Type.STRING)
 		), row -> {
             long maTV = Long.parseLong(row.get(0));
-            String hoTen = StringUtils.capitalize(row.get(1));
+            String hoTen = StringUtils.capitalizeFully(row.get(1));
             String khoa = row.get(2).toUpperCase();
             String nganh = row.get(3).toUpperCase();
             String sdt = row.get(4);
@@ -274,8 +281,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         dialog.setVisible(true);
         
         if (!dialog.isCancel()) {
-            String title = "Thông báo";
-            JOptionPane.showMessageDialog(this, "Nhập dữ liệu thành công.", title, JOptionPane.INFORMATION_MESSAGE);
+            showMessage("Nhập dữ liệu thành công.");
             loadData();
         }
     }//GEN-LAST:event_btnImportActionPerformed

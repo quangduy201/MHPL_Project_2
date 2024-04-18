@@ -112,7 +112,7 @@ public abstract class BaseDAL<DTO> {
             return getByPage(0, 0);
         } catch (Exception e) {
             System.out.println("Error while retrieving record by id: " + e);
-            return null;
+            return List.of();
         } finally {
             closeSession();
         }
@@ -125,6 +125,50 @@ public abstract class BaseDAL<DTO> {
         } catch (Exception e) {
             System.out.println("Error while retrieving record by id: " + e);
             return null;
+        } finally {
+            closeSession();
+        }
+    }
+
+    public List<DTO> getByCriteria(Map<String, Object> criteria) {
+        openSession();
+        try {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<DTO> criteriaQuery = criteriaBuilder.createQuery(type);
+            Root<DTO> root = criteriaQuery.from(type);
+
+            List<Predicate> predicates = new ArrayList<>();
+            for (Map.Entry<String, Object> entry : criteria.entrySet()) {
+                String attributeName = entry.getKey();
+                Object searchValue = entry.getValue();
+                if (attributeName.contains(".")) {
+                    String[] parts = attributeName.split("\\.");
+                    Join<DTO, ?> join = root.join(parts[0], JoinType.INNER);
+                    for (int i = 1; i < parts.length - 1; i++) {
+                        join = join.join(parts[i], JoinType.INNER);
+                    }
+                    attributeName = parts[parts.length - 1];
+                    if (searchValue instanceof String) {
+                        predicates.add(criteriaBuilder.like(join.get(attributeName).as(String.class), "%" + searchValue + "%"));
+                    } else {
+                        predicates.add(criteriaBuilder.equal(join.get(attributeName), searchValue));
+                    }
+                } else {
+                    if (searchValue instanceof String) {
+                        predicates.add(criteriaBuilder.like(root.get(attributeName).as(String.class), "%" + searchValue + "%"));
+                    } else {
+                        predicates.add(criteriaBuilder.equal(root.get(attributeName), searchValue));
+                    }
+                }
+            }
+
+            criteriaQuery.select(root).where(predicates.toArray(new Predicate[0]));
+
+            Query<DTO> query = session.createQuery(criteriaQuery);
+            return query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Error while executing criteria query: " + e);
+            return List.of();
         } finally {
             closeSession();
         }

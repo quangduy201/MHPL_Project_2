@@ -20,6 +20,30 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
         super(ThanhVien.class);
     }
 
+    public List<ThanhVien> getThanhVienByHoTen(String HoTen) {
+        // language=HQL
+        String hqlQuery = "FROM ThanhVien tv WHERE tv.HoTen LIKE :HoTen";
+        return executeQuery(hqlQuery, ThanhVien.class, Map.of("HoTen", "%" + HoTen + "%"));
+    }
+
+    public List<ThanhVien> getThanhVienByEmail(String Email) {
+        // language=HQL
+        String hqlQuery = "FROM ThanhVien tv WHERE tv.Email LIKE :Email";
+        return executeQuery(hqlQuery, ThanhVien.class, Map.of("Email", "%" + Email + "%"));
+    }
+
+    public List<ThanhVien> getThanhVienByKhoa(String Khoa) {
+        // language=HQL
+        String hqlQuery = "FROM ThanhVien tv WHERE tv.Khoa LIKE :Khoa";
+        return executeQuery(hqlQuery, ThanhVien.class, Map.of("Khoa", "%" + Khoa + "%"));
+    }
+
+    public List<ThanhVien> getThanhVienByNganh(String Nganh) {
+        // language=HQL
+        String hqlQuery = "FROM ThanhVien tv WHERE tv.Nganh LIKE :Nganh";
+        return executeQuery(hqlQuery, ThanhVien.class, Map.of("Nganh", "%" + Nganh + "%"));
+    }
+
     // Thống kê số lượng thành viên vào khu học tập theo: thời gian, khoa.
     public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime, String khoa, String nganh, boolean isTable) {
         // language=HQL

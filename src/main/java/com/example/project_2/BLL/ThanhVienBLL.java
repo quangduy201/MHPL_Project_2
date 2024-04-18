@@ -21,6 +21,37 @@ public class ThanhVienBLL extends BaseBLL<ThanhVien> {
         thanhVienDAL = (ThanhVienDAL) getDAL();
     }
 
+    public String validateThanhVien(String MaTV, String HoTen, String Khoa, String Nganh, String SDT, String Email) {
+        if (MaTV == null || MaTV.isBlank()) {
+            return "Không được để trống mã thành viên.";
+        }
+        if (!MaTV.matches("^\\d{10}$")) {
+            return "Mã thành viên phải là 10 chữ số.";
+        }
+        if (HoTen == null || HoTen.isBlank()) {
+            return "Họ tên không được để trống.";
+        }
+        if (Khoa == null || Khoa.isBlank()) {
+            return "Khoa không được để trống.";
+        }
+        if (Nganh == null || Nganh.isBlank()) {
+            return "Ngành không được để trống.";
+        }
+        if (SDT == null || SDT.isBlank()) {
+            return "SĐT không được để trống.";
+        }
+        if (!SDT.matches("^(\\+?84|0)[35789]\\d{8}$")) {
+            return "SĐT không hợp lệ.";
+        }
+        if (Email == null || Email.isBlank()) {
+            return "Email không được để trống.";
+        }
+        if (!Email.matches("^\\w+(\\.\\w+)*@\\w+(\\.\\w+)+")) {
+            return "Email không hợp lệ.";
+        }
+        return null;
+    }
+
     public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime, String khoa, String nganh) {
         return thanhVienDAL.thongKeSoLuongThanhVien(startTime, endTime, khoa, nganh, false);
     }

@@ -88,6 +88,7 @@ public class ThietBiDAL extends BaseDAL<ThietBi> {
     public boolean deleteAllById(String id) {
         char firstDigit = id.charAt(0);
 
+        // language=HQL
         String hqlQuery = "DELETE FROM ThietBi WHERE SUBSTRING(id, 1, 1) = :firstDigit";
 
         Map<String, Object> parameters = new HashMap<>();
