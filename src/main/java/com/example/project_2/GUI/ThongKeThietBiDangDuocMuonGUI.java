@@ -266,6 +266,8 @@ public class ThongKeThietBiDangDuocMuonGUI extends javax.swing.JPanel {
                 ? "-1"
                 : String.valueOf(((ThietBi) thietBiCbx.getSelectedItem()).getMaTB())
         );
+        
+        System.out.println(data.size());
 
         table.removeAllRow();
 
