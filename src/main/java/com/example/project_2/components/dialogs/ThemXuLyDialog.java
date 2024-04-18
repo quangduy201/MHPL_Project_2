@@ -88,7 +88,7 @@ public class ThemXuLyDialog extends javax.swing.JDialog {
         
         dateChooser.setTextReference(chDate);
         
-        
+        tfTienBoiThuong.setText("0");
         tfTienBoiThuong.setEnabled(false);
         tfTienBoiThuong.setBackground(new Color(240, 240, 240));
         
