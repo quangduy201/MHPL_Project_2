@@ -38,7 +38,7 @@ public class XuLyDAL extends BaseDAL<XuLy>{
                 + "FROM XuLy xl WHERE " + (trangThai != -1 ? "xl.TrangThaiXL = " + trangThai + " AND " : "")
                 + "(xl.NgayXL BETWEEN :startTime AND :endTime)";
         } else {
-            hqlQuery = "SELECT DATE_FORMAT(xl.NgayXL, '%d-%m-%Y'), count(xl.MaXL), count(xl.SoTien) "
+            hqlQuery = "SELECT DATE_FORMAT(xl.NgayXL, '%d-%m-%Y'), count(xl.MaXL), sum(xl.SoTien) "
                 + "FROM XuLy xl WHERE " + (trangThai != -1 ? "xl.TrangThaiXL = " + trangThai + " AND " : "")
                 + "(xl.NgayXL BETWEEN :startTime AND :endTime) "
                 + "GROUP BY DATE_FORMAT(xl.NgayXL, '%d-%m-%Y')";

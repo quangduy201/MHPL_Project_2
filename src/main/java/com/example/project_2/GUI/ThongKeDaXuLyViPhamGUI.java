@@ -10,7 +10,7 @@ import com.example.project_2.components.date_range_chooser.DateChooserAction;
 import com.example.project_2.components.date_range_chooser.DateChooserAdapter;
 import com.example.project_2.components.date_range_chooser.DateRangeBetween;
 import com.example.project_2.components.date_range_chooser.DateRangeChooser;
-import com.example.project_2.components.model.ModelChartOtherData;
+import com.example.project_2.components.model.ModelChartData;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
@@ -95,18 +95,19 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
             endTime
         );
         
-        List<ModelChartOtherData> chartList = new ArrayList<>();
+        List<ModelChartData> chartList = new ArrayList<>();
         
         double total = 0;
         
         for (Object[] o : data) {
             chartList.add(
-                new ModelChartOtherData(
+                new ModelChartData(
                     o[0].toString(), 
-                    Integer.parseInt(o[1].toString()), 
-                    Double.parseDouble(o[2].toString())
+                    Integer.parseInt(o[1].toString())
                 )
             );
+            
+            System.out.println(o[2].toString());
             
             total += Double.parseDouble(o[2].toString());
         }
@@ -114,8 +115,8 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
         txtTotal.setText(String.valueOf(total));
         
         for (int i = 0; i < chartList.size(); i++) {
-            ModelChartOtherData tv = chartList.get(i);
-            chart.addData(new ModelCurveLineChart(tv.getLabel(), new double[] {tv.getCountTotal(), tv.getPriceTotal()}));
+            ModelChartData tv = chartList.get(i);
+            chart.addData(new ModelCurveLineChart(tv.getLabel(), new double[] {tv.getTotal()}));
         }
         
         if (chartList.size() == 1) {

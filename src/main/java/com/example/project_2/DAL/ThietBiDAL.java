@@ -64,14 +64,14 @@ public class ThietBiDAL extends BaseDAL<ThietBi> {
                     + "FROM ThongTinSD tt "
                     + "WHERE (tt.TGMuon IS NOT NULL AND tt.TGTra IS NULL) "
                     + ("-1".equals(maTB) ? "" : "AND tt.thietBi.MaTB=:maTB ")
-                    + "AND ((tt.TGMuon BETWEEN :startTime AND :endTime) "
+                    + "AND (tt.TGMuon BETWEEN :startTime AND :endTime) "
                     + "ORDER BY DATE_FORMAT(tt.TGMuon, '%d-%m-%Y %H:%i:%s') ASC";
         } else {
             hqlQuery = "SELECT DATE_FORMAT(tt.TGMuon, '%d-%m-%Y'), COUNT(tt) "
                     + "FROM ThongTinSD tt "
                     + "WHERE (tt.TGMuon IS NOT NULL AND tt.TGTra IS NULL) "
                     + ("-1".equals(maTB) ? "" : "AND tt.thietBi.MaTB=:maTB ")
-                    + "AND ((tt.TGMuon BETWEEN :startTime AND :endTime)"
+                    + "AND (tt.TGMuon BETWEEN :startTime AND :endTime) "
                     + "GROUP BY DATE_FORMAT(tt.TGMuon, '%d-%m-%Y') "
                     + "ORDER BY DATE_FORMAT(tt.TGMuon, '%d-%m-%Y') ASC";
         }
