@@ -5,6 +5,13 @@
 package com.example.project_2.components.dialogs;
 
 import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+
+import com.example.project_2.BLL.ThanhVienBLL;
+import com.example.project_2.DTO.ThanhVien;
+import com.example.project_2.GUI.Main;
+import com.example.project_2.utils.StringUtils;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -14,7 +21,7 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
  * @author Admin
  */
 public class ThemThongTinTVDialog extends javax.swing.JDialog {
-    private final long maTV;
+    private final ThanhVienBLL thanhVienBLL;
 
     public boolean isOk() {
         return ok;
@@ -28,12 +35,12 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
     private final Animator animator;
     private boolean show = true;
     
-    public ThemThongTinTVDialog(java.awt.Frame parent, boolean modal, long maTV) {
+    public ThemThongTinTVDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
-        this.maTV = maTV;
-            
+
+        thanhVienBLL = new ThanhVienBLL();
+
         setOpacity(0f);
         getContentPane().setBackground(Color.WHITE);
         TimingTarget target = new TimingTargetAdapter() {
@@ -74,6 +81,36 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         animator.start();
     }
 
+    private ThanhVien getThongTinTV() {
+        return new ThanhVien(
+                Long.parseLong(txtMaTV.getText().trim()),
+                StringUtils.capitalizeFully(txtHoTen.getText().trim()),
+                // TODO: add the email
+                "abc@example.com", // TODO: txtEmail.getText().trim()
+                "", // Reset password
+                txtKhoa.getText().trim().toUpperCase(),
+                txtNganh.getText().trim().toUpperCase(),
+                txtSdt.getText().trim()
+        );
+    }
+
+    private boolean validateThongTinTV() {
+        String error = thanhVienBLL.validateThanhVien(
+                txtMaTV.getText().trim(),
+                StringUtils.capitalizeFully(txtHoTen.getText().trim()),
+                txtKhoa.getText().trim().toUpperCase(),
+                txtNganh.getText().trim().toUpperCase(),
+                txtSdt.getText().trim(),
+                "abc@example.com" // TODO: txtEmail.getText().trim()
+        );
+        if (error != null) {
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage(error);
+            return false;
+        }
+        return true;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -101,12 +138,6 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        txtSdt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSdtActionPerformed(evt);
-            }
-        });
         jPanel3.add(txtSdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 230, 47));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -119,7 +150,6 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
 
         txtMaTV.setEditable(true);
         txtMaTV.setEditable(true);
-        txtMaTV.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.add(txtMaTV, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 230, 47));
         jPanel3.add(txtKhoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 230, 47));
 
@@ -156,6 +186,11 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Thêm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 120, 40));
 
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -181,34 +216,56 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
-       
-    }//GEN-LAST:event_btCancelActionPerformed
-
-    private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
-    
-    }//GEN-LAST:event_btAddActionPerformed
-  
-    private void btResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btResetActionPerformed
-    
-    }//GEN-LAST:event_btResetActionPerformed
-
-    private void txtTimeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimeKeyTyped
-
-    }//GEN-LAST:event_txtTimeKeyTyped
-
-    private void txtSdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSdtActionPerformed
-
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        
+        txtMaTV.setText("");
+        txtHoTen.setText("");
+        txtSdt.setText("");
+        txtKhoa.setText("");
+        txtNganh.setText("");
+        // TODO: add the email
+//        txtEmail.setText("");
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         closeMenu();
         ok = false;
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        if (!validateThongTinTV()) {
+            return;
+        }
+
+        ThanhVien thanhVien = getThongTinTV();
+        if (thanhVienBLL.getById(thanhVien.getMaTV()) != null) {
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Mã thành viên đã tồn tại.");
+            return;
+        }
+        Map<String, Object> criteria = Map.of(
+                "HoTen", thanhVien.getHoTen(),
+                "Khoa", thanhVien.getKhoa(),
+                "Nganh", thanhVien.getNganh(),
+                "SDT", thanhVien.getSDT(),
+                "Email", thanhVien.getEmail()
+        );
+        List<ThanhVien> thanhVienList = thanhVienBLL.getByCriteria(criteria);
+        if (!thanhVienList.isEmpty()) {
+            // TODO: ask the user if they would like to continue?
+            // TODO: there will be a duplication of the Thanh Vien if they continue.
+            System.out.println("Thông tin thành viên đã tồn tại. Bạn có muốn tiếp tục?");
+            return;
+        }
+        if (thanhVienBLL.add(thanhVien)) {
+            closeMenu();
+            ok = true;
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Thêm thành viên mới thành công.");
+        } else {
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Đã xảy ra lỗi khi thêm mới thành viên.");
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
