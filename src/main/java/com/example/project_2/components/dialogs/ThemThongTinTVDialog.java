@@ -14,6 +14,7 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
  * @author Admin
  */
 public class ThemThongTinTVDialog extends javax.swing.JDialog {
+    private final long maTV;
 
     public boolean isOk() {
         return ok;
@@ -27,10 +28,12 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
     private final Animator animator;
     private boolean show = true;
     
-    public ThemThongTinTVDialog(java.awt.Frame parent, boolean modal) {
+    public ThemThongTinTVDialog(java.awt.Frame parent, boolean modal, long maTV) {
         super(parent, modal);
         initComponents();
         
+        this.maTV = maTV;
+            
         setOpacity(0f);
         getContentPane().setBackground(Color.WHITE);
         TimingTarget target = new TimingTargetAdapter() {
@@ -78,19 +81,20 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         buttonGroup4 = new javax.swing.ButtonGroup();
         jProgressBar1 = new javax.swing.JProgressBar();
         jPanel3 = new javax.swing.JPanel();
-        txtSdt = new com.example.project_2.components.swing.SearchText();
+        txtSdt = new com.example.project_2.components.swing.TextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        txtMaTV = new com.example.project_2.components.swing.SearchText();
-        txtKhoa = new com.example.project_2.components.swing.SearchText();
+        txtMaTV = new com.example.project_2.components.swing.TextField();
+        txtKhoa = new com.example.project_2.components.swing.TextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnCancel = new com.example.project_2.components.swing.Button();
-        txtNganh = new com.example.project_2.components.swing.SearchText();
+        btnRefresh = new com.example.project_2.components.swing.Button();
+        txtNganh = new com.example.project_2.components.swing.TextField();
         jLabel5 = new javax.swing.JLabel();
-        txtHoTen = new com.example.project_2.components.swing.SearchText();
-        btnEdit = new com.example.project_2.components.swing.Button();
+        txtHoTen = new com.example.project_2.components.swing.TextField();
         jLabel10 = new javax.swing.JLabel();
+        btnAdd = new com.example.project_2.components.swing.Button();
+        btnCancel = new com.example.project_2.components.swing.Button();
 
         setUndecorated(true);
 
@@ -103,21 +107,21 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
                 txtSdtActionPerformed(evt);
             }
         });
-        jPanel3.add(txtSdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 210, 40));
+        jPanel3.add(txtSdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 230, 47));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Khoa:");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Số điện thoại:");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
-        txtMaTV.setEditable(false);
-        txtMaTV.setEditable(false);
-        txtMaTV.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel3.add(txtMaTV, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 210, 40));
-        jPanel3.add(txtKhoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 210, 40));
+        txtMaTV.setEditable(true);
+        txtMaTV.setEditable(true);
+        txtMaTV.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(txtMaTV, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 230, 47));
+        jPanel3.add(txtKhoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 230, 47));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Mã thành viên:");
@@ -126,8 +130,33 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("sansserif", 1, 30)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(159, 159, 159));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Sửa thông tin thành viên");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 7, 427, -1));
+        jLabel3.setText("Thêm thành viên");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 7, 460, -1));
+
+        btnRefresh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnRefresh.setText("Làm mới");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 120, 40));
+        jPanel3.add(txtNganh, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 230, 47));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Họ tên:");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        jPanel3.add(txtHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 230, 47));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("Ngành:");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
+
+        btnAdd.setBackground(new java.awt.Color(51, 102, 255));
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Thêm");
+        jPanel3.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 120, 40));
 
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCancel.setText("Hủy");
@@ -136,33 +165,17 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
                 btnCancelActionPerformed(evt);
             }
         });
-        jPanel3.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 110, 40));
-        jPanel3.add(txtNganh, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 210, 40));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Họ tên:");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
-        jPanel3.add(txtHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 210, 40));
-
-        btnEdit.setBackground(new java.awt.Color(51, 102, 255));
-        btnEdit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
-        btnEdit.setText("Sửa");
-        jPanel3.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, 110, 40));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel10.setText("Ngành:");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+        jPanel3.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 120, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         pack();
@@ -188,14 +201,19 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSdtActionPerformed
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         closeMenu();
         ok = false;
     }//GEN-LAST:event_btnCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
