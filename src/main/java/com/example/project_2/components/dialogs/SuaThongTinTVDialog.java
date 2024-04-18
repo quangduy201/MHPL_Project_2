@@ -129,6 +129,7 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroup4 = new javax.swing.ButtonGroup();
+        jProgressBar1 = new javax.swing.JProgressBar();
         jPanel3 = new javax.swing.JPanel();
         txtSdt = new com.example.project_2.components.swing.TextField();
         jLabel4 = new javax.swing.JLabel();
@@ -143,13 +144,14 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
         txtHoTen = new com.example.project_2.components.swing.TextField();
         btnEdit = new com.example.project_2.components.swing.Button();
         jLabel10 = new javax.swing.JLabel();
+        txtEmail = new com.example.project_2.components.swing.TextField();
+        jLabel11 = new javax.swing.JLabel();
 
         setUndecorated(true);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jPanel3.add(txtSdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 210, 47));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -183,7 +185,7 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
                 btnCancelActionPerformed(evt);
             }
         });
-        jPanel3.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 120, 40));
+        jPanel3.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 490, 120, 40));
         jPanel3.add(txtNganh, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 210, 47));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -200,11 +202,16 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
                 btnEditActionPerformed(evt);
             }
         });
-        jPanel3.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 120, 40));
+        jPanel3.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, 120, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel10.setText("Ngành:");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
+        jLabel10.setText("Email:");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
+        jPanel3.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 410, 210, 47));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setText("Ngành:");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,7 +221,9 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -261,12 +270,15 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtKhoa;
     private javax.swing.JTextField txtMaTV;
