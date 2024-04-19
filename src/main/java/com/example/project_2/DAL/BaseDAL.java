@@ -1,12 +1,8 @@
 package com.example.project_2.DAL;
 
 import com.example.project_2.utils.HibernateUtil;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
+
 import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -148,17 +144,9 @@ public abstract class BaseDAL<DTO> {
                         join = join.join(parts[i], JoinType.INNER);
                     }
                     attributeName = parts[parts.length - 1];
-                    if (searchValue instanceof String) {
-                        predicates.add(criteriaBuilder.like(join.get(attributeName).as(String.class), "%" + searchValue + "%"));
-                    } else {
-                        predicates.add(criteriaBuilder.equal(join.get(attributeName), searchValue));
-                    }
+                    predicates.add(criteriaToPredicate(criteriaBuilder, join, attributeName, searchValue));
                 } else {
-                    if (searchValue instanceof String) {
-                        predicates.add(criteriaBuilder.like(root.get(attributeName).as(String.class), "%" + searchValue + "%"));
-                    } else {
-                        predicates.add(criteriaBuilder.equal(root.get(attributeName), searchValue));
-                    }
+                    predicates.add(criteriaToPredicate(criteriaBuilder, root, attributeName, searchValue));
                 }
             }
 
@@ -171,6 +159,16 @@ public abstract class BaseDAL<DTO> {
             return List.of();
         } finally {
             closeSession();
+        }
+    }
+
+    private Predicate criteriaToPredicate(CriteriaBuilder criteriaBuilder, From<?, ?> from, String attributeName, Object value) {
+        if (value == null) {
+            return criteriaBuilder.isNull(from.get(attributeName));
+        } else if (value instanceof String) {
+            return criteriaBuilder.like(from.get(attributeName).as(String.class), "%" + value + "%");
+        } else {
+            return criteriaBuilder.equal(from.get(attributeName), value);
         }
     }
 

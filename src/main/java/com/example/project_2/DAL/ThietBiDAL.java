@@ -21,6 +21,18 @@ public class ThietBiDAL extends BaseDAL<ThietBi> {
         super(ThietBi.class);
     }
 
+    public List<ThietBi> getThietBiDangDuocMuonByMaTV(Long MaTV) {
+        // language=HQL
+        String hqlQuery = "SELECT tt.thietBi " +
+                "FROM ThongTinSD tt " +
+                "WHERE tt.thanhVien.MaTV = :MaTV AND TGMuon IS NOT NULL AND TGTra IS NULL ";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("MaTV", MaTV);
+
+        return executeQuery(hqlQuery, ThietBi.class, params);
+    }
+
     //Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
     public List<Object[]> thongKeThietBiDaDuocMuon(LocalDateTime startTime, LocalDateTime endTime, String maTB, boolean isTable) {
         // language=HQL

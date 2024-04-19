@@ -58,6 +58,8 @@ public class ThietBi {
 
     @Override
     public String toString() {
-        return TenTB;
+        if (MaTB == -1)
+            return TenTB;
+        return MaTB + " - " + TenTB;
     }
 }

@@ -27,8 +27,8 @@ public class ThongTinSDDAL extends BaseDAL<ThongTinSD> {
                         ? ""
                         : "AND (tt.thanhVien.HoTen LIKE :HoTen OR tt.thietBi.TenTB LIKE :TenTB) ") +
                 "ORDER BY CASE " +
-                    "WHEN tt.TGTra IS NULL THEN 0 " +
                     "WHEN tt.TGDatcho IS NOT NULL THEN 1 " +
+                    "WHEN tt.TGTra IS NULL THEN 0 " +
                     "ELSE 2 " +
                     "END, tt.TGTra DESC";
 

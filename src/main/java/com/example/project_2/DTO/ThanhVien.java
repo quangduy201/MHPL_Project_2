@@ -118,4 +118,8 @@ public class ThanhVien {
         this.ThongTinSD = ThongTinSD;
     }
 
+    @Override
+    public String toString() {
+        return MaTV + " - " + HoTen;
+    }
 }
