@@ -85,9 +85,8 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         return new ThanhVien(
                 Long.parseLong(txtMaTV.getText().trim()),
                 StringUtils.capitalizeFully(txtHoTen.getText().trim()),
-                // TODO: add the email
-                "abc@example.com", // TODO: txtEmail.getText().trim()
-                "", // Reset password
+                txtEmail.getText().trim(),
+                null,
                 txtKhoa.getText().trim().toUpperCase(),
                 txtNganh.getText().trim().toUpperCase(),
                 txtSdt.getText().trim()
@@ -101,7 +100,7 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
                 txtKhoa.getText().trim().toUpperCase(),
                 txtNganh.getText().trim().toUpperCase(),
                 txtSdt.getText().trim(),
-                "abc@example.com" // TODO: txtEmail.getText().trim()
+                txtEmail.getText().trim()
         );
         if (error != null) {
             Message message = new Message(Main.getFrames()[0], true);
@@ -229,8 +228,7 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         txtSdt.setText("");
         txtKhoa.setText("");
         txtNganh.setText("");
-        // TODO: add the email
-//        txtEmail.setText("");
+        txtEmail.setText("");
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -258,9 +256,8 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         );
         List<ThanhVien> thanhVienList = thanhVienBLL.getByCriteria(criteria);
         if (!thanhVienList.isEmpty()) {
-            // TODO: ask the user if they would like to continue?
-            // TODO: there will be a duplication of the Thanh Vien if they continue.
-            System.out.println("Thông tin thành viên đã tồn tại. Bạn có muốn tiếp tục?");
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Thông tin thành viên đã tồn tại.");
             return;
         }
         if (thanhVienBLL.add(thanhVien)) {

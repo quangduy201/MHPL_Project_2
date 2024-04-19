@@ -4,6 +4,7 @@ import com.example.project_2.DAL.ThongTinSDDAL;
 import com.example.project_2.DTO.ThongTinSD;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,6 +16,10 @@ public class ThongTinSDBLL extends BaseBLL<ThongTinSD> {
     public ThongTinSDBLL() {
         super(new ThongTinSDDAL());
         thongTinSDDAL = (ThongTinSDDAL) getDAL();
+    }
+
+    public List<ThongTinSD> getThongTinSDMuonTra(Map<String, Object> criteria) {
+        return thongTinSDDAL.getThongTinSDMuonTra(criteria);
     }
     
     // Thống kê thiết bị đang được mượn và đang được mượn theo thời gian.

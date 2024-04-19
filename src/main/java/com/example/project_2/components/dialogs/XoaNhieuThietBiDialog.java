@@ -142,7 +142,7 @@ public class XoaNhieuThietBiDialog extends javax.swing.JDialog {
 
         btnSua.setBackground(new java.awt.Color(51, 102, 255));
         btnSua.setForeground(new java.awt.Color(255, 255, 255));
-        btnSua.setText("Thêm");
+        btnSua.setText("Xóa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);

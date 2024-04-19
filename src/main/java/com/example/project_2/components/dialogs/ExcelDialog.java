@@ -150,7 +150,7 @@ public class ExcelDialog extends java.awt.Dialog {
         btnPaste.setText("Dán");
         jPanel1.add(btnPaste);
 
-        btnReadFile.setText("Đọc file Ẽxcel");
+        btnReadFile.setText("Đọc file Excel");
         jPanel1.add(btnReadFile);
 
         add(jPanel1, java.awt.BorderLayout.SOUTH);

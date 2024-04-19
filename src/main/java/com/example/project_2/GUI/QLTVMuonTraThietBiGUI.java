@@ -4,11 +4,35 @@
  */
 package com.example.project_2.GUI;
 
+import com.example.project_2.BLL.ThanhVienBLL;
+import com.example.project_2.BLL.ThietBiBLL;
+import com.example.project_2.BLL.ThongTinSDBLL;
+import com.example.project_2.DTO.ThongTinSD;
+import com.example.project_2.components.table.EventAction;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  *
  * @author Hung
  */
 public class QLTVMuonTraThietBiGUI extends javax.swing.JPanel {
+    private final ThongTinSDBLL thongTinSDBLL = new ThongTinSDBLL();
+    private final ThanhVienBLL thanhVienBLL = new ThanhVienBLL();
+    private final ThietBiBLL thietBiBLL = new ThietBiBLL();
+    private final EventAction<ThongTinSD> eventAction = new EventAction<ThongTinSD>() {
+        @Override
+        public void delete(ThongTinSD student) {
+            // TODO
+        }
+
+        @Override
+        public void update(ThongTinSD student) {
+
+        }
+    };
 
     /**
      * Creates new form ThanhVienGUI
@@ -16,6 +40,42 @@ public class QLTVMuonTraThietBiGUI extends javax.swing.JPanel {
     public QLTVMuonTraThietBiGUI() {
         initComponents();
         setOpaque(false);
+
+        loadData();
+    }
+
+    public void loadData() {
+        String searchText = txtSearch.getText().trim();
+        Map<String, Object> criteria = new HashMap<>();
+        if (!searchText.isBlank()) {
+            criteria.put("HoTen", searchText);
+            criteria.put("TenTB", searchText);
+        }
+        List<ThongTinSD> thongTinSDList = thongTinSDBLL.getThongTinSDMuonTra(criteria);
+        setTableThongTinSD(thongTinSDList);
+    }
+
+    public void setTableThongTinSD(List<ThongTinSD> thongTinSDList) {
+        table.removeAllRow();
+
+        for (var thongTinSD : thongTinSDList) {
+            String state;
+            if (thongTinSD.getTGTra() != null) {
+                state = "Đã trả";
+            } else if (thongTinSD.getTGDatcho() != null) {
+                state = "Đã đặt chỗ";
+            } else {
+                state = "Đang mượn";
+            }
+            table.addRow(new Object[]{
+                    thongTinSD.getThanhVien().getHoTen(),
+                    thongTinSD.getThietBi().getTenTB(),
+                    thongTinSD.getTGDatcho(),
+                    thongTinSD.getTGMuon(),
+                    thongTinSD.getTGTra(),
+                    state
+            });
+        }
     }
 
     /**
@@ -72,7 +132,7 @@ public class QLTVMuonTraThietBiGUI extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tên sinh viên", "Tên thiết bị", "Thời gian đặt chỗ", "Thời gian mượn", "Thời gian trả", "null"
+                "Tên sinh viên", "Tên thiết bị", "Thời gian đặt chỗ", "Thời gian mượn", "Thời gian trả", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
