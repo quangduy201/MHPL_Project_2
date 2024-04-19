@@ -17,7 +17,6 @@ import com.example.project_2.utils.StringUtils;
 
 import java.util.HashMap;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
@@ -70,19 +69,19 @@ public class ThanhVienGUI extends javax.swing.JPanel {
     }
 
 	public void loadData() {
-            String searchText = search.textField1.getText().trim();
-        
-            if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = "";
+        String searchText = search.textField1.getText().trim();
 
-            Map<String, Object> searchCriteria = new HashMap<>();
+        if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = "";
 
-            if (!searchText.isEmpty()) {
-                searchCriteria.put("HoTen", searchText);
-            }
-            
-            List<ThanhVien> thanhVienList = thanhVienBLL.search(searchCriteria, ThanhVien.class);
-            
-            setTableThanhVien(thanhVienList);
+        Map<String, Object> searchCriteria = new HashMap<>();
+
+        if (!searchText.isEmpty()) {
+            searchCriteria.put("HoTen", searchText);
+        }
+
+        List<ThanhVien> thanhVienList = thanhVienBLL.search(searchCriteria, ThanhVien.class);
+
+        setTableThanhVien(thanhVienList);
 	}
 
 	public void setTableThanhVien(List<ThanhVien> thanhVienList) {

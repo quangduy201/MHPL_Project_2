@@ -7,6 +7,7 @@ package com.example.project_2.DAL;
 import com.example.project_2.DTO.ThongTinSD;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,6 +16,23 @@ import java.util.List;
 public class ThongTinSDDAL extends BaseDAL<ThongTinSD> {
     public ThongTinSDDAL() {
         super(ThongTinSD.class);
+    }
+
+    public List<ThongTinSD> getThongTinSDMuonTra(Map<String, Object> criteria) {
+        // language=HQL
+        String hqlQuery = "SELECT tt " +
+                "FROM ThongTinSD tt " +
+                "WHERE tt.thietBi IS NOT NULL " +
+                (criteria.isEmpty()
+                        ? ""
+                        : "AND (tt.thanhVien.HoTen LIKE :HoTen OR tt.thietBi.TenTB LIKE :TenTB) ") +
+                "ORDER BY CASE " +
+                    "WHEN tt.TGTra IS NULL THEN 0 " +
+                    "WHEN tt.TGDatcho IS NOT NULL THEN 1 " +
+                    "ELSE 2 " +
+                    "END, tt.TGTra DESC";
+
+        return executeQuery(hqlQuery, ThongTinSD.class, criteria);
     }
 
     // Thống kê thiết bị đang được mượn và đang được mượn theo thời gian.

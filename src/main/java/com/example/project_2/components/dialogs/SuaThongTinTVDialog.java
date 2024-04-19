@@ -90,17 +90,15 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
         txtSdt.setText(thanhVien.getSDT());
         txtKhoa.setText(thanhVien.getKhoa());
         txtNganh.setText(thanhVien.getNganh());
-        // TODO: add the email
-//        txtEmail.setText(thanhVien.getEmail());
+        txtEmail.setText(thanhVien.getEmail());
     }
 
     private ThanhVien getThongTinTV() {
         return new ThanhVien(
                 thanhVien.getMaTV(),
                 StringUtils.capitalizeFully(txtHoTen.getText().trim()),
-                // TODO: add the email
-                "", // txtEmail.getText().trim(),
-                "", // Reset password
+                txtEmail.getText().trim(),
+                thanhVien.getPassword(),
                 txtKhoa.getText().trim().toUpperCase(),
                 txtNganh.getText().trim().toUpperCase(),
                 txtSdt.getText().trim()
@@ -114,7 +112,7 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
                 txtKhoa.getText().trim().toUpperCase(),
                 txtNganh.getText().trim().toUpperCase(),
                 txtSdt.getText().trim(),
-                "abc@example.com" // TODO: txtEmail.getText().trim()
+                txtEmail.getText().trim()
         );
         if (error != null) {
             Message message = new Message(Main.getFrames()[0], true);
@@ -249,9 +247,8 @@ public class SuaThongTinTVDialog extends javax.swing.JDialog {
         );
         List<ThanhVien> thanhVienList = thanhVienBLL.getByCriteria(criteria);
         if (!thanhVienList.isEmpty()) {
-            // TODO: ask the user if they would like to continue?
-            // TODO: there will be a duplication of the Thanh Vien if they continue.
-            System.out.println("Thông tin thành viên đã tồn tại. Bạn có muốn tiếp tục?");
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Thông tin thành viên đã tồn tại.");
             return;
         }
         if (thanhVienBLL.update(thanhVien)) {
