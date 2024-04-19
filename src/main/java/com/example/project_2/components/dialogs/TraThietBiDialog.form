@@ -175,6 +175,9 @@
               </Events>
             </Component>
             <Component class="com.example.project_2.components.combobox.ComboBoxSuggestion" name="cbbThanhVien">
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbbThanhVienItemStateChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>

@@ -8,6 +8,8 @@ import com.example.project_2.BLL.ThanhVienBLL;
 import com.example.project_2.BLL.ThietBiBLL;
 import com.example.project_2.BLL.ThongTinSDBLL;
 import com.example.project_2.DTO.ThongTinSD;
+import com.example.project_2.components.dialogs.MuonThietBiDialog;
+import com.example.project_2.components.dialogs.TraThietBiDialog;
 import com.example.project_2.components.table.EventAction;
 
 import java.util.HashMap;
@@ -190,11 +192,21 @@ public class QLTVMuonTraThietBiGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnMuonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuonActionPerformed
-        // TODO add your handling code here:
+        MuonThietBiDialog modal = new MuonThietBiDialog(Main.getFrames()[0], true);
+        modal.showDialog();
+
+        if (modal.isOk()) {
+            Main.recreateGUI(new QLTVMuonTraThietBiGUI());
+        }
     }//GEN-LAST:event_btnMuonActionPerformed
 
     private void btnTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraActionPerformed
-        // TODO add your handling code here:
+        TraThietBiDialog modal = new TraThietBiDialog(Main.getFrames()[0], true);
+        modal.showDialog();
+
+        if (modal.isOk()) {
+            Main.recreateGUI(new QLTVMuonTraThietBiGUI());
+        }
     }//GEN-LAST:event_btnTraActionPerformed
 
 

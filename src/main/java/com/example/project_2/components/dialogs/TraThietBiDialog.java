@@ -5,7 +5,16 @@
 package com.example.project_2.components.dialogs;
 
 import java.awt.Color;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
+
+import com.example.project_2.BLL.ThanhVienBLL;
+import com.example.project_2.BLL.ThongTinSDBLL;
+import com.example.project_2.DTO.ThanhVien;
+import com.example.project_2.DTO.ThongTinSD;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -18,10 +27,10 @@ import com.example.project_2.GUI.Main;
  * @author Admin
  */
 public class TraThietBiDialog extends javax.swing.JDialog {
-    private int DEFALUT_WIDTH;
-    private DefaultTableModel model;
-    
+    private ThanhVienBLL thanhVienBLL = new ThanhVienBLL();
     private ThietBiBLL thietbiBLL = new ThietBiBLL();
+    private ThongTinSDBLL thongTinSDBLL = new ThongTinSDBLL();
+    private ThanhVien currentThanhVien = new ThanhVien();
 
     public boolean isOk() {
         return ok;
@@ -38,7 +47,9 @@ public class TraThietBiDialog extends javax.swing.JDialog {
     public TraThietBiDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-            
+
+        loadData();
+
         setOpacity(0f);
         getContentPane().setBackground(Color.WHITE);
         TimingTarget target = new TimingTargetAdapter() {
@@ -66,7 +77,26 @@ public class TraThietBiDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         
     }
-      
+
+    public void loadData() {
+        List<ThanhVien> thanhVienList = thanhVienBLL.getAll();
+        setCbbThanhVien(thanhVienList);
+    }
+
+    public void setCbbThanhVien(List<ThanhVien> thanhVienList) {
+        cbbThanhVien.removeAllItems();
+        for (ThanhVien thanhVien : thanhVienList) {
+            cbbThanhVien.addItem(thanhVien);
+        }
+    }
+
+    public void setCbbThietBi(List<ThietBi> thietBiList) {
+        cbbThietBi.removeAllItems();
+        for (ThietBi thietBi : thietBiList) {
+            cbbThietBi.addItem(thietBi);
+        }
+    }
+
     public void showDialog() {
         animator.start();
         setVisible(true);
@@ -125,6 +155,12 @@ public class TraThietBiDialog extends javax.swing.JDialog {
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmActionPerformed(evt);
+            }
+        });
+
+        cbbThanhVien.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbThanhVienItemStateChanged(evt);
             }
         });
 
@@ -215,8 +251,43 @@ public class TraThietBiDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        
+        // Check nếu chưa chọn thiết bị
+        ThietBi selectedThietBi = (ThietBi) cbbThietBi.getSelectedItem();
+        if (selectedThietBi == null || selectedThietBi.toString().isBlank()) {
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Vui lòng chọn thiết bị cần trả.");
+            return;
+        }
+        ThanhVien selectedThanhVien = (ThanhVien) cbbThanhVien.getSelectedItem();
+        assert selectedThanhVien != null;
+
+        // Cập nhật TGTra
+        Map<String, Object> criteria = new HashMap<>();
+        criteria.put("thanhVien.MaTV", selectedThanhVien.getMaTV());
+        criteria.put("thietBi.MaTB", selectedThietBi.getMaTB());
+        criteria.put("TGTra", null);
+        ThongTinSD thongTinSD = thongTinSDBLL.getByCriteria(criteria).get(0);
+        thongTinSD.setTGTra(LocalDateTime.now());
+        if (thongTinSDBLL.update(thongTinSD)) {
+            closeMenu();
+            ok = true;
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Trả thiết bị thành công.");
+        } else {
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Trả thiết bị thất bại.");
+        }
     }//GEN-LAST:event_btnConfirmActionPerformed
+
+    private void cbbThanhVienItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbThanhVienItemStateChanged
+        ThanhVien selectedThanhVien = (ThanhVien) cbbThanhVien.getSelectedItem();
+        assert selectedThanhVien != null;
+        if (!selectedThanhVien.getMaTV().equals(currentThanhVien.getMaTV())) {
+            currentThanhVien = selectedThanhVien;
+            List<ThietBi> thietBiDangDuocMuon = thietbiBLL.getThietBiDangDuocMuonByMaTV(currentThanhVien.getMaTV());
+            setCbbThietBi(thietBiDangDuocMuon);
+        }
+    }//GEN-LAST:event_cbbThanhVienItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.example.project_2.components.swing.Button btnConfirm;

@@ -18,6 +18,10 @@ public class ThietBiBLL extends BaseBLL<ThietBi> {
         thietBiDAL = (ThietBiDAL) getDAL();
     }
 
+    public List<ThietBi> getThietBiDangDuocMuonByMaTV(Long MaTV) {
+        return thietBiDAL.getThietBiDangDuocMuonByMaTV(MaTV);
+    }
+
     // Thống kê thiết bị được mượn theo: thời gian, tên thiết bị
     public List<Object[]> thongKeThietBiDaDuocMuon(LocalDateTime startTime, LocalDateTime endTime, String maTB) {
         return thietBiDAL.thongKeThietBiDaDuocMuon(startTime, endTime, maTB, false);

@@ -4,8 +4,20 @@
  */
 package com.example.project_2.components.dialogs;
 
-import java.awt.Color;
+import java.awt.*;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import com.example.project_2.BLL.ThanhVienBLL;
+import com.example.project_2.BLL.ThongTinSDBLL;
+import com.example.project_2.BLL.XuLyBLL;
+import com.example.project_2.DTO.ThanhVien;
+import com.example.project_2.DTO.ThongTinSD;
+import com.example.project_2.DTO.XuLy;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -18,10 +30,10 @@ import com.example.project_2.GUI.Main;
  * @author Admin
  */
 public class MuonThietBiDialog extends javax.swing.JDialog {
-    private int DEFALUT_WIDTH;
-    private DefaultTableModel model;
-    
+    private ThanhVienBLL thanhVienBLL = new ThanhVienBLL();
     private ThietBiBLL thietbiBLL = new ThietBiBLL();
+    private ThongTinSDBLL thongTinSDBLL = new ThongTinSDBLL();
+    private XuLyBLL xuLyBLL = new XuLyBLL();
 
     public boolean isOk() {
         return ok;
@@ -38,6 +50,22 @@ public class MuonThietBiDialog extends javax.swing.JDialog {
     public MuonThietBiDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+//        final ListCellRenderer thanhVienRenderer = cbbThanhVien.getRenderer();
+//        final ListCellRenderer thietBiRenderer = cbbThietBi.getRenderer();
+//        cbbThanhVien.setRenderer((list, value, index, isSelected, cellHasFocus) -> {
+//            if (value instanceof ThanhVien) {
+//                value = ((ThanhVien) value).getMaTV();
+//            }
+//            return thanhVienRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+//        });
+//        cbbThietBi.setRenderer((list, value, index, isSelected, cellHasFocus) -> {
+//            if (value instanceof ThietBi) {
+//                value = ((ThietBi) value).getMaTB();
+//            }
+//            return thietBiRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+//        });
+
+        loadData();
             
         setOpacity(0f);
         getContentPane().setBackground(Color.WHITE);
@@ -66,7 +94,28 @@ public class MuonThietBiDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         
     }
-      
+
+    public void loadData() {
+        List<ThanhVien> thanhVienList = thanhVienBLL.getAll();
+        List<ThietBi> thietBiList = thietbiBLL.getAll();
+        setCbbThanhVien(thanhVienList);
+        setCbbThietBi(thietBiList);
+    }
+
+    public void setCbbThanhVien(List<ThanhVien> thanhVienList) {
+        cbbThanhVien.removeAllItems();
+        for (ThanhVien thanhVien : thanhVienList) {
+            cbbThanhVien.addItem(thanhVien);
+        }
+    }
+
+    public void setCbbThietBi(List<ThietBi> thietBiList) {
+        cbbThietBi.removeAllItems();
+        for (ThietBi thietBi : thietBiList) {
+            cbbThietBi.addItem(thietBi);
+        }
+    }
+
     public void showDialog() {
         animator.start();
         setVisible(true);
@@ -215,15 +264,50 @@ public class MuonThietBiDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        
+        // Check nếu thành viên đang bị vi phạm
+        ThanhVien thanhVien = (ThanhVien) cbbThanhVien.getSelectedItem();
+        Map<String, Object> criteria = new HashMap<>();
+        assert thanhVien != null;
+        criteria.put("thanhVien.MaTV", thanhVien.getMaTV());
+        criteria.put("TrangThaiXL", 0);
+        List<XuLy> xuLyList = xuLyBLL.getByCriteria(criteria);
+        if (!xuLyList.isEmpty()) {
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Thành viên đang bị vi phạm: " + xuLyList.get(0).getHinhThucXL());
+            return;
+        }
+
+        // Check nếu thiết bị đang được mượn
+        ThietBi thietBi = (ThietBi) cbbThietBi.getSelectedItem();
+        criteria = new HashMap<>();
+        assert thietBi != null;
+        criteria.put("thietBi.MaTB", thietBi.getMaTB());
+        criteria.put("TGTra", null);
+        List<ThongTinSD> thongTinSDList = thongTinSDBLL.getByCriteria(criteria);
+        if (!thongTinSDList.isEmpty()) {
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Thiết bị đã được mượn.");
+            return;
+        }
+
+        ThongTinSD thongTinSD = new ThongTinSD(0, thanhVien, thietBi, null, LocalDateTime.now(), null, null);
+        if (thongTinSDBLL.add(thongTinSD)) {
+            closeMenu();
+            ok = true;
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Mượn thiết bị thành công.");
+        } else {
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Mượn thiết bị thất bại.");
+        }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.example.project_2.components.swing.Button btnConfirm;
     private com.example.project_2.components.swing.Button btnHuy;
     private javax.swing.ButtonGroup buttonGroup4;
-    private com.example.project_2.components.combobox.ComboBoxSuggestion cbbThanhVien;
-    private com.example.project_2.components.combobox.ComboBoxSuggestion cbbThietBi;
+    private com.example.project_2.components.combobox.ComboBoxSuggestion<ThanhVien> cbbThanhVien;
+    private com.example.project_2.components.combobox.ComboBoxSuggestion<ThietBi> cbbThietBi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
