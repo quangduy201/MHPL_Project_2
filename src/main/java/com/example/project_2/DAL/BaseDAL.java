@@ -2,13 +2,12 @@ package com.example.project_2.DAL;
 
 import com.example.project_2.utils.HibernateUtil;
 import jakarta.persistence.criteria.*;
-
-import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.query.SelectionQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -113,7 +112,7 @@ public abstract class BaseDAL<DTO> {
             closeSession();
         }
     }
-    
+
     public DTO getById(Object id) {
         openSession();
         try {
@@ -189,7 +188,7 @@ public abstract class BaseDAL<DTO> {
             closeSession();
         }
     }
-    
+
     public int executeUpdate(String query, Map<String, Object> parameters) {
         openSession();
         Transaction transaction = null;
@@ -214,7 +213,7 @@ public abstract class BaseDAL<DTO> {
         }
         return rowCount;
     }
-    
+
     public <T> List<T> search(String attributeName, Object searchValue, Class<T> entityClass) {
         openSession();
         try {
@@ -251,7 +250,7 @@ public abstract class BaseDAL<DTO> {
             closeSession(); // Close the session in the finally block
         }
     }
-    
+
     public <T> List<T> search(Map<String, Object> searchCriteria, Class<T> entityClass) {
         openSession();
         try {
@@ -267,7 +266,7 @@ public abstract class BaseDAL<DTO> {
                     if (fieldName.contains(".")) {
                         String[] parts = fieldName.split("\\.");
                         Join<T, ?> join = root.join(parts[0], JoinType.INNER);
-                        
+
                         predicates.add(criteriaBuilder.like(join.get(parts[parts.length - 1]).as(String.class), "%" + value + "%"));
                     } else {
                         if (value instanceof String) {

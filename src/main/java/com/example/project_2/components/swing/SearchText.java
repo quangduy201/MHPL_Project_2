@@ -1,13 +1,8 @@
 package com.example.project_2.components.swing;
 
-import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.RenderingHints;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class SearchText extends JTextField {
 
@@ -15,6 +10,7 @@ public class SearchText extends JTextField {
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setSelectionColor(new Color(220, 204, 182));
     }
+
     private final String hint = "Nhập...";
 
     @Override

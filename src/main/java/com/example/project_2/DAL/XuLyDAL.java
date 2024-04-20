@@ -5,26 +5,16 @@
 package com.example.project_2.DAL;
 
 import com.example.project_2.DTO.XuLy;
-import com.example.project_2.DTO.ThanhVien;
-
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.hibernate.query.Query;
 
 /**
- *
  * @author huynh
  */
-public class XuLyDAL extends BaseDAL<XuLy>{
+public class XuLyDAL extends BaseDAL<XuLy> {
     public XuLyDAL() {
         super(XuLy.class);
     }
@@ -32,16 +22,16 @@ public class XuLyDAL extends BaseDAL<XuLy>{
     public List<Object[]> thongKeXuLy(LocalDateTime startTime, LocalDateTime endTime, int trangThai, boolean isTable) {
         // language=HQL
         String hqlQuery;
-        
+
         if (isTable) {
             hqlQuery = "SELECT xl.MaXL, xl.thanhVien.HoTen, xl.HinhThucXL, xl.SoTien, DATE_FORMAT(xl.NgayXL, '%d-%m-%Y') "
-                + "FROM XuLy xl WHERE " + (trangThai != -1 ? "xl.TrangThaiXL = " + trangThai + " AND " : "")
-                + "(xl.NgayXL BETWEEN :startTime AND :endTime)";
+                    + "FROM XuLy xl WHERE " + (trangThai != -1 ? "xl.TrangThaiXL = " + trangThai + " AND " : "")
+                    + "(xl.NgayXL BETWEEN :startTime AND :endTime)";
         } else {
             hqlQuery = "SELECT DATE_FORMAT(xl.NgayXL, '%d-%m-%Y'), count(xl.MaXL), sum(xl.SoTien) "
-                + "FROM XuLy xl WHERE " + (trangThai != -1 ? "xl.TrangThaiXL = " + trangThai + " AND " : "")
-                + "(xl.NgayXL BETWEEN :startTime AND :endTime) "
-                + "GROUP BY DATE_FORMAT(xl.NgayXL, '%d-%m-%Y')";
+                    + "FROM XuLy xl WHERE " + (trangThai != -1 ? "xl.TrangThaiXL = " + trangThai + " AND " : "")
+                    + "(xl.NgayXL BETWEEN :startTime AND :endTime) "
+                    + "GROUP BY DATE_FORMAT(xl.NgayXL, '%d-%m-%Y')";
         }
 
         Map<String, Object> parameters = new HashMap<>();
@@ -50,9 +40,6 @@ public class XuLyDAL extends BaseDAL<XuLy>{
 
         return executeQuery(hqlQuery, Object[].class, parameters);
     }
-    
-    
 
 
-    
 }

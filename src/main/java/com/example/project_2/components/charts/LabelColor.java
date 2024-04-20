@@ -1,9 +1,7 @@
 package com.example.project_2.components.charts;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.awt.*;
 
 public class LabelColor extends JLabel {
 

@@ -4,10 +4,12 @@
  */
 package com.example.project_2.DTO;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
- *
  * @author Hung
  */
 @Entity
@@ -25,13 +27,13 @@ public class ThietBi {
 
     public ThietBi() {
     }
-    
+
     public ThietBi(long MaTB, String TenTB, String MoTaTB) {
         this.MaTB = MaTB;
         this.TenTB = TenTB;
         this.MoTaTB = MoTaTB;
     }
-    
+
     public long getMaTB() {
         return MaTB;
     }

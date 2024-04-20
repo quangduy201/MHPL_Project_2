@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author huynh
  */
 public class ThongTinSDDAL extends BaseDAL<ThongTinSD> {
@@ -27,10 +26,10 @@ public class ThongTinSDDAL extends BaseDAL<ThongTinSD> {
                         ? ""
                         : "AND (tt.thanhVien.HoTen LIKE :HoTen OR tt.thietBi.TenTB LIKE :TenTB) ") +
                 "ORDER BY CASE " +
-                    "WHEN tt.TGDatcho IS NOT NULL THEN 1 " +
-                    "WHEN tt.TGTra IS NULL THEN 0 " +
-                    "ELSE 2 " +
-                    "END, tt.TGTra DESC";
+                "WHEN tt.TGDatcho IS NOT NULL THEN 1 " +
+                "WHEN tt.TGTra IS NULL THEN 0 " +
+                "ELSE 2 " +
+                "END, tt.TGTra DESC";
 
         return executeQuery(hqlQuery, ThongTinSD.class, criteria);
     }

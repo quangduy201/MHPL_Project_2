@@ -4,10 +4,6 @@
  */
 package com.example.project_2.components.dialogs;
 
-import java.awt.Color;
-import java.util.List;
-import java.util.Map;
-
 import com.example.project_2.BLL.ThanhVienBLL;
 import com.example.project_2.DTO.ThanhVien;
 import com.example.project_2.GUI.Main;
@@ -16,8 +12,11 @@ import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
+import java.awt.*;
+import java.util.List;
+import java.util.Map;
+
 /**
- *
  * @author Admin
  */
 public class ThemThongTinTVDialog extends javax.swing.JDialog {
@@ -34,7 +33,7 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
     private boolean ok;
     private final Animator animator;
     private boolean show = true;
-    
+
     public ThemThongTinTVDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -64,15 +63,15 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         animator = new Animator(200, target);
         animator.setResolution(0);
         animator.setAcceleration(0.5f);
-        
+
         setLocationRelativeTo(null);
     }
-    
+
     public void showDialog() {
         animator.start();
         setVisible(true);
     }
-    
+
     private void closeMenu() {
         if (animator.isRunning()) {
             animator.stop();
@@ -211,12 +210,12 @@ public class ThemThongTinTVDialog extends javax.swing.JDialog {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
         );
 
         pack();

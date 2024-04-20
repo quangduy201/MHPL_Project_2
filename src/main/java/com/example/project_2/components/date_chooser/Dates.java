@@ -1,10 +1,10 @@
 package com.example.project_2.components.date_chooser;
 
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.JButton;
 
 public final class Dates extends javax.swing.JPanel {
 

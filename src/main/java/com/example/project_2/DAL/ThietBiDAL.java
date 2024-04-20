@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author huynh
  */
 public class ThietBiDAL extends BaseDAL<ThietBi> {
@@ -96,7 +95,7 @@ public class ThietBiDAL extends BaseDAL<ThietBi> {
 
         return executeQuery(hqlQuery, Object[].class, parameters);
     }
-    
+
     public boolean deleteAllById(String id) {
         char firstDigit = id.charAt(0);
 

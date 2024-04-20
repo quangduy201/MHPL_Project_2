@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author huynh
  */
 public class ThanhVienDAL extends BaseDAL<ThanhVien> {
@@ -49,21 +48,21 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
 
         if (isTable) {
             hqlQuery = "SELECT tt.thanhVien.MaTV, tt.thanhVien.HoTen, tt.thanhVien.Khoa, tt.thanhVien.Nganh, DATE_FORMAT(tt.TGVao, '%d-%m-%Y %H:%i:%s')" +
-                        "FROM ThongTinSD tt " +
-                        "WHERE (tt.TGVao BETWEEN :startTime AND :endTime)" +
-                        (khoa != null && !"".equals(khoa) ? " AND tt.thanhVien.Khoa = :khoa " : " ") +
-                        (nganh != null && !"".equals(nganh) ? " AND tt.thanhVien.Nganh = :nganh " : " ") +
-                        "ORDER BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y %H:%i:%s') ASC";
+                    "FROM ThongTinSD tt " +
+                    "WHERE (tt.TGVao BETWEEN :startTime AND :endTime)" +
+                    (khoa != null && !"".equals(khoa) ? " AND tt.thanhVien.Khoa = :khoa " : " ") +
+                    (nganh != null && !"".equals(nganh) ? " AND tt.thanhVien.Nganh = :nganh " : " ") +
+                    "ORDER BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y %H:%i:%s') ASC";
         } else {
             hqlQuery = "SELECT DATE_FORMAT(tt.TGVao, '%d-%m-%Y'), COUNT(tt) " +
-                        "FROM ThongTinSD tt " +
-                        "WHERE (tt.TGVao BETWEEN :startTime AND :endTime)" +
-                        (khoa != null && !"".equals(khoa) ? " AND tt.thanhVien.Khoa = :khoa " : " ") +
-                        (nganh != null && !"".equals(nganh) ? " AND tt.thanhVien.Nganh = :nganh " : " ") +
-                        "GROUP BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y') " +
-                        "ORDER BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y') ASC";
+                    "FROM ThongTinSD tt " +
+                    "WHERE (tt.TGVao BETWEEN :startTime AND :endTime)" +
+                    (khoa != null && !"".equals(khoa) ? " AND tt.thanhVien.Khoa = :khoa " : " ") +
+                    (nganh != null && !"".equals(nganh) ? " AND tt.thanhVien.Nganh = :nganh " : " ") +
+                    "GROUP BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y') " +
+                    "ORDER BY DATE_FORMAT(tt.TGVao, '%d-%m-%Y') ASC";
         }
-        
+
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("startTime", startTime);
@@ -72,28 +71,28 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
         if (khoa != null && !"".equals(khoa)) {
             parameters.put("khoa", khoa);
         }
-        
+
         if (nganh != null && !"".equals(nganh)) {
             parameters.put("nganh", nganh);
         }
 
         return executeQuery(hqlQuery, Object[].class, parameters);
     }
-    
+
     public List<String> layDanhSachKhoa() {
         // language=HQL
         String hqlQuery = "SELECT DISTINCT tv.Khoa " +
                 "FROM ThanhVien tv";
-        
+
         return executeQuery(hqlQuery, String.class, null);
     }
-    
+
     public List<String> layDanhSachNganh() {
         // language=HQL
         String hqlQuery = "SELECT DISTINCT tv.Nganh " +
                 "FROM ThanhVien tv";
-        
+
         return executeQuery(hqlQuery, String.class, null);
     }
-    
+
 }

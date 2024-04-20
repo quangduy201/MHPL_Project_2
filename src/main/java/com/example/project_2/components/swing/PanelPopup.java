@@ -1,10 +1,7 @@
 package com.example.project_2.components.swing;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class PanelPopup extends JPanel {
 

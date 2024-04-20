@@ -2,24 +2,19 @@ package com.example.project_2.GUI;
 
 import com.example.project_2.BLL.ThietBiBLL;
 import com.example.project_2.DTO.ThietBi;
-import com.example.project_2.components.dialogs.ExcelDialog;
-import com.example.project_2.components.dialogs.Message;
-import com.example.project_2.components.dialogs.SuaThietBiDialog;
-import com.example.project_2.components.dialogs.ThemThietBiDialog;
-import com.example.project_2.components.dialogs.XoaNhieuThietBiDialog;
+import com.example.project_2.components.dialogs.*;
 import com.example.project_2.components.table.EventAction;
 import com.example.project_2.components.table.ModelAction;
 import com.example.project_2.utils.Excel;
 import com.example.project_2.utils.StringUtils;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JOptionPane;
 
 /**
- *
  * @author Hung
  */
 public class ThietBiGUI extends javax.swing.JPanel {
@@ -29,18 +24,18 @@ public class ThietBiGUI extends javax.swing.JPanel {
      */
     private List<ThietBi> thietbi = new ArrayList<>();
     private ThietBiBLL thietBiBLL = new ThietBiBLL();
-    
+
     public ThietBiGUI() {
         initComponents();
         tableThietBi.setActionColumn(3);
         tableThietBi.fixTable(jScrollPane1);
         setOpaque(false);
         loadThietBi();
-        
+
         addEventForSearchIcon();
         addEventForSearchTextField();
     }
-    
+
     private void addEventForSearchTextField() {
         search.textField1.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -51,6 +46,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
             }
         });
     }
+
     private void addEventForSearchIcon() {
         search.button1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -59,8 +55,8 @@ public class ThietBiGUI extends javax.swing.JPanel {
             }
         });
     }
-    
-    
+
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -77,19 +73,19 @@ public class ThietBiGUI extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1064, 726));
 
         tableThietBi.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Mã Thiết Bị", "Tên Thiết Bị", "Mô tả", "Tùy chọn"
-            }
+                },
+                new String[]{
+                        "Mã Thiết Bị", "Tên Thiết Bị", "Mô tả", "Tùy chọn"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         tableThietBi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,41 +129,41 @@ public class ThietBiGUI extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnXoaDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(41, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnXoaDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(41, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnXoaDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(32, 32, 32)
-                    .addComponent(jLabel2)
-                    .addContainerGap(647, Short.MAX_VALUE)))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(98, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(btnXoaDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(14, 14, 14)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(53, 53, 53))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addComponent(jLabel2)
+                                        .addContainerGap(647, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -181,16 +177,16 @@ public class ThietBiGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tableThietBiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableThietBiMouseClicked
-        if (evt.getClickCount() == 2){
+        if (evt.getClickCount() == 2) {
             int selectedRound = tableThietBi.getSelectedRow();
-            
-            if (selectedRound != -1){
+
+            if (selectedRound != -1) {
                 int maThietBi = Integer.parseInt(tableThietBi.getValueAt(selectedRound, 0).toString());
-                
+
                 SuaThietBiDialog dialog = new SuaThietBiDialog(Main.getFrames()[0], true, maThietBi);
                 dialog.showDialog();
                 loadThietBi();
-            }else{
+            } else {
                 Message mess = new Message(Main.getFrames()[0], true);
                 mess.showMessage("Vui lòng chọn dòng");
             }
@@ -207,9 +203,9 @@ public class ThietBiGUI extends javax.swing.JPanel {
 
     private void btnNhapExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelMouseClicked
         ExcelDialog dialog = new ExcelDialog(Main.getFrames()[0], true, List.of(
-            List.of("Mã TB", Excel.Type.NUMERIC),
-            List.of("Tên TB", Excel.Type.STRING),
-            List.of("Mô tả TB", Excel.Type.STRING)
+                List.of("Mã TB", Excel.Type.NUMERIC),
+                List.of("Tên TB", Excel.Type.STRING),
+                List.of("Mô tả TB", Excel.Type.STRING)
         ), row -> {
             int maTB = Integer.parseInt(row.get(0));
             String tenTB = StringUtils.capitalize(row.get(1));
@@ -217,9 +213,9 @@ public class ThietBiGUI extends javax.swing.JPanel {
             ThietBi tb = new ThietBi(maTB, tenTB, moTa);
             return thietBiBLL.add(tb);
         });
-        
+
         dialog.setVisible(true);
-        
+
         if (!dialog.isCancel()) {
             String title = "Thông báo";
             JOptionPane.showMessageDialog(this, "Nhập dữ liệu thành công.", title, JOptionPane.INFORMATION_MESSAGE);
@@ -240,19 +236,19 @@ public class ThietBiGUI extends javax.swing.JPanel {
 
     private void loadThietBi() {
         tableThietBi.removeAllRow();
-        
+
         String searchText = search.textField1.getText().trim();
-        
+
         if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = "";
-        
+
         Map<String, Object> searchCriteria = new HashMap<>();
-        
+
         if (!searchText.isEmpty()) {
             searchCriteria.put("TenTB", searchText);
         }
 
         thietbi = thietBiBLL.search(searchCriteria, ThietBi.class);
-        
+
         EventAction<ThietBi> eventAction = new EventAction<ThietBi>() {
             @Override
             public void update(ThietBi thietbi) {
@@ -260,11 +256,12 @@ public class ThietBiGUI extends javax.swing.JPanel {
                 dialog.showDialog();
                 Main.recreateGUI(new ThietBiGUI());
             }
+
             @Override
             public void delete(ThietBi thietbi) {
                 Message mess = new Message(Main.getFrames()[0], true);
                 mess.showMessage("Bạn muốn xóa thiết bị ???");
-                if (mess.isOk()){
+                if (mess.isOk()) {
                     if (thietBiBLL.delete(thietbi)) {
                         mess = new Message(Main.getFrames()[0], true);
                         mess.showMessage("Xóa thiết bị thành công");
@@ -276,15 +273,14 @@ public class ThietBiGUI extends javax.swing.JPanel {
                 }
             }
         };
-        
-        for(ThietBi c : thietbi)
-        {   
+
+        for (ThietBi c : thietbi) {
             tableThietBi.addRow(new Object[]{
-                c.getMaTB(),
-                c.getTenTB(),
-                c.getMoTaTB(),
-                new ModelAction<>(c, eventAction)});
-        } 
+                    c.getMaTB(),
+                    c.getTenTB(),
+                    c.getMoTaTB(),
+                    new ModelAction<>(c, eventAction)});
+        }
     }
-    
+
 }

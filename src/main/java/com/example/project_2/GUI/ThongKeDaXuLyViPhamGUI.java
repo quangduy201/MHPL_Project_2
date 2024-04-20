@@ -12,19 +12,17 @@ import com.example.project_2.components.date_range_chooser.DateRangeBetween;
 import com.example.project_2.components.date_range_chooser.DateRangeChooser;
 import com.example.project_2.components.model.ModelChartData;
 
-import java.awt.Color;
+import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 /**
- *
  * @author Hung
  */
 public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
@@ -37,97 +35,97 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
     public ThongKeDaXuLyViPhamGUI() {
         initComponents();
         table1.fixTable(jScrollPane1);
-        
+
         chart.isReadOnly = true;
         chart.setTitle("Thống kê đã xử lý vi phạm");
         chart.addLegend("Đã xử lý vi phạm", Color.decode("#bbf7d0"), Color.decode("#4ade80"));
-        
+
         dateRangeChooser.setTextField(chDate);
         dateRangeChooser.setDateSelectionMode(DateRangeChooser.DateSelectionMode.BETWEEN_DATE_SELECTED);
-        
+
         dateRangeChooser.addActionDateChooserListener(new DateChooserAdapter() {
             @Override
             public void dateBetweenChanged(DateRangeBetween date, DateChooserAction action) {
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                 String dateFrom = df.format(date.getFromDate());
                 String dateTo = df.format(date.getToDate());
-                
+
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 LocalDate startDate = LocalDate.parse(dateFrom, formatter);
                 LocalDate endDate = LocalDate.parse(dateTo, formatter);
-                
+
 
                 LocalDateTime startTime = startDate.atStartOfDay();
                 LocalDateTime endTime = endDate.atTime(LocalTime.MAX);
-                
+
                 chart.clear();
-                
+
                 setData(startTime, endTime);
                 setDataForTable(startTime, endTime);
             }
         });
-        
-        
+
+
         LocalDateTime endTime = LocalDateTime.now();
         LocalDateTime startTime = endTime.minus(Period.ofDays(30));
         setData(startTime, endTime);
         setDataForTable(startTime, endTime);
     }
-    
+
     private void setDataForTable(LocalDateTime startTime, LocalDateTime endTime) {
         List<Object[]> data = xlBLL.thongKeXuLyDaXuLyForTable(
-            startTime,
-            endTime
+                startTime,
+                endTime
         );
-        
+
         table1.removeAllRow();
 
         for (Object[] o : data) {
             table1.addRow(o);
         }
     }
-    
+
     private void setData(LocalDateTime startTime, LocalDateTime endTime) {
         chart.clear();
-        
+
         List<Object[]> data = xlBLL.thongKeXuLyDaXuLy(
-            startTime,
-            endTime
+                startTime,
+                endTime
         );
-        
+
         List<ModelChartData> chartList = new ArrayList<>();
-        
+
         double total = 0;
-        
+
         for (Object[] o : data) {
             chartList.add(
-                new ModelChartData(
-                    o[0].toString(), 
-                    Integer.parseInt(o[1].toString())
-                )
+                    new ModelChartData(
+                            o[0].toString(),
+                            Integer.parseInt(o[1].toString())
+                    )
             );
-            
+
             System.out.println(o[2].toString());
-            
+
             total += Double.parseDouble(o[2].toString());
         }
-        
+
         txtTotal.setText(String.valueOf(total));
-        
+
         for (int i = 0; i < chartList.size(); i++) {
             ModelChartData tv = chartList.get(i);
-            chart.addData(new ModelCurveLineChart(tv.getLabel(), new double[] {tv.getTotal()}));
+            chart.addData(new ModelCurveLineChart(tv.getLabel(), new double[]{tv.getTotal()}));
         }
-        
+
         if (chartList.size() == 1) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String formattedEndTime = endTime.format(formatter);
-            chart.addData(new ModelCurveLineChart(formattedEndTime, new double[] {0}));
+            chart.addData(new ModelCurveLineChart(formattedEndTime, new double[]{0}));
         }
-        
+
         chart.start();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -159,19 +157,19 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
         chart.setFillColor(true);
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Mã Xử Lý", "Tên Thành Viên", "Hình Thức Xử Lý", "Số Tiền Xử Lý", "Ngày Xử Lý"
-            }
+                },
+                new String[]{
+                        "Mã Xử Lý", "Tên Thành Viên", "Hình Thức Xử Lý", "Số Tiền Xử Lý", "Ngày Xử Lý"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane1.setViewportView(table1);
@@ -181,36 +179,36 @@ public class ThongKeDaXuLyViPhamGUI extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(23, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel1)
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(chDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

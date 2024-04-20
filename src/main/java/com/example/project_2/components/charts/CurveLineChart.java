@@ -1,13 +1,13 @@
 package com.example.project_2.components.charts;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
+import net.miginfocom.swing.MigLayout;
+import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
+import org.jdesktop.animation.timing.TimingTargetAdapter;
+import org.jdesktop.animation.timing.interpolation.PropertySetter;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
@@ -16,14 +16,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import net.miginfocom.swing.MigLayout;
-import org.jdesktop.animation.timing.Animator;
-import org.jdesktop.animation.timing.TimingTarget;
-import org.jdesktop.animation.timing.TimingTargetAdapter;
-import org.jdesktop.animation.timing.interpolation.PropertySetter;
 
 public class CurveLineChart extends JComponent {
 
@@ -322,16 +314,16 @@ public class CurveLineChart extends JComponent {
         if (legends.size() - 1 == index) {
             legend.setSelected(true);
         }
-        
+
         legendItems.add(legend);
         panelLegend.add(legend);
         panelLegend.repaint();
         panelLegend.revalidate();
     }
-    
+
     public interface LegendCallback {
-    void onLegendSelected(int index);
-}
+        void onLegendSelected(int index);
+    }
 
     public void selectedLegend(int index, LegendCallback callback) {
         if (animate > 0 && legendItems.size() > 0) {

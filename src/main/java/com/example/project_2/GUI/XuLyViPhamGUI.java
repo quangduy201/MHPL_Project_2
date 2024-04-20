@@ -6,29 +6,26 @@ package com.example.project_2.GUI;
 
 import com.example.project_2.BLL.ThanhVienBLL;
 import com.example.project_2.BLL.XuLyBLL;
-import com.example.project_2.DTO.XuLy;
 import com.example.project_2.DTO.ThanhVien;
-
+import com.example.project_2.DTO.XuLy;
 import com.example.project_2.components.dialogs.ExcelDialog;
 import com.example.project_2.components.dialogs.Message;
 import com.example.project_2.components.dialogs.SuaXuLyDialog;
 import com.example.project_2.components.dialogs.ThemXuLyDialog;
 import com.example.project_2.components.table.EventAction;
 import com.example.project_2.components.table.ModelAction;
-import java.util.ArrayList;
-import java.util.List;
 import com.example.project_2.utils.Excel;
 import com.example.project_2.utils.StringUtils;
 
-import java.sql.Date;
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import javax.swing.JOptionPane;
 
 /**
- *
  * @author Hung
  */
 public class XuLyViPhamGUI extends javax.swing.JPanel {
@@ -39,16 +36,16 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
 
     public XuLyViPhamGUI() {
         initComponents();
-        
+
         tableXuLyViPham.setActionColumn(7);
         tableXuLyViPham.fixTable(jScrollPane1);
         setOpaque(false);
         loadXuLy();
-        
+
         addEventForSearchIcon();
         addEventForSearchTextField();
     }
-    
+
     private void addEventForSearchTextField() {
         search.textField1.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -59,6 +56,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             }
         });
     }
+
     private void addEventForSearchIcon() {
         search.button1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -68,21 +66,21 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         });
     }
 
-    public void loadXuLy(){
+    public void loadXuLy() {
         tableXuLyViPham.removeAllRow();
-        
+
         String searchText = search.textField1.getText().trim();
-        
-        if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = ""; 
-        
+
+        if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = "";
+
         Map<String, Object> searchCriteria = new HashMap<>();
-        
+
         if (!searchText.isEmpty()) {
             searchCriteria.put("HinhThucXL", searchText);
             searchCriteria.put("thanhVien.HoTen", searchText);
             searchCriteria.put("MaXL", searchText);
         }
-        
+
         xuly = xulyBLL.search(searchCriteria, XuLy.class);
 
         EventAction<XuLy> eventAction = new EventAction<XuLy>() {
@@ -92,15 +90,16 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                 dialog.showDialog();
                 Main.recreateGUI(new XuLyViPhamGUI());
             }
+
             @Override
             public void delete(XuLy xuly) {
                 Message mess = new Message(Main.getFrames()[0], true);
                 mess.showMessage("Bạn muốn xóa thiết bị ???");
-                if (mess.isOk()){
+                if (mess.isOk()) {
                     if (xulyBLL.delete(xuly)) {
                         mess = new Message(Main.getFrames()[0], true);
                         mess.showMessage("Xóa thiết bị thành công");
-                        
+
                         Main.recreateGUI(new XuLyViPhamGUI());
                     } else {
                         mess = new Message(Main.getFrames()[0], true);
@@ -109,24 +108,23 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                 }
             }
         };
-        
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        
-        for(XuLy c : xuly)
-        {
+
+        for (XuLy c : xuly) {
             String ngay = c.getNgayXL().format(formatter);
             tableXuLyViPham.addRow(new Object[]{
-                c.getMaXL(),
-                c.getThanhVien().getMaTV(),
-                c.getThanhVien().getHoTen(),
-                c.getHinhThucXL(),
-                c.getSoTien() != null? c.getSoTien():0,
-                ngay,
-                c.getTrangThaiXL() == 0? "Chưa xử lý":"Đã xử lý",
-                new ModelAction<>(c, eventAction)});
+                    c.getMaXL(),
+                    c.getThanhVien().getMaTV(),
+                    c.getThanhVien().getHoTen(),
+                    c.getHinhThucXL(),
+                    c.getSoTien() != null ? c.getSoTien() : 0,
+                    ngay,
+                    c.getTrangThaiXL() == 0 ? "Chưa xử lý" : "Đã xử lý",
+                    new ModelAction<>(c, eventAction)});
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,19 +143,19 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         jLabel1.setText("Xử lý vi phạm");
 
         tableXuLyViPham.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Mã xử lý", "Mã thành viên", "Tên thành viên", "Hình thức xử lý", "Tiền bồi thường", "Ngày xử lý", "Trạng thái", "Tùy chọn"
-            }
+                },
+                new String[]{
+                        "Mã xử lý", "Mã thành viên", "Tên thành viên", "Hình thức xử lý", "Tiền bồi thường", "Ngày xử lý", "Trạng thái", "Tùy chọn"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane1.setViewportView(tableXuLyViPham);
@@ -179,38 +177,38 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnThemViPham, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
+                                .addGap(23, 23, 23))
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1)
+                                .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnThemViPham, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnThemViPham, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(btnNhapExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnThemViPham, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(28, 28, 28)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -222,33 +220,33 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
 
     private void btnNhapExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelMouseClicked
         ExcelDialog dialog = new ExcelDialog(Main.getFrames()[0], true, List.of(
-            List.of("Mã XL", Excel.Type.NUMERIC),
-            List.of("Mã TV", Excel.Type.NUMERIC),
-            List.of("Hình Thức Xử Lý", Excel.Type.STRING),
-            List.of("Số Tiền", Excel.Type.STRING),
-            List.of("Ngày Xử Lý", Excel.Type.STRING),
-            List.of("Trạng Thái Xử Lý", Excel.Type.STRING)
+                List.of("Mã XL", Excel.Type.NUMERIC),
+                List.of("Mã TV", Excel.Type.NUMERIC),
+                List.of("Hình Thức Xử Lý", Excel.Type.STRING),
+                List.of("Số Tiền", Excel.Type.STRING),
+                List.of("Ngày Xử Lý", Excel.Type.STRING),
+                List.of("Trạng Thái Xử Lý", Excel.Type.STRING)
 
         ), row -> {
             int maXL = Integer.parseInt(row.get(0));
             long maTV = Long.parseLong(row.get(1));
             String hinhThucXuLy = StringUtils.capitalize(row.get(2));
             int soTien = 0;
-            
+
             if (row.get(3) != null || !row.get(3).isEmpty() || !row.get(3).isBlank()) {
                 soTien = Integer.parseInt(row.get(3));
             }
-            
+
             LocalDateTime ngayXuLy = LocalDateTime.parse(row.get(4));
             int trangThai = Integer.parseInt(row.get(5));
-            
+
             ThanhVien tv = tvBLL.getById(maTV);
 
             if (tv != null && (trangThai == 1 || trangThai == 0)) {
                 XuLy xl = new XuLy(maXL, tv, hinhThucXuLy, soTien, ngayXuLy, trangThai);
                 return xulyBLL.add(xl);
             }
-            
+
             return false;
         });
 

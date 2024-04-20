@@ -5,7 +5,6 @@
 package com.example.project_2.components.model;
 
 /**
- *
  * @author Hung
  */
 public class ModelChartData {
