@@ -19,6 +19,7 @@ import java.util.Objects;
 public class ThongTinSD {
     @Id
     @Column(name = "MaTT", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer MaTT;
 
     @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
@@ -44,7 +45,7 @@ public class ThongTinSD {
     public ThongTinSD() {
     }
     
-    public ThongTinSD(int MaTT, ThanhVien thanhVien, ThietBi thietBi, LocalDateTime TGVao, LocalDateTime TGMuon, LocalDateTime TGTra, LocalDateTime TGDatcho) {
+    public ThongTinSD(Integer MaTT, ThanhVien thanhVien, ThietBi thietBi, LocalDateTime TGVao, LocalDateTime TGMuon, LocalDateTime TGTra, LocalDateTime TGDatcho) {
         this.MaTT = MaTT;
         this.thanhVien = thanhVien;
         this.thietBi = thietBi;

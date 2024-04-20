@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `thongtinsd`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `thongtinsd` (
-  `MaTT` int NOT NULL,
+  `MaTT` int NOT NULL AUTO_INCREMENT,
   `MaTV` bigint NOT NULL,
   `MaTB` bigint DEFAULT NULL,
   `TGVao` datetime DEFAULT NULL,
@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS `xuly`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xuly` (
-  `MaXL` int NOT NULL,
+  `MaXL` int NOT NULL AUTO_INCREMENT,
   `MaTV` bigint NOT NULL,
   `HinhThucXL` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `SoTien` int DEFAULT NULL,
