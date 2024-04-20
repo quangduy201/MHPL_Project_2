@@ -5,12 +5,12 @@
 package com.example.project_2.components.dialogs;
 
 import java.awt.Color;
-import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+
+import com.example.project_2.BLL.ThanhVienBLL;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
-import com.example.project_2.BLL.ThietBiBLL;
-import com.example.project_2.DTO.ThietBi;
 import com.example.project_2.GUI.Main;
 
 /**
@@ -18,10 +18,7 @@ import com.example.project_2.GUI.Main;
  * @author Admin
  */
 public class XoaTVTheoDieuKienDialog extends javax.swing.JDialog {
-    private int DEFALUT_WIDTH;
-    private DefaultTableModel model;
-    
-    private ThietBiBLL thietbiBLL = new ThietBiBLL();
+    private final ThanhVienBLL thanhVienBLL = new ThanhVienBLL();
 
     public boolean isOk() {
         return ok;
@@ -66,24 +63,7 @@ public class XoaTVTheoDieuKienDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         
     }
-    
-    public void xoaNhieuThietBi(){
-        if (CheckValid()){
-            String matb = txtNam.getText();
 
-            if (thietbiBLL.deleteAllById(matb)){
-                Message mess = new Message(Main.getFrames()[0], true);
-                mess.showMessage("Xóa nhiều thiết bị theo mã thành công");
-                setOk(true);
-                dispose();
-            } else{
-                Message mess = new Message(Main.getFrames()[0], true);
-                mess.showMessage("Xóa nhiều thiết bị theo mã thất bại");
-                setOk(false);
-            }
-        }
-    }
-    
     public void showDialog() {
         animator.start();
         setVisible(true);
@@ -219,7 +199,6 @@ public class XoaTVTheoDieuKienDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtTimeKeyTyped
 
     private void txtNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtNamActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
@@ -227,31 +206,50 @@ public class XoaTVTheoDieuKienDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        xoaNhieuThietBi();
+        if (!validateNamNhapHoc()) {
+            return;
+        }
+        String namNhapHoc = txtNam.getText().trim();
+        Message message = new Message(Main.getFrames()[0], true);
+        message.showMessage("Xóa tất cả các thành viên có năm nhập học " + namNhapHoc + "?");
+        if (message.isOk()) {
+            if (namNhapHoc.length() == 4) {
+                namNhapHoc = namNhapHoc.substring(2);
+            }
+            int numOfDeletedRows = thanhVienBLL.deleteThanhVienByNamNhapHoc(Integer.parseInt(namNhapHoc));
+            if (numOfDeletedRows > 0) {
+                closeMenu();
+                ok = true;
+                Message mess = new Message(Main.getFrames()[0], true);
+                mess.showMessage("Xóa thành viên theo năm nhập học thành công.");
+            } else {
+                Message mess = new Message(Main.getFrames()[0], true);
+                mess.showMessage("Xóa thành viên theo năm nhập học thất bại.");
+            }
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private boolean CheckValid() {
+    private boolean validateNamNhapHoc() {
+        Message mess = new Message(Main.getFrames()[0], true);
         if (txtNam.getText().isBlank()) {
-            Message mess = new Message(Main.getFrames()[0], true);
-            mess.showMessage("Không được để trống mã thiết bị");
+            mess.showMessage("Vui lòng nhập năm nhập học.");
             return false;
         }
-        if (txtNam.getText().trim().length() != 7) {
-            Message mess = new Message(Main.getFrames()[0], true);
-            mess.showMessage("Mã thiết bị phải có 7 số");
+        if (!txtNam.getText().trim().matches("\\d{2}|\\d{4}")) {
+            mess.showMessage("Năm nhập học không hợp lệ.");
             return false;
         }
-        if (!txtNam.getText().matches("\\d+")) {
-            Message mess = new Message(Main.getFrames()[0], true);
-            mess.showMessage("Mã thiết bị không được chứa ký tự");
+        int namNhapHoc = Integer.parseInt(txtNam.getText().trim());
+        int namHienTai = LocalDate.now().getYear();
+        if (Integer.toString(namNhapHoc).length() == 4 && (namNhapHoc < 2000 || namNhapHoc > namHienTai)) {
+            mess.showMessage("Năm nhập học phải từ 2000 đến hiện tại.");
             return false;
         }
-        if (thietbiBLL.getById(Integer.parseInt(txtNam.getText())) != null) {
-            Message mess = new Message(Main.getFrames()[0], true);
-            mess.showMessage("Mã thiết bị đã tồn tại");
+        if (Integer.toString(namNhapHoc).length() == 2 && (namNhapHoc < 0 || namNhapHoc > Integer.parseInt(Integer.toString(namHienTai).substring(2)))) {
+            mess.showMessage("Năm nhập học phải từ 2000 đến hiện tại.");
             return false;
         }
-        
+
         return true;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

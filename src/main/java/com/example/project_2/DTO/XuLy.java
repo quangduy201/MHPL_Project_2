@@ -19,7 +19,7 @@ public class XuLy {
     @Column(name = "MaXL", nullable = false)
     private Integer MaXL;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "MaTV", nullable = false)
     private ThanhVien thanhVien;
 

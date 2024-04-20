@@ -52,6 +52,14 @@ public class ThanhVienBLL extends BaseBLL<ThanhVien> {
         return null;
     }
 
+    public List<ThanhVien> getThanhVienByNamNhapHoc(int namNhapHoc) {
+        return thanhVienDAL.getThanhVienByNamNhapHoc(namNhapHoc);
+    }
+
+    public int deleteThanhVienByNamNhapHoc(int namNhapHoc) {
+        return thanhVienDAL.deleteThanhVienByNamNhapHoc(namNhapHoc);
+    }
+
     public List<Object[]> thongKeSoLuongThanhVien(LocalDateTime startTime, LocalDateTime endTime, String khoa, String nganh) {
         return thanhVienDAL.thongKeSoLuongThanhVien(startTime, endTime, khoa, nganh, false);
     }

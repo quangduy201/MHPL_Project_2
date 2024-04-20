@@ -20,28 +20,26 @@ public class ThanhVienDAL extends BaseDAL<ThanhVien> {
         super(ThanhVien.class);
     }
 
-    public List<ThanhVien> getThanhVienByHoTen(String HoTen) {
+    public List<ThanhVien> getThanhVienByNamNhapHoc(int namNhapHoc) {
         // language=HQL
-        String hqlQuery = "FROM ThanhVien tv WHERE tv.HoTen LIKE :HoTen";
-        return executeQuery(hqlQuery, ThanhVien.class, Map.of("HoTen", "%" + HoTen + "%"));
+        String hqlQuery = "SELECT tv " +
+                "FROM ThanhVien tv " +
+                "WHERE SUBSTRING(MaTV, 3, 2) = :NamNhapHoc";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("NamNhapHoc", String.valueOf(namNhapHoc));
+
+        return executeQuery(hqlQuery, ThanhVien.class, params);
     }
 
-    public List<ThanhVien> getThanhVienByEmail(String Email) {
+    public int deleteThanhVienByNamNhapHoc(int namNhapHoc) {
         // language=HQL
-        String hqlQuery = "FROM ThanhVien tv WHERE tv.Email LIKE :Email";
-        return executeQuery(hqlQuery, ThanhVien.class, Map.of("Email", "%" + Email + "%"));
-    }
+        String hql = "DELETE FROM ThanhVien WHERE SUBSTRING(CAST(MaTV AS STRING), 3, 2) = :NamNhapHoc";
 
-    public List<ThanhVien> getThanhVienByKhoa(String Khoa) {
-        // language=HQL
-        String hqlQuery = "FROM ThanhVien tv WHERE tv.Khoa LIKE :Khoa";
-        return executeQuery(hqlQuery, ThanhVien.class, Map.of("Khoa", "%" + Khoa + "%"));
-    }
+        Map<String, Object> params = new HashMap<>();
+        params.put("NamNhapHoc", String.valueOf(namNhapHoc));
 
-    public List<ThanhVien> getThanhVienByNganh(String Nganh) {
-        // language=HQL
-        String hqlQuery = "FROM ThanhVien tv WHERE tv.Nganh LIKE :Nganh";
-        return executeQuery(hqlQuery, ThanhVien.class, Map.of("Nganh", "%" + Nganh + "%"));
+        return executeUpdate(hql, params);
     }
 
     // Thống kê số lượng thành viên vào khu học tập theo: thời gian, khoa.

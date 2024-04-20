@@ -21,11 +21,11 @@ public class ThongTinSD {
     @Column(name = "MaTT", nullable = false)
     private Integer MaTT;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "MaTV", nullable = false)
     private ThanhVien thanhVien;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "MaTB")
     private ThietBi thietBi;
 

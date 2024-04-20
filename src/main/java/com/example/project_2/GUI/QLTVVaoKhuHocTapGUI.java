@@ -5,10 +5,15 @@
 package com.example.project_2.GUI;
 
 import com.example.project_2.BLL.ThanhVienBLL;
+import com.example.project_2.BLL.XuLyBLL;
 import com.example.project_2.DTO.ThanhVien;
+import com.example.project_2.DTO.XuLy;
 import com.example.project_2.components.dialogs.Message;
 import com.example.project_2.utils.StringUtils;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -16,6 +21,7 @@ import java.awt.event.KeyEvent;
  */
 public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
     private final ThanhVienBLL thanhVienBLL;
+    private final XuLyBLL xuLyBLL;
     private ThanhVien thanhVien;
     /**
      * Creates new form ThanhVienGUI
@@ -25,6 +31,7 @@ public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
         setOpaque(false);
         
         thanhVienBLL = new ThanhVienBLL();
+        xuLyBLL = new XuLyBLL();
     }
     
     /**
@@ -195,7 +202,7 @@ public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
     private void txtMaTVKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaTVKeyPressed
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String MaTV = txtMaTV.getText();
+            String MaTV = txtMaTV.getText().trim();
             
             if (MaTV.isEmpty()) {
                 Message message = new Message(Main.getFrames()[0], true);
@@ -215,12 +222,25 @@ public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
                 message.showMessage("Mã thành viên không tồn tại.");
                 txtMaTV.setText("");
                 return;
-            } else loadThongTinTV();
+            }
+
+            Map<String, Object> criteria = new HashMap<>();
+            criteria.put("thanhVien.MaTV", MaTV);
+            criteria.put("TrangThaiXL", 0);
+            List<XuLy> xuLyList = xuLyBLL.getByCriteria(criteria);
+            if (!xuLyList.isEmpty()) {
+                Message message = new Message(Main.getFrames()[0], true);
+                message.showMessage("Thành viên đang bị vi phạm: " + xuLyList.get(0).getHinhThucXL());
+                txtMaTV.setText("");
+                return;
+            }
+
+            loadThongTinTV();
         }
     }//GEN-LAST:event_txtMaTVKeyPressed
 
         private void loadThongTinTV() {
-            thanhVien = thanhVienBLL.getById(txtMaTV.getText());
+            thanhVien = thanhVienBLL.getById(txtMaTV.getText().trim());
             txtMaTV.setText(thanhVien.getMaTV().toString());
             txtHoTen.setText(thanhVien.getHoTen());
             txtSdt.setText(thanhVien.getSDT());

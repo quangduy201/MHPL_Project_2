@@ -6,10 +6,7 @@ package com.example.project_2.GUI;
 
 import com.example.project_2.BLL.ThanhVienBLL;
 import com.example.project_2.DTO.ThanhVien;
-import com.example.project_2.components.dialogs.ExcelDialog;
-import com.example.project_2.components.dialogs.Message;
-import com.example.project_2.components.dialogs.SuaThongTinTVDialog;
-import com.example.project_2.components.dialogs.ThemThongTinTVDialog;
+import com.example.project_2.components.dialogs.*;
 import com.example.project_2.components.table.EventAction;
 import com.example.project_2.components.table.ModelAction;
 import com.example.project_2.utils.Excel;
@@ -297,7 +294,12 @@ public class ThanhVienGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnImportActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        XoaTVTheoDieuKienDialog modal = new XoaTVTheoDieuKienDialog(Main.getFrames()[0], true);
+        modal.showDialog();
+
+        if (modal.isOk()) {
+            Main.recreateGUI(new ThanhVienGUI());
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
