@@ -290,7 +290,7 @@ public class MuonThietBiDialog extends javax.swing.JDialog {
             return;
         }
 
-        ThongTinSD thongTinSD = new ThongTinSD(0, thanhVien, thietBi, null, LocalDateTime.now(), null, null);
+        ThongTinSD thongTinSD = new ThongTinSD(null, thanhVien, thietBi, null, LocalDateTime.now(), null, null);
         if (thongTinSDBLL.add(thongTinSD)) {
             closeMenu();
             ok = true;
