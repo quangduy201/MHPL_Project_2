@@ -4,20 +4,29 @@
  */
 package com.example.project_2.GUI;
 
+import com.example.project_2.BLL.ThanhVienBLL;
+import com.example.project_2.DTO.ThanhVien;
+import com.example.project_2.components.dialogs.Message;
+import com.example.project_2.utils.StringUtils;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Hung
  */
 public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
-
+    private final ThanhVienBLL thanhVienBLL;
+    private ThanhVien thanhVien;
     /**
      * Creates new form ThanhVienGUI
      */
     public QLTVVaoKhuHocTapGUI() {
         initComponents();
         setOpaque(false);
+        
+        thanhVienBLL = new ThanhVienBLL();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,9 +47,18 @@ public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
         txtNganh = new com.example.project_2.components.swing.TextField();
         jLabel7 = new javax.swing.JLabel();
         txtSdt = new com.example.project_2.components.swing.TextField();
+        btnRefresh = new com.example.project_2.components.swing.Button();
+        txtEmail = new com.example.project_2.components.swing.TextField();
+        jLabel8 = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Nhập mã thành viên:");
+
+        txtMaTV.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMaTVKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Họ tên:");
@@ -75,6 +93,21 @@ public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
         txtSdt.setEditable(false);
         txtSdt.setBackground(new java.awt.Color(204, 204, 204));
 
+        btnRefresh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnRefresh.setText("Làm mới");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
+        txtKhoa.setEditable(false);
+        txtEmail.setEditable(false);
+        txtEmail.setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setText("Email:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,10 +124,6 @@ public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
                         .addComponent(txtMaTV, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSdt))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -109,7 +138,16 @@ public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
                                         .addComponent(txtNganh, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtSdt)))
+                            .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -135,18 +173,72 @@ public class QLTVVaoKhuHocTapGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(377, 377, 377))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        txtMaTV.setText("");
+        txtHoTen.setText("");
+        txtSdt.setText("");
+        txtKhoa.setText("");
+        txtNganh.setText("");
+        txtEmail.setText("");
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void txtMaTVKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaTVKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String MaTV = txtMaTV.getText();
+            
+            if (MaTV.isEmpty()) {
+                Message message = new Message(Main.getFrames()[0], true);
+                message.showMessage("Vui lòng nhập mã thành viên.");
+                return;
+            }
+            
+            if (!MaTV.matches("^\\d{10}$")) {
+                Message message = new Message(Main.getFrames()[0], true);
+                message.showMessage("Mã thành viên phải là 10 chữ số.");
+                txtMaTV.setText("");
+                return;
+            }
+            
+            if (thanhVienBLL.getById(MaTV) == null) {
+                Message message = new Message(Main.getFrames()[0], true);
+                message.showMessage("Mã thành viên không tồn tại.");
+                txtMaTV.setText("");
+                return;
+            } else loadThongTinTV();
+        }
+    }//GEN-LAST:event_txtMaTVKeyPressed
+
+        private void loadThongTinTV() {
+            thanhVien = thanhVienBLL.getById(txtMaTV.getText());
+            txtMaTV.setText(thanhVien.getMaTV().toString());
+            txtHoTen.setText(thanhVien.getHoTen());
+            txtSdt.setText(thanhVien.getSDT());
+            txtKhoa.setText(thanhVien.getKhoa());
+            txtNganh.setText(thanhVien.getNganh());
+            txtEmail.setText(thanhVien.getEmail());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtKhoa;
     private javax.swing.JTextField txtMaTV;
