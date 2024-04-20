@@ -1,10 +1,7 @@
 package com.example.project_2.components.table;
 
-import java.awt.Color;
-import java.awt.Component;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JCheckBox;
-import javax.swing.JTable;
+import javax.swing.*;
+import java.awt.*;
 
 public class TableCellAction extends DefaultCellEditor {
 
@@ -37,7 +34,7 @@ public class TableCellAction extends DefaultCellEditor {
     public void setIsOnlyUpdate(boolean isOnlyUpdate) {
         this.isOnlyUpdate = isOnlyUpdate;
     }
-    
+
     public boolean getIsOtherAction() {
         return isOtherAction;
     }

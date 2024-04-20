@@ -1,6 +1,6 @@
 package com.example.project_2.components.charts;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 

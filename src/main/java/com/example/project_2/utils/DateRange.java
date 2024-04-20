@@ -7,7 +7,6 @@ package com.example.project_2.utils;
 import java.time.LocalDateTime;
 
 /**
- *
  * @author Hung
  */
 public class DateRange {

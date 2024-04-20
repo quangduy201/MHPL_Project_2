@@ -1,7 +1,6 @@
 package com.example.project_2.components.table;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,7 +8,7 @@ public class OtherAction extends javax.swing.JPanel {
 
     public OtherAction(ModelAction data, boolean isOnlyUpdate) {
         initComponents();
-        
+
         if (isOnlyUpdate) {
             cmdDelete.hide();
             cmdEdit.show();
@@ -17,7 +16,7 @@ public class OtherAction extends javax.swing.JPanel {
             cmdEdit.hide();
             cmdDelete.show();
         }
-        
+
         cmdEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {

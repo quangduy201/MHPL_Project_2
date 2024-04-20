@@ -1,6 +1,6 @@
 package com.example.project_2.components.date_chooser;
 
-import java.awt.Component;
+import java.awt.*;
 
 public class Slider extends javax.swing.JPanel {
 

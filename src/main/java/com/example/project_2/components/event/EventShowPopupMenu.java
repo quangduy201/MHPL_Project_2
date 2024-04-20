@@ -1,6 +1,6 @@
 package com.example.project_2.components.event;
 
-import java.awt.Component;
+import java.awt.*;
 
 public interface EventShowPopupMenu {
 

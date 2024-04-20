@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- *
  * @author huynh
  */
 public class XuLyBLL extends BaseBLL<XuLy> {
@@ -20,20 +19,20 @@ public class XuLyBLL extends BaseBLL<XuLy> {
     public XuLyBLL() {
         super(new XuLyDAL());
         xuLyDAL = (XuLyDAL) getDAL();
-    }    
-    
+    }
+
     public List<Object[]> thongKeXuLyDangXuLy(LocalDateTime startTime, LocalDateTime endTime) {
         return xuLyDAL.thongKeXuLy(startTime, endTime, 0, false);
     }
-    
+
     public List<Object[]> thongKeXuLyDaXuLy(LocalDateTime startTime, LocalDateTime endTime) {
         return xuLyDAL.thongKeXuLy(startTime, endTime, 1, false);
     }
-    
+
     public List<Object[]> thongKeXuLyDangXuLyForTable(LocalDateTime startTime, LocalDateTime endTime) {
         return xuLyDAL.thongKeXuLy(startTime, endTime, 0, true);
     }
-    
+
     public List<Object[]> thongKeXuLyDaXuLyForTable(LocalDateTime startTime, LocalDateTime endTime) {
         return xuLyDAL.thongKeXuLy(startTime, endTime, 1, true);
     }

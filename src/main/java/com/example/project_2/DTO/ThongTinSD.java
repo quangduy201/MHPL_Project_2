@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- *
  * @author Hung
  */
 @Entity
@@ -38,13 +37,13 @@ public class ThongTinSD {
 
     @Column(name = "TGTra")
     private LocalDateTime TGTra;
-    
+
     @Column(name = "TGDatcho")
     private LocalDateTime TGDatcho;
-    
+
     public ThongTinSD() {
     }
-    
+
     public ThongTinSD(Integer MaTT, ThanhVien thanhVien, ThietBi thietBi, LocalDateTime TGVao, LocalDateTime TGMuon, LocalDateTime TGTra, LocalDateTime TGDatcho) {
         this.MaTT = MaTT;
         this.thanhVien = thanhVien;

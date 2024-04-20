@@ -1,6 +1,6 @@
 package com.example.project_2.components.charts;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 
 public abstract class BlankPlotBarChatRender {
 

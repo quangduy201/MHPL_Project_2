@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author huynh
  */
 public class ThongTinSDBLL extends BaseBLL<ThongTinSD> {
@@ -21,7 +20,7 @@ public class ThongTinSDBLL extends BaseBLL<ThongTinSD> {
     public List<ThongTinSD> getThongTinSDMuonTra(Map<String, Object> criteria) {
         return thongTinSDDAL.getThongTinSDMuonTra(criteria);
     }
-    
+
     // Thống kê thiết bị đang được mượn và đang được mượn theo thời gian.
     public List<Object[]> thongKeThietBiMuon() {
         return thongTinSDDAL.thongKeThietBiMuon();

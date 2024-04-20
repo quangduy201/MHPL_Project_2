@@ -35,7 +35,7 @@ public class BaseBLL<DTO> {
     public List<DTO> getByPage(int pageNumber, int pageSize) {
         return dal.getByPage(pageNumber, pageSize);
     }
-    
+
     public List<DTO> getAll() {
         return dal.getAll();
     }
@@ -47,7 +47,7 @@ public class BaseBLL<DTO> {
     public List<DTO> getByCriteria(Map<String, Object> criteria) {
         return dal.getByCriteria(criteria);
     }
-    
+
     public <T> List<T> search(Map<String, Object> searchCriteria, Class<T> entityClass) {
         return dal.search(searchCriteria, entityClass);
     }

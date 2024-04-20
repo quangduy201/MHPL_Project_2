@@ -13,59 +13,57 @@ import com.example.project_2.utils.Excel;
 import com.example.project_2.utils.StringUtils;
 
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Hung
  */
 public class ThanhVienGUI extends javax.swing.JPanel {
-	private final ThanhVienBLL thanhVienBLL = new ThanhVienBLL();
-	private final EventAction<ThanhVien> eventAction = new EventAction<>() {
-            @Override
-            public void delete(ThanhVien thanhVien) {
-                Message message = new Message(Main.getFrames()[0], true);
-                message.showMessage("Bạn có chắc chắn muốn xóa thành viên " + thanhVien.getMaTV() + "?");
+    private final ThanhVienBLL thanhVienBLL = new ThanhVienBLL();
+    private final EventAction<ThanhVien> eventAction = new EventAction<>() {
+        @Override
+        public void delete(ThanhVien thanhVien) {
+            Message message = new Message(Main.getFrames()[0], true);
+            message.showMessage("Bạn có chắc chắn muốn xóa thành viên " + thanhVien.getMaTV() + "?");
 
-                if (message.isOk()) {
-                    thanhVienBLL.delete(thanhVien);
-                    Main.recreateGUI(new ThanhVienGUI());
-                } else {
-                    System.out.println("Đã hủy xóa thành viên");
-                }
+            if (message.isOk()) {
+                thanhVienBLL.delete(thanhVien);
+                Main.recreateGUI(new ThanhVienGUI());
+            } else {
+                System.out.println("Đã hủy xóa thành viên");
             }
+        }
 
-            @Override
-            public void update(ThanhVien thanhVien) {
-                SuaThongTinTVDialog modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, thanhVien.getMaTV());
-                modal.showDialog();
+        @Override
+        public void update(ThanhVien thanhVien) {
+            SuaThongTinTVDialog modal = new SuaThongTinTVDialog(Main.getFrames()[0], true, thanhVien.getMaTV());
+            modal.showDialog();
 
-                if (modal.isOk()) {
-                    Main.recreateGUI(new ThanhVienGUI());
-                }
+            if (modal.isOk()) {
+                Main.recreateGUI(new ThanhVienGUI());
             }
-	};
+        }
+    };
 
     /**
      * Creates new form ThanhVienGUI
      */
     public ThanhVienGUI() {
         initComponents();
-		
+
         setOpaque(false);
-        
+
         table.setActionColumn(5);
         table.fixTable(jScrollPane1);
-        
+
         addEventForSearchIcon();
         addEventForSearchTextField();
-        
+
         loadData();
     }
 
-	public void loadData() {
+    public void loadData() {
         String searchText = search.textField1.getText().trim();
 
         if (search.getPlaceholder().equalsIgnoreCase(searchText)) searchText = "";
@@ -79,22 +77,22 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         List<ThanhVien> thanhVienList = thanhVienBLL.search(searchCriteria, ThanhVien.class);
 
         setTableThanhVien(thanhVienList);
-	}
+    }
 
-	public void setTableThanhVien(List<ThanhVien> thanhVienList) {
-		table.removeAllRow();
+    public void setTableThanhVien(List<ThanhVien> thanhVienList) {
+        table.removeAllRow();
 
-		for (var thanhVien : thanhVienList) {
-			table.addRow(new Object[]{
-				thanhVien.getMaTV(),
-				thanhVien.getHoTen(),
-				thanhVien.getKhoa(),
-				thanhVien.getNganh(),
-				thanhVien.getSDT(),
-				new ModelAction<>(thanhVien, eventAction)
-			});
-		}
-	}
+        for (var thanhVien : thanhVienList) {
+            table.addRow(new Object[]{
+                    thanhVien.getMaTV(),
+                    thanhVien.getHoTen(),
+                    thanhVien.getKhoa(),
+                    thanhVien.getNganh(),
+                    thanhVien.getSDT(),
+                    new ModelAction<>(thanhVien, eventAction)
+            });
+        }
+    }
 
     private boolean showMessage(String message) {
         Message obj = new Message(Main.getFrames()[0], true);
@@ -126,19 +124,19 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         jLabel1.setText("Quản lý thành viên");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Mã Thành Viên", "Họ tên", "Khoa", "Ngành", "Số điện thoại", "Tùy chọn"
-            }
+                },
+                new String[]{
+                        "Mã Thành Viên", "Họ tên", "Khoa", "Ngành", "Số điện thoại", "Tùy chọn"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+            boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         table.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,42 +170,42 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 987, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1052, Short.MAX_VALUE)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 987, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cbxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1052, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbxSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnImport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel1)
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cbxSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnImport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(27, 27, 27)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         cbxSearch.addItem("Tất cả");
@@ -267,14 +265,14 @@ public class ThanhVienGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-		ExcelDialog dialog = new ExcelDialog(Main.getFrames()[0], true, List.of(
+        ExcelDialog dialog = new ExcelDialog(Main.getFrames()[0], true, List.of(
                 List.of("Mã TV", Excel.Type.NUMERIC),
-			    List.of("Họ tên", Excel.Type.STRING),
-			    List.of("Khoa", Excel.Type.STRING),
-			    List.of("Ngành", Excel.Type.STRING),
-			    List.of("SĐT", Excel.Type.STRING),
-			    List.of("Email", Excel.Type.STRING)
-		), row -> {
+                List.of("Họ tên", Excel.Type.STRING),
+                List.of("Khoa", Excel.Type.STRING),
+                List.of("Ngành", Excel.Type.STRING),
+                List.of("SĐT", Excel.Type.STRING),
+                List.of("Email", Excel.Type.STRING)
+        ), row -> {
             long maTV = Long.parseLong(row.get(0));
             String hoTen = StringUtils.capitalizeFully(row.get(1));
             String khoa = row.get(2).toUpperCase();
@@ -284,9 +282,9 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             ThanhVien thanhVien = new ThanhVien(maTV, hoTen, email, "", khoa, nganh, sdt);
             return thanhVienBLL.add(thanhVien);
         });
-                
+
         dialog.setVisible(true);
-        
+
         if (!dialog.isCancel()) {
             showMessage("Nhập dữ liệu thành công.");
             loadData();

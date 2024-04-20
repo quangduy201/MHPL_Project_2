@@ -1,11 +1,8 @@
 package com.example.project_2.components.swing;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Insets;
-import javax.swing.JProgressBar;
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicProgressBarUI;
+import java.awt.*;
 
 public class ProgressBarCustom extends JProgressBar {
 

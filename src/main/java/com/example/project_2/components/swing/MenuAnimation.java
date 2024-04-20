@@ -1,10 +1,11 @@
 package com.example.project_2.components.swing;
 
-import java.awt.Component;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
+
+import java.awt.*;
 
 public class MenuAnimation {
 

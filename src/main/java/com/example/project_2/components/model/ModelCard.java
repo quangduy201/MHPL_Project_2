@@ -1,6 +1,6 @@
 package com.example.project_2.components.model;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 public class ModelCard {
 

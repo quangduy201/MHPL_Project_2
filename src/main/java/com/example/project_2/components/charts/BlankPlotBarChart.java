@@ -1,15 +1,10 @@
 package com.example.project_2.components.charts;
 
-import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
-import javax.swing.JComponent;
-import javax.swing.border.EmptyBorder;
 
 public class BlankPlotBarChart extends JComponent {
 
@@ -198,7 +193,7 @@ public class BlankPlotBarChart extends JComponent {
 
     public SeriesSize getRectangle(int index, double height, double space, double startX, double startY) {
         double x = startX + space * index;
-        SeriesSize size = new SeriesSize(x, startY+1, space, height);
+        SeriesSize size = new SeriesSize(x, startY + 1, space, height);
         return size;
     }
 

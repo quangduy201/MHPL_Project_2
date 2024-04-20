@@ -1,6 +1,6 @@
 package com.example.project_2.components.swing;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ShadowRenderer {
@@ -61,7 +61,7 @@ public class ShadowRenderer {
         }
         int srcOffset;
         for (int srcY = 0, dstOffset = left * dstWidth; srcY < srcHeight; srcY++) {
-            for (historyIdx = 0; historyIdx < shadowSize;) {
+            for (historyIdx = 0; historyIdx < shadowSize; ) {
                 aHistory[historyIdx++] = 0;
             }
             aSum = 0;
@@ -89,7 +89,7 @@ public class ShadowRenderer {
         }
         for (int x = 0, bufferOffset = 0; x < dstWidth; x++, bufferOffset = x) {
             aSum = 0;
-            for (historyIdx = 0; historyIdx < left;) {
+            for (historyIdx = 0; historyIdx < left; ) {
                 aHistory[historyIdx++] = 0;
             }
             for (int y = 0; y < right; y++, bufferOffset += dstWidth) {

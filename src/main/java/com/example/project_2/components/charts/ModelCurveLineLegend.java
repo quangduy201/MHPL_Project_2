@@ -1,6 +1,6 @@
 package com.example.project_2.components.charts;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class ModelCurveLineLegend {
 

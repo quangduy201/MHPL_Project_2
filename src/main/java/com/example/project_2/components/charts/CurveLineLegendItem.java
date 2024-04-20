@@ -1,13 +1,8 @@
 package com.example.project_2.components.charts;
 
-import java.awt.BasicStroke;
-import java.awt.Cursor;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class CurveLineLegendItem extends JButton {
 

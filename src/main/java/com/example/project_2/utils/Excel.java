@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author Duy
  */
 public class Excel {
@@ -117,7 +116,7 @@ public class Excel {
         };
     }
 
-	public static Object castValue(Object value, Type type) throws ClassCastException {
+    public static Object castValue(Object value, Type type) throws ClassCastException {
         return switch (type) {
             case STRING -> {
                 if (value == null)
@@ -137,7 +136,7 @@ public class Excel {
         };
     }
 
-	public enum Type {
+    public enum Type {
         STRING, NUMERIC, BOOLEAN
     }
 }

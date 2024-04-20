@@ -3,8 +3,9 @@ package com.example.project_2.components.model;
 import com.example.project_2.components.table.EventAction;
 import com.example.project_2.components.table.ModelAction;
 import com.example.project_2.components.table.ModelProfile;
+
+import javax.swing.*;
 import java.text.DecimalFormat;
-import javax.swing.Icon;
 
 public class ModelStudent {
 

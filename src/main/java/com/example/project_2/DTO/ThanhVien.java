@@ -10,7 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- *
  * @author Hung
  */
 @Entity
@@ -22,10 +21,10 @@ public class ThanhVien {
 
     @Column(name = "HoTen", nullable = false, length = 100)
     private String HoTen;
-    
+
     @Column(name = "Email", nullable = false, length = 25)
     private String Email;
-    
+
     @Column(name = "Password", length = 10)
     private String Password;
 
@@ -43,7 +42,7 @@ public class ThanhVien {
 
     public ThanhVien() {
     }
-    
+
     public ThanhVien(Long MaTV, String HoTen, String Email, String Password, String Khoa, String Nganh, String SDT) {
         this.MaTV = MaTV;
         this.HoTen = HoTen;

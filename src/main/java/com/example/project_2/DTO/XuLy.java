@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- *
  * @author Hung
  */
 @Entity
@@ -34,10 +33,10 @@ public class XuLy {
 
     @Column(name = "TrangThaiXL")
     private Integer TrangThaiXL;
-    
+
     @Transient
     private Long TongTien;
-    
+
     public XuLy() {
     }
 

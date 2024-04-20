@@ -5,7 +5,6 @@
 package com.example.project_2.components.model;
 
 /**
- *
  * @author Hung
  */
 public class ModelChartOtherData {
@@ -43,5 +42,5 @@ public class ModelChartOtherData {
         this.priceTotal = priceTotal;
     }
 
-    
+
 }

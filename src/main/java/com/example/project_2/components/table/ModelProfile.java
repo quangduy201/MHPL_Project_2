@@ -1,6 +1,6 @@
 package com.example.project_2.components.table;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 public class ModelProfile {
 

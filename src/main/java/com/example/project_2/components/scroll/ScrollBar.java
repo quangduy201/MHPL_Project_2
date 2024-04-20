@@ -1,7 +1,7 @@
 package com.example.project_2.components.scroll;
 
-import java.awt.Dimension;
-import javax.swing.JScrollBar;
+import javax.swing.*;
+import java.awt.*;
 
 public class ScrollBar extends JScrollBar {
 
